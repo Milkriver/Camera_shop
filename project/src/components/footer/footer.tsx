@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import NavMenu from '../nav-menu/nav-menu';
 
 function Footer(): JSX.Element {
   return (
@@ -38,24 +39,7 @@ function Footer(): JSX.Element {
         <ul className="footer__nav">
           <li className="footer__nav-item">
             <p className="footer__title">Навигация</p>
-            <ul className="footer__list">
-              <li className="footer__item">
-                <Link className="link" to="#">Каталог
-                </Link>
-              </li>
-              <li className="footer__item">
-                <Link className="link" to="#">Гарантии
-                </Link>
-              </li>
-              <li className="footer__item">
-                <Link className="link" to="#">Доставка
-                </Link>
-              </li>
-              <li className="footer__item">
-                <Link className="link" to="#">О компании
-                </Link>
-              </li>
-            </ul>
+            <NavMenu classname='footer'/>
           </li>
           <li className="footer__nav-item">
             <p className="footer__title">Ресурсы</p>
