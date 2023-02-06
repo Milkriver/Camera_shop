@@ -7,7 +7,7 @@ function Footer(): JSX.Element {
         <div className="footer__info">
           <a className="footer__logo" href="index.html" aria-label="Переход на главную">
             <svg width="100" height="36" aria-hidden="true">
-              <use xlinkHref="#icon-logo-mono"></use>
+              <use xlinkHref="img/sprite_auto.svg#icon-logo-mono"></use>
             </svg>
           </a>
           <p className="footer__description">Интернет-магазин фото- и видеотехники</p>
@@ -15,21 +15,21 @@ function Footer(): JSX.Element {
             <li className="social__item">
               <Link className="link" to="#" aria-label="Переход на страницу вконтатке">
                 <svg width="20" height="20" aria-hidden="true">
-                  <use xlinkHref="#icon-vk"></use>
+                  <use xlinkHref="img/sprite_auto.svg#icon-vk"></use>
                 </svg>
               </Link>
             </li>
             <li className="social__item">
               <Link className="link" to="#" aria-label="Переход на страницу pinterest">
                 <svg width="20" height="20" aria-hidden="true">
-                  <use xlinkHref="#icon-pinterest"></use>
+                  <use xlinkHref="img/sprite_auto.svg#icon-pinterest"></use>
                 </svg>
               </Link>
             </li>
             <li className="social__item">
               <Link className="link" to="#" aria-label="Переход на страницу reddit">
                 <svg width="20" height="20" aria-hidden="true">
-                  <use xlinkHref="#icon-reddit"></use>
+                  <use xlinkHref="img/sprite_auto.svg#icon-reddit"></use>
                 </svg>
               </Link>
             </li>
