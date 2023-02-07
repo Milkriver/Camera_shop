@@ -3,7 +3,7 @@ function SearchForm(): JSX.Element {
     <form>
       <label>
         <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-lens"></use>
+          <use xlinkHref="img/sprite_auto.svg#icon-lens"></use>
         </svg>
         <input className="form-search__input" type="text" autoComplete="off" placeholder="Поиск по сайту"/>
       </label>
