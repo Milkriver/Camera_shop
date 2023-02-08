@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoutes } from '../const';
 import { IPromoOffer } from '../types/offers.js';
-import { loadPromoOffer } from './actions.js';
+import { loadPromoOffer } from './actions';
 
 export const fetchPromoOffersAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;

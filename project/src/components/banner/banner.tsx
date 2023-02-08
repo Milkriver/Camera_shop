@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
 
 function Banner(): JSX.Element {
+  const promoOffer = useAppSelector((state) => state.promoOffer);
   return (
     <div className="banner">
       <picture>
-        <source type="image/webp" srcSet="img/content/banner-bg.webp, img/content/banner-bg@2x.webp 2x"/>
-        <img src="img/content/banner-bg.jpg" srcSet="img/content/banner-bg@2x.jpg 2x" width="1280" height="280" alt="баннер"/>
+        <source type="image/webp" srcSet={`${promoOffer.previewImgWebp}, ${promoOffer.previewImgWebp2x}`}/>
+        <img src={promoOffer.previewImg} srcSet={promoOffer.previewImg2x} width="1280" height="280" alt="баннер"/>
       </picture>
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>
-        <span className="title title--h1">Cannonball&nbsp;Pro&nbsp;MX&nbsp;8i</span><span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
+        <span className="title title--h1">{promoOffer.name}</span><span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
         <Link className="btn" to="#">Подробнее</Link>
       </p>
     </div>
