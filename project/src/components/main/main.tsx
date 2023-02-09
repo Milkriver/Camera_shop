@@ -24,9 +24,7 @@ function Main(): JSX.Element {
                   <ProductCard/>
                 </div>
                 <div className="pagination">
-                  <ul className="pagination__list">
-                    <Pagination/>
-                  </ul>
+                  <Pagination/>
                 </div>
               </div>
             </div>
