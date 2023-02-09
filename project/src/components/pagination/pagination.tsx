@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
+
 function Pagination(): JSX.Element{
   const activePage = 1;
   const pages = [1,2,3];
-  const renderPaginationItem = (item: number) =><li className="pagination__item" key={item}><a className={`pagination__link ${item === activePage ? 'pagination__link--active' : ''}`} href={item.toString()}>{item}</a></li>;
+  const renderPaginationItem = (item: number) =>(<li className="pagination__item" key={item}><Link className={`pagination__link ${item === activePage ? 'pagination__link--active' : ''}`} to={`catalog/${item.toString()}`}>{item}</Link></li>
+  );
   const renderPaginationNextItem = (item: number, index: number) =>{
     if(item === activePage){
       return(
