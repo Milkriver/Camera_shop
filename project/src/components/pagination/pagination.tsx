@@ -1,17 +1,22 @@
-function Pagination(): JSX.Element {
+function Pagination(): JSX.Element{
+  const activePage = 1;
+  const pages = [1,2,3];
+  const renderPaginationItem = (item: number) =><li className={`pagination__item ${item === activePage ? 'pagination__link--active' : ''}`}><a className="pagination__link" href={item.toString()}>{item}</a></li>;
+  const renderPaginationNextItem = (item: number, index: number) =>{
+    if(index === (activePage - 1)){
+      <li className='pagination__item'>
+        <a className="pagination__link pagination__link--text" href={item.toString()}>Далее</a>
+      </li>;
+    }
+  };
+  const paginationList = pages.map((page) => renderPaginationItem(page));
+  const paginationNextItem = pages.map((page, index) => renderPaginationNextItem(page, index));
   return (
-    <div className="pagination">
-      <ul className="pagination__list">
-        <li className="pagination__item"><a className="pagination__link pagination__link--active" href="1">1</a>
-        </li>
-        <li className="pagination__item"><a className="pagination__link" href="2">2</a>
-        </li>
-        <li className="pagination__item"><a className="pagination__link" href="3">3</a>
-        </li>
-        <li className="pagination__item"><a className="pagination__link pagination__link--text" href="2">Далее</a>
-        </li>
-      </ul>
-    </div>
+    <>
+      {paginationList}
+      {paginationNextItem}
+    </>
+
   );
 }
 

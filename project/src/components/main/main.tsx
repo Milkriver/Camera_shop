@@ -23,7 +23,11 @@ function Main(): JSX.Element {
                 <div className="cards catalog__cards">
                   <ProductCard/>
                 </div>
-                <Pagination/>
+                <div className="pagination">
+                  <ul className="pagination__list">
+                    <Pagination/>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
