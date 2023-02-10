@@ -5,9 +5,10 @@ import browserHistory from './browser-history';
 import App from './components/app/app';
 import HistoryRouter from './components/history-router/history-router';
 import { store } from './store';
-import { fetchPromoOffersAction } from './store/api-actions';
+import { fetchOffersAction, fetchPromoOfferAction } from './store/api-actions';
 
-store.dispatch(fetchPromoOffersAction());
+store.dispatch(fetchPromoOfferAction());
+store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
