@@ -7,8 +7,13 @@ import Pagination from '../pagination/pagination';
 import ProductCard from '../product-card/product-card';
 import SortForm from '../sort-form/sort-form';
 
+const productsOnPage = 9;
+
 function Main(): JSX.Element {
   const products = useAppSelector((state) => state.offers);
+  const activePaginationPage = useAppSelector((state) => state.activePaginationPage);
+  const start = productsOnPage * (activePaginationPage - 1);
+  const pages = Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1);
   return (
     <main>
       <Banner/>
@@ -24,10 +29,10 @@ function Main(): JSX.Element {
               <div className="catalog__content">
                 <SortForm/>
                 <div className="cards catalog__cards">
-                  {products.map((product) => <ProductCard product={product} key={product.id}/>)}
+                  {products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/>)}
                 </div>
                 <div className="pagination">
-                  <Pagination/>
+                  <Pagination pages={pages}/>
                 </div>
               </div>
             </div>

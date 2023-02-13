@@ -1,10 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { IOfferItem, IPromoOffer } from '../types/offers';
-import { loadOffers, loadPromoOffer } from './actions';
+import { changeActivePaginationPage, loadOffers, loadPromoOffer } from './actions';
 
 type InitialState = {
 promoOffer: IPromoOffer;
 offers: IOfferItem[];
+activePaginationPage: number;
 };
 
 const initialState: InitialState = {
@@ -31,7 +32,8 @@ const initialState: InitialState = {
     previewImgWebp: '',
     previewImgWebp2x: '',
     reviewCount: 0,
-  }]
+  }],
+  activePaginationPage: 1,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +43,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+    })
+    .addCase(changeActivePaginationPage, (state, action) => {
+      state.activePaginationPage = action.payload;
     });
 
 });

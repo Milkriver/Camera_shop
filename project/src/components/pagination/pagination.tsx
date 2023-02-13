@@ -1,15 +1,24 @@
-import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeActivePaginationPage } from '../../store/actions';
 
-function Pagination(): JSX.Element{
-  const activePage = 1;
-  const pages = [1,2,3];
-  const renderPaginationItem = (item: number) =>(<li className="pagination__item" key={item}><Link className={`pagination__link ${item === activePage ? 'pagination__link--active' : ''}`} to={`catalog/${item.toString()}`}>{item}</Link></li>
+type IProps = {
+  pages: number[];
+}
+
+function Pagination({pages}: IProps): JSX.Element{
+  const activePage = useAppSelector((state) => state.activePaginationPage);
+  const dispatch = useAppDispatch();
+  const onPageClick = (item: number) => dispatch(changeActivePaginationPage(item));
+  const renderPaginationItem = (item: number) =>(
+    <li style={{cursor: 'pointer'}} className="pagination__item" key={item} onClick={() => onPageClick(item)}>
+      <div className={`pagination__link ${item === activePage ? 'pagination__link--active' : ''}`}>{item}</div>
+    </li>
   );
   const renderPaginationNextItem = (item: number, index: number) =>{
     if(item === activePage){
       return(
-        <li className='pagination__item' key={`${item}${index}`}>
-          <a className="pagination__link pagination__link--text" href={(item + 1).toString()}>Далее</a>
+        <li style={{cursor: 'pointer'}} className='pagination__item' key={`${item}${index}`} onClick={() => onPageClick(item + 1)}>
+          <div className="pagination__link pagination__link--text">Далее</div>
         </li>
       );
     }
@@ -19,7 +28,7 @@ function Pagination(): JSX.Element{
   return (
     <ul className="pagination__list">
       {paginationList}
-      {paginationNextItem}
+      {(activePage !== pages.length) && paginationNextItem}
     </ul>
 
   );
