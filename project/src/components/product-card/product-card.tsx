@@ -1,17 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { STARS } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { fetchOfferAction } from '../../store/api-actions';
 import { IOfferItem } from '../../types/offers';
+import { renderEmptyStar, renderFullStar } from '../../utils';
 
 type IProps = {
   product: IOfferItem;
 }
 
-const STARS = 5;
-const renderFullStar = () => <svg width="17" height="16" aria-hidden="true"><use xlinkHref="img/sprite_auto.svg#icon-full-star"></use></svg>;
-const renderEmptyStar = () => <svg width="17" height="16" aria-hidden="true"><use xlinkHref="img/sprite_auto.svg#icon-star"></use></svg>;
-
 function ProductCard({product}: IProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const onClick = (id: number) => {
+    dispatch(fetchOfferAction(id));
+    navigate('product');
+  };
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={()=>onClick(product.id)}>
       <div className="product-card__img">
         <picture>
           <source type={product.previewImgWebp} srcSet={product.previewImgWebp2x}/>

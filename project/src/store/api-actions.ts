@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoutes } from '../const';
 import { IOfferItem, IPromoOffer } from '../types/offers.js';
-import { loadOffers, loadPromoOffer } from './actions';
+import { loadOffer, loadOffers, loadPromoOffer } from './actions';
 
 export const fetchPromoOfferAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;
@@ -28,5 +28,18 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     async (_arg, { dispatch, extra: api }) => {
       const { data } = await api.get<IOfferItem[]>(APIRoutes.Offers);
       dispatch(loadOffers(data));
+    },
+  );
+
+export const fetchOfferAction = createAsyncThunk<void, number, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+  >(
+    'offers/fetchOffer',
+    async (id, { dispatch, extra: api }) => {
+      const { data } = await api.get<IOfferItem>(`${APIRoutes.Offers}/${id}`);
+      dispatch(loadOffer(data));
     },
   );

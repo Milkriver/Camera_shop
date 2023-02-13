@@ -29,7 +29,7 @@ function Main(): JSX.Element {
               <div className="catalog__content">
                 <SortForm/>
                 <div className="cards catalog__cards">
-                  {products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/>)}
+                  {products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)}
                 </div>
                 <div className="pagination">
                   <Pagination pages={pages}/>

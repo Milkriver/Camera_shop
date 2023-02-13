@@ -1,5 +1,6 @@
 export enum AppRoute {
     Main = '/',
+    Product = 'product'
 }
 
 export enum APIRoutes {
@@ -9,3 +10,5 @@ Reviews = '/reviews',
 Coupons = '/coupons',
 Orders = '/orders'
 }
+
+export const STARS = 5;
