@@ -1,12 +1,13 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { IOfferItem, IPromoOffer } from '../types/offers';
-import { changeActivePaginationPage, loadOffer, loadOffers, loadPromoOffer } from './actions';
+import { changeActivePaginationPage, loadOffer, loadOffers, loadPromoOffer, loadSimilarOffers } from './actions';
 
 type InitialState = {
 promoOffer: IPromoOffer;
 offers: IOfferItem[];
 activePaginationPage: number;
 offer: IOfferItem;
+similarOffers: IOfferItem[];
 };
 
 const initialState: InitialState = {
@@ -51,6 +52,22 @@ const initialState: InitialState = {
     reviewCount: 0,
   },
   activePaginationPage: 1,
+  similarOffers: [{
+    id: 0,
+    name: '',
+    vendorCode: '',
+    type: '',
+    category: '',
+    description: '',
+    level: '',
+    rating: 0,
+    price: 0,
+    previewImg: '',
+    previewImg2x: '',
+    previewImgWebp: '',
+    previewImgWebp2x: '',
+    reviewCount: 0,
+  }],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -66,6 +83,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.offer = action.payload;
+    })
+    .addCase(loadSimilarOffers, (state, action) => {
+      state.similarOffers = action.payload;
     });
 
 });

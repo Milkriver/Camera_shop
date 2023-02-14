@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoutes } from '../const';
 import { IOfferItem, IPromoOffer } from '../types/offers.js';
-import { loadOffer, loadOffers, loadPromoOffer } from './actions';
+import { loadOffer, loadOffers, loadPromoOffer, loadSimilarOffers } from './actions';
 
 export const fetchPromoOfferAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;
@@ -41,5 +41,18 @@ export const fetchOfferAction = createAsyncThunk<void, number, {
     async (id, { dispatch, extra: api }) => {
       const { data } = await api.get<IOfferItem>(`${APIRoutes.Offers}/${id}`);
       dispatch(loadOffer(data));
+    },
+  );
+
+export const fetchSimilarOffersAction = createAsyncThunk<void, number, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+  >(
+    'offers/fetchSimilarOffers',
+    async (id, { dispatch, extra: api }) => {
+      const { data } = await api.get<IOfferItem[]>(`${APIRoutes.Offers}/${id}/similar`);
+      dispatch(loadSimilarOffers(data));
     },
   );
