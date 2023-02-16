@@ -2,8 +2,8 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoutes } from '../const';
-import { IOfferItem, IPromoOffer } from '../types/offers.js';
-import { loadOffer, loadOffers, loadPromoOffer, loadSimilarOffers } from './actions';
+import { IOfferItem, IPromoOffer, IReview } from '../types/offers.js';
+import { loadOffer, loadOffers, loadPromoOffer, loadReviews, loadSimilarOffers } from './actions';
 
 export const fetchPromoOfferAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;
@@ -54,5 +54,18 @@ export const fetchSimilarOffersAction = createAsyncThunk<void, number, {
     async (id, { dispatch, extra: api }) => {
       const { data } = await api.get<IOfferItem[]>(`${APIRoutes.Offers}/${id}/similar`);
       dispatch(loadSimilarOffers(data));
+    },
+  );
+
+export const fetchOfferReviewsAction = createAsyncThunk<void, number, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+  }
+  >(
+    'offers/fetchOfferReviewsAction',
+    async (id, { dispatch, extra: api }) => {
+      const { data } = await api.get<IReview[]>(`${APIRoutes.Offers}/${id}/reviews`);
+      dispatch(loadReviews(data));
     },
   );
