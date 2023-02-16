@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { REVIEWS_QUANTITY } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { fetchOfferReviewsAction } from '../../store/api-actions';
 import { AppDispatch } from '../../types/state';
@@ -8,10 +9,12 @@ import ReviewItem from '../review-item/review-item';
 function ReviewBlock(): JSX.Element {
   const product = useAppSelector((state) => state.offer);
   const reviews = useAppSelector((state) => state.offerReviews);
+  const [reviewsShowList, setReviewShowList] = useState(REVIEWS_QUANTITY);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(()=> {
     dispatch(fetchOfferReviewsAction(product.id));
   },[]);
+  const onClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
   return (
     <section className="review-block">
       <div className="container">
@@ -20,11 +23,10 @@ function ReviewBlock(): JSX.Element {
           <button className="btn" type="button">Оставить свой отзыв</button>
         </div>
         <ul className="review-block__list">
-          {reviews.map((review) => <ReviewItem review={review} key={review.id}/>)}
+          {reviews.slice(0, reviewsShowList).map((review) => <ReviewItem review={review} key={review.id}/>)}
         </ul>
         <div className="review-block__buttons">
-          <button className="btn btn--purple" type="button">Показать больше отзывов
-          </button>
+          {reviews.length > reviewsShowList && <button className="btn btn--purple" type="button" onClick={onClick}>Показать больше отзывов</button>}
         </div>
       </div>
     </section>
