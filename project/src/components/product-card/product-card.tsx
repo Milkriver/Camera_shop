@@ -7,9 +7,10 @@ import { renderEmptyStar, renderFullStar } from '../../utils';
 
 type IProps = {
   product: IOfferItem;
+  isActive?: boolean;
 }
 
-function ProductCard({product}: IProps): JSX.Element {
+function ProductCard({product, isActive}: IProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onClick = (id: number) => {
@@ -17,7 +18,7 @@ function ProductCard({product}: IProps): JSX.Element {
     navigate('product');
   };
   return (
-    <div className="product-card" onClick={()=>onClick(product.id)}>
+    <div className={`product-card ${isActive ? 'is-active' : ''}`} onClick={()=>onClick(product.id)}>
       <div className="product-card__img">
         <picture>
           <source type={product.previewImgWebp} srcSet={product.previewImgWebp2x}/>
