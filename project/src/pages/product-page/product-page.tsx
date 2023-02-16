@@ -50,7 +50,7 @@ function ProductPage(): JSX.Element {
     <>
       <main>
         <div className="page-content">
-          <Breadcrumbs/>
+          <Breadcrumbs name={product.name}/>
           <div className="page-content__section">
             <section className="product">
               <div className="container">
