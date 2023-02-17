@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { IOfferItem, IPromoOffer, IReview } from '../types/offers';
-import { changeActivePaginationPage, loadOffer, loadOffers, loadPromoOffer, loadReviews, loadSimilarOffers } from './actions';
+import { changeActivePaginationPage, changeModalState, loadOffer, loadOffers, loadPromoOffer, loadReviews, loadSimilarOffers } from './actions';
 
 type InitialState = {
 promoOffer: IPromoOffer;
@@ -9,6 +9,7 @@ activePaginationPage: number;
 offer: IOfferItem;
 similarOffers: IOfferItem[];
 offerReviews: IReview[];
+reviewModalState: boolean;
 };
 
 const initialState: InitialState = {
@@ -79,6 +80,7 @@ const initialState: InitialState = {
     createAt: '',
     cameraId: 0,
   }],
+  reviewModalState: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -100,6 +102,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadReviews, (state, action) => {
       state.offerReviews = action.payload;
+    })
+    .addCase(changeModalState, (state, action) => {
+      state.reviewModalState = action.payload;
     });
 
 });

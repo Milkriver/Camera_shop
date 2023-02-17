@@ -1,4 +1,4 @@
-function Modal(): JSX.Element {
+function AddProductModal(): JSX.Element {
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">
@@ -26,13 +26,13 @@ function Modal(): JSX.Element {
           <div className="modal__buttons">
             <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">
               <svg width="24" height="16" aria-hidden="true">
-                <use xlinkHref="#icon-add-basket"></use>
+                <use xlinkHref="img/sprite_auto.svg#icon-add-basket"></use>
               </svg>Добавить в корзину
             </button>
           </div>
           <button className="cross-btn" type="button" aria-label="Закрыть попап">
             <svg width="10" height="10" aria-hidden="true">
-              <use xlinkHref="#icon-close"></use>
+              <use xlinkHref="img/sprite_auto.svg#icon-close"></use>
             </svg>
           </button>
         </div>
@@ -41,4 +41,4 @@ function Modal(): JSX.Element {
   );
 }
 
-export default Modal;
+export default AddProductModal;

@@ -9,3 +9,4 @@ export const changeActivePaginationPage = createAction<number>('service/changeAc
 export const loadOffer = createAction<IOfferItem>('offer/loadOffer');
 export const loadSimilarOffers = createAction<IOfferItem[]>('offer/loadSimilarOffers');
 export const loadReviews = createAction<IReview[]>('offer/loadReviews');
+export const changeModalState = createAction<boolean>('data/changeModalState');

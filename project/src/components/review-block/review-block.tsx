@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { REVIEWS_QUANTITY } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { changeModalState } from '../../store/actions';
 import { fetchOfferReviewsAction } from '../../store/api-actions';
 import { AppDispatch } from '../../types/state';
 import ReviewItem from '../review-item/review-item';
@@ -13,14 +14,17 @@ function ReviewBlock(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(()=> {
     dispatch(fetchOfferReviewsAction(product.id));
-  },[]);
+  },[dispatch, product.id]);
   const onClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
+  const onClickReview = () => {
+    changeModalState(true);
+  };
   return (
     <section className="review-block">
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button">Оставить свой отзыв</button>
+          <button className="btn" type="button" onClick={onClickReview}>Оставить свой отзыв</button>
         </div>
         <ul className="review-block__list">
           {reviews.slice(0, reviewsShowList).map((review) => <ReviewItem review={review} key={review.id}/>)}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddReviewModal from '../../components/add-review-modal/add-review-modal';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
@@ -102,8 +103,7 @@ function ProductPage(): JSX.Element {
           <use xlinkHref="img/sprite_auto.svg#icon-arrow2"></use>
         </svg>
       </a>
-
-
+      <AddReviewModal/>
     </>);
 }
 
