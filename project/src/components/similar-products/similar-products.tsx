@@ -6,6 +6,7 @@ import { fetchSimilarOffersAction } from '../../store/api-actions';
 import { AppDispatch } from '../../types/state';
 import ProductCard from '../product-card/product-card';
 
+
 function SimilarProducts(): JSX.Element {
   const product = useAppSelector((state) => state.offer);
   const similarProducts = useAppSelector((state) => state.similarOffers);
@@ -14,11 +15,12 @@ function SimilarProducts(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(()=> {
     dispatch(fetchSimilarOffersAction(product.id));
-  },[]);
+  },[dispatch, product.id]);
   const onIncClick = () => setStart(start + PRODUCTS_CARD_QUANTITY);
   const onDecClick = () => setStart(start - PRODUCTS_CARD_QUANTITY);
   return (
     <section className="product-similar">
+      {(similarProducts) &&
       <div className="container">
         <h2 className="title title--h3">Похожие товары</h2>
         <div className="product-similar__slider">
@@ -36,7 +38,7 @@ function SimilarProducts(): JSX.Element {
             </svg>
           </button>
         </div>
-      </div>
+      </div> }
     </section>
   );
 }
