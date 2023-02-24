@@ -1,5 +1,5 @@
 function SortForm(): JSX.Element {
-  const onChange = () => {
+  const handleChange = () => {
     // eslint-disable-next-line no-console
     console.log('onChange');
   };
@@ -10,17 +10,17 @@ function SortForm(): JSX.Element {
           <p className="title title--h5">Сортировать:</p>
           <div className="catalog-sort__type">
             <div className="catalog-sort__btn-text">
-              <input type="radio" id="sortPrice" name="sort" checked onChange={onChange}/>
+              <input type="radio" id="sortPrice" name="sort" checked onChange={handleChange}/>
               <label htmlFor="sortPrice">по цене</label>
             </div>
             <div className="catalog-sort__btn-text">
-              <input type="radio" id="sortPopular" name="sort" onChange={onChange}/>
+              <input type="radio" id="sortPopular" name="sort" onChange={handleChange}/>
               <label htmlFor="sortPopular">по популярности</label>
             </div>
           </div>
           <div className="catalog-sort__order">
             <div className="catalog-sort__btn catalog-sort__btn--up">
-              <input type="radio" id="up" name="sort-icon" checked aria-label="По возрастанию" onChange={onChange}/>
+              <input type="radio" id="up" name="sort-icon" checked aria-label="По возрастанию" onChange={handleChange}/>
               <label htmlFor="up">
                 <svg width="16" height="14" aria-hidden="true">
                   <use xlinkHref="img/sprite_auto.svg#icon-sort"></use>
@@ -28,7 +28,7 @@ function SortForm(): JSX.Element {
               </label>
             </div>
             <div className="catalog-sort__btn catalog-sort__btn--down">
-              <input type="radio" id="down" name="sort-icon" aria-label="По убыванию" onChange={onChange}/>
+              <input type="radio" id="down" name="sort-icon" aria-label="По убыванию" onChange={handleChange}/>
               <label htmlFor="down">
                 <svg width="16" height="14" aria-hidden="true">
                   <use xlinkHref="img/sprite_auto.svg#icon-sort"></use>

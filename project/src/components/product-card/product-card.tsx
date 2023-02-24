@@ -13,12 +13,12 @@ type IProps = {
 function ProductCard({product, isActive}: IProps): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const onClick = (id: number) => {
+  const handleClick = (id: number) => {
     dispatch(fetchOfferAction(id));
     navigate('product');
   };
   return (
-    <div className={`product-card ${isActive ? 'is-active' : ''}`} onClick={()=>onClick(product.id)}>
+    <div className={`product-card ${isActive ? 'is-active' : ''}`} onClick={()=>handleClick(product.id)}>
       <div className="product-card__img">
         <picture>
           <source type={product.previewImgWebp} srcSet={product.previewImgWebp2x}/>

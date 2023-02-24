@@ -15,8 +15,8 @@ function ReviewBlock(): JSX.Element {
   useEffect(()=> {
     dispatch(fetchOfferReviewsAction(product.id));
   },[dispatch, product.id]);
-  const onClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
-  const onClickReview = () => {
+  const handleClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
+  const handleClickReview = () => {
     changeModalState(true);
   };
   return (
@@ -24,13 +24,13 @@ function ReviewBlock(): JSX.Element {
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
-          <button className="btn" type="button" onClick={onClickReview}>Оставить свой отзыв</button>
+          <button className="btn" type="button" onClick={handleClickReview}>Оставить свой отзыв</button>
         </div>
         <ul className="review-block__list">
           {reviews.slice(0, reviewsShowList).map((review) => <ReviewItem review={review} key={review.id}/>)}
         </ul>
         <div className="review-block__buttons">
-          {reviews.length > reviewsShowList && <button className="btn btn--purple" type="button" onClick={onClick}>Показать больше отзывов</button>}
+          {reviews.length > reviewsShowList && <button className="btn btn--purple" type="button" onClick={handleClick}>Показать больше отзывов</button>}
         </div>
       </div>
     </section>

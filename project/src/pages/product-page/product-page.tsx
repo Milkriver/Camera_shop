@@ -10,8 +10,12 @@ import { renderEmptyStar, renderFullStar } from '../../utils';
 function ProductPage(): JSX.Element {
   const product = useAppSelector((state) => state.offer);
   const [activeTab, setActiveTab] = useState('Details');
-  const handleOverview = () => setActiveTab('Overview');
-  const handleDetails = () => setActiveTab('Details');
+  const handleOverview = () => {
+    setActiveTab('Overview');
+  };
+  const handleDetails = () => {
+    setActiveTab('Details');
+  };
 
   const changeActiveTab = () => {
     switch (activeTab) {

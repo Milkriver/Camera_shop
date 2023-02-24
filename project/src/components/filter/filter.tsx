@@ -1,6 +1,6 @@
 
 function Filter(): JSX.Element {
-  const onChange = () => {
+  const handleChange = () => {
     // eslint-disable-next-line no-console
     console.log('onChange');
   };
@@ -27,12 +27,12 @@ function Filter(): JSX.Element {
           <legend className="title title--h5">Категория</legend>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="photocamera" checked onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Фотокамера</span>
+              <input type="checkbox" name="photocamera" checked onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Фотокамера</span>
             </label>
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="videocamera" onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Видеокамера</span>
+              <input type="checkbox" name="videocamera" onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Видеокамера</span>
             </label>
           </div>
         </fieldset>
@@ -40,22 +40,22 @@ function Filter(): JSX.Element {
           <legend className="title title--h5">Тип камеры</legend>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="digital" checked onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Цифровая</span>
+              <input type="checkbox" name="digital" checked onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Цифровая</span>
             </label>
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="film" disabled onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Плёночная</span>
+              <input type="checkbox" name="film" disabled onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Плёночная</span>
             </label>
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="snapshot" onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Моментальная</span>
+              <input type="checkbox" name="snapshot" onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Моментальная</span>
             </label>
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="collection" checked disabled onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Коллекционная</span>
+              <input type="checkbox" name="collection" checked disabled onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Коллекционная</span>
             </label>
           </div>
         </fieldset>
@@ -63,17 +63,17 @@ function Filter(): JSX.Element {
           <legend className="title title--h5">Уровень</legend>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="zero" checked onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Нулевой</span>
+              <input type="checkbox" name="zero" checked onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Нулевой</span>
             </label>
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="non-professional"onChange={onChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Любительский</span>
+              <input type="checkbox" name="non-professional"onChange={handleChange}/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Любительский</span>
             </label>
           </div>
           <div className="custom-checkbox catalog-filter__item">
             <label>
-              <input type="checkbox" name="professional" onChange={onChange} /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Профессиональный</span>
+              <input type="checkbox" name="professional" onChange={handleChange} /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Профессиональный</span>
             </label>
           </div>
         </fieldset>
