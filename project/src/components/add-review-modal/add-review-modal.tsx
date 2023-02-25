@@ -1,89 +1,179 @@
 import { useAppSelector } from '../../hooks';
+import React, { FormEvent, useEffect, useState } from 'react';
+import { STARS } from '../../const';
+import { addNewCommentAction, fetchOfferReviewsAction } from '../../store/api-actions';
+import { IReviewPost } from '../../types/offers';
+import { useAppDispatch } from '../../hooks';
 
-function AddReviewModal(): JSX.Element {
-  const isModalOpen = useAppSelector((state) => state.reviewModalState);
+type IProps = {
+  isModalOpen: boolean;
+};
+
+const ratingStars = [
+  { title: 'Отлично', id: 5, },
+  { title: 'Хорошо', id: 4, },
+  { title: 'Нормально', id: 3, },
+  { title: 'Плохо', id: 2, },
+  { title: 'Ужасно', id: 1, },
+];
+const MIN_COMMENT_LENGTH = 5;
+
+function AddReviewModal({ isModalOpen }: IProps): JSX.Element {
+  // const isModalOpen = useAppSelector((state) => state.reviewModalState);
+  const [, setIsOpen] = useState(isModalOpen);
+  const classname = `modal ${isModalOpen ? 'is-active' : ''}`;
+  const snowflakeIcon = <svg width="9" height="9" aria-hidden="true"><use xlinkHref="img/sprite_auto.svg#icon-snowflake"></use></svg>;
+  const dispatch = useAppDispatch();
+  const product = useAppSelector((state) => state.offer);
+  const [userName, setUserName] = useState<string>('');
+  const [advantage, setAdvantage] = useState<string>('');
+  const [disadvantage, setDisadvantage] = useState<string>('');
+  const [comment, setComment] = useState<string>('');
+  const [rating, setRating] = useState<number>(0);
+  const [statusSubmit, setStatusSubmit] = useState(false);
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => setUserName(event.target.value);
+  const handleAdvantageChange = (event: React.ChangeEvent<HTMLInputElement>) => setAdvantage(event.target.value);
+  const handleDisadvantageChange = (event: React.ChangeEvent<HTMLInputElement>) => setDisadvantage(event.target.value);
+  const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setComment(event.target.value);
+  const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => setRating(Number(event.target.value));
+  const handleClose = () => setIsOpen(false);
+  const onSubmit = (review: IReviewPost) => {
+    dispatch(addNewCommentAction(review));
+    dispatch(fetchOfferReviewsAction(product.id));
+    setStatusSubmit(false);
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+    setStatusSubmit(true);
+    if (comment !== null && rating !== null) {
+      onSubmit(
+        {
+          cameraId: product.id,
+          userName: userName,
+          advantage: advantage,
+          disadvantage: disadvantage,
+          review: comment,
+          rating: Number(rating),
+        }
+      );
+      setUserName('');
+      setAdvantage('');
+      setDisadvantage('');
+      setComment('');
+      setRating(0);
+    }
+  };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isModalOpen]);
+
+
   return (
-    <div className={`modal ${isModalOpen ? 'is-active' : ''}`}>
+    <div className={classname}>
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
         <div className="modal__content">
           <p className="title title--h4">Оставить отзыв</p>
           <div className="htmlForm-review">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="htmlForm-review__rate">
                 <fieldset className="rate htmlForm-review__item">
-                  <legend className="rate__caption">Рейтинг
-                    <svg width="9" height="9" aria-hidden="true">
-                      <use xlinkHref="img/sprite_auto.svg#icon-snowflake"></use>
-                    </svg>
+                  <legend className="rate__caption">Рейтинг{snowflakeIcon}
                   </legend>
                   <div className="rate__bar">
                     <div className="rate__group">
-                      <input className="visually-hidden" id="star-5" name="rate" type="radio" value="5"/>
-                      <label className="rate__label" htmlFor="star-5" title="Отлично"></label>
-                      <input className="visually-hidden" id="star-4" name="rate" type="radio" value="4"/>
-                      <label className="rate__label" htmlFor="star-4" title="Хорошо"></label>
-                      <input className="visually-hidden" id="star-3" name="rate" type="radio" value="3"/>
-                      <label className="rate__label" htmlFor="star-3" title="Нормально"></label>
-                      <input className="visually-hidden" id="star-2" name="rate" type="radio" value="2"/>
-                      <label className="rate__label" htmlFor="star-2" title="Плохо"></label>
-                      <input className="visually-hidden" id="star-1" name="rate" type="radio" value="1"/>
-                      <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
+                      {ratingStars.map((star) => (
+                        <React.Fragment key={star.id}>
+                          <input
+                            className="visually-hidden"
+                            id={`star-${star.id}`}
+                            name="rate"
+                            type="radio"
+                            value={star.id}
+                            onChange={handleRatingChange}
+                            checked={rating === star.id}
+                          />
+                          <label className="rate__label" htmlFor={`star-${star.id}`} title={star.title}></label>
+                        </React.Fragment>
+                      ))}
                     </div>
-                    <div className="rate__progress"><span className="rate__stars">0</span> <span>/</span> <span className="rate__all-stars">5</span>
+                    <div className="rate__progress">
+                      <span className="rate__stars">{`${rating}/${STARS}`}</span>
                     </div>
                   </div>
                   <p className="rate__message">Нужно оценить товар</p>
                 </fieldset>
                 <div className="custom-input htmlForm-review__item">
                   <label>
-                    <span className="custom-input__label">Ваше имя
-                      <svg width="9" height="9" aria-hidden="true">
-                        <use xlinkHref="img/sprite_auto.svg#icon-snowflake"></use>
-                      </svg>
-                    </span>
-                    <input type="text" name="user-name" placeholder="Введите ваше имя" required/>
+                    <span className="custom-input__label">Ваше имя {snowflakeIcon}</span>
+                    <input
+                      type="text"
+                      name="user-name"
+                      placeholder="Введите ваше имя"
+                      required
+                      value={userName}
+                      onChange={handleNameChange}
+                    />
                   </label>
                   <p className="custom-input__error">Нужно указать имя</p>
                 </div>
                 <div className="custom-input htmlForm-review__item">
                   <label>
-                    <span className="custom-input__label">Достоинства
-                      <svg width="9" height="9" aria-hidden="true">
-                        <use xlinkHref="img/sprite_auto.svg#icon-snowflake"></use>
-                      </svg>
-                    </span>
-                    <input type="text" name="user-plus" placeholder="Основные преимущества товара" required/>
+                    <span className="custom-input__label">Достоинства{snowflakeIcon}</span>
+                    <input
+                      type="text" name="user-plus"
+                      placeholder="Основные преимущества товара"
+                      onChange={handleAdvantageChange}
+                      value={advantage}
+                      required
+                    />
                   </label>
                   <p className="custom-input__error">Нужно указать достоинства</p>
                 </div>
                 <div className="custom-input htmlForm-review__item">
                   <label>
-                    <span className="custom-input__label">Недостатки
-                      <svg width="9" height="9" aria-hidden="true">
-                        <use xlinkHref="img/sprite_auto.svg#icon-snowflake"></use>
-                      </svg>
-                    </span>
-                    <input type="text" name="user-minus" placeholder="Главные недостатки товара" required/>
+                    <span className="custom-input__label">Недостатки{snowflakeIcon}</span>
+                    <input
+                      type="text"
+                      name="user-minus"
+                      placeholder="Главные недостатки товара"
+                      onChange={handleDisadvantageChange}
+                      value={disadvantage}
+                      required
+                    />
                   </label>
                   <p className="custom-input__error">Нужно указать недостатки</p>
                 </div>
                 <div className="custom-textarea htmlForm-review__item">
                   <label>
-                    <span className="custom-textarea__label">Комментарий
-                      <svg width="9" height="9" aria-hidden="true">
-                        <use xlinkHref="img/sprite_auto.svg#icon-snowflake"></use>
-                      </svg>
-                    </span>
-                    <textarea name="user-comment" minLength={5} placeholder="Поделитесь своим опытом покупки"></textarea>
+                    <span className="custom-textarea__label">Комментарий{snowflakeIcon}</span>
+                    <textarea
+                      name="user-comment"
+                      minLength={MIN_COMMENT_LENGTH}
+                      placeholder="Поделитесь своим опытом покупки"
+                      onChange={handleReviewChange}
+                      value={comment}
+                    />
                   </label>
                   <div className="custom-textarea__error">Нужно добавить комментарий</div>
                 </div>
               </div>
-              <button className="btn btn--purple htmlForm-review__btn" type="submit">Отправить отзыв</button>
+              <button
+                className="btn btn--purple htmlForm-review__btn"
+                type="submit"
+                disabled={!rating || statusSubmit}
+              >
+                Отправить отзыв
+              </button>
             </form>
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап">
+          <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClose}>
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="img/sprite_auto.svg#icon-close"></use>
             </svg>

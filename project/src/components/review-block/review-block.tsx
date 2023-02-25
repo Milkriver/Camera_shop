@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { REVIEWS_QUANTITY } from '../../const';
@@ -5,12 +6,15 @@ import { useAppSelector } from '../../hooks';
 import { changeModalState } from '../../store/actions';
 import { fetchOfferReviewsAction } from '../../store/api-actions';
 import { AppDispatch } from '../../types/state';
+import AddReviewModal from '../add-review-modal/add-review-modal';
 import ReviewItem from '../review-item/review-item';
 
 function ReviewBlock(): JSX.Element {
   const product = useAppSelector((state) => state.offer);
   const reviews = useAppSelector((state) => state.offerReviews);
+  const sortedReviews = [...reviews].sort((comment1, comment2) => dayjs(comment2.createAt).diff(dayjs(comment1.createAt)));
   const [reviewsShowList, setReviewShowList] = useState(REVIEWS_QUANTITY);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   useEffect(()=> {
     dispatch(fetchOfferReviewsAction(product.id));
@@ -18,6 +22,7 @@ function ReviewBlock(): JSX.Element {
   const handleClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
   const handleClickReview = () => {
     changeModalState(true);
+    setIsModalOpen(true);
   };
   return (
     <section className="review-block">
@@ -25,9 +30,10 @@ function ReviewBlock(): JSX.Element {
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
           <button className="btn" type="button" onClick={handleClickReview}>Оставить свой отзыв</button>
+          <AddReviewModal isModalOpen={isModalOpen}/>
         </div>
         <ul className="review-block__list">
-          {reviews.slice(0, reviewsShowList).map((review) => <ReviewItem review={review} key={review.id}/>)}
+          {sortedReviews.slice(0, reviewsShowList).map((review) => <ReviewItem review={review} key={review.id}/>)}
         </ul>
         <div className="review-block__buttons">
           {reviews.length > reviewsShowList && <button className="btn btn--purple" type="button" onClick={handleClick}>Показать больше отзывов</button>}
