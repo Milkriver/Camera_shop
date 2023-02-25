@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { STARS } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-actions';
@@ -18,7 +18,7 @@ function ProductCard({product, isActive}: IProps): JSX.Element {
     navigate('product');
   };
   return (
-    <div className={`product-card ${isActive ? 'is-active' : ''}`} onClick={()=>handleClick(product.id)}>
+    <div className={`product-card ${isActive ? 'is-active' : ''}`}>
       <div className="product-card__img">
         <picture>
           <source type={product.previewImgWebp} srcSet={product.previewImgWebp2x}/>
@@ -39,7 +39,7 @@ function ProductCard({product, isActive}: IProps): JSX.Element {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <Link className="btn btn--transparent" to="#">Подробнее</Link>
+        <button className="btn btn--transparent" onClick={()=>handleClick(product.id)}>Подробнее</button>
       </div>
     </div>
   );
