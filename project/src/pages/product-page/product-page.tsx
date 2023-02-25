@@ -4,7 +4,7 @@ import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import { STARS } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { renderEmptyStar, renderFullStar } from '../../utils';
+import { emptyStar, fullStar } from '../../utils';
 
 function ProductPage(): JSX.Element {
   const product = useAppSelector((state) => state.offer);
@@ -63,8 +63,8 @@ function ProductPage(): JSX.Element {
                 <div className="product__content">
                   <h1 className="title title--h3">{product.name}</h1>
                   <div className="rate product__rate">
-                    {Array(product.rating).fill(renderFullStar())}
-                    {Array(STARS - product.rating).fill(renderEmptyStar())}
+                    {Array(product.rating).fill(fullStar)}
+                    {Array(STARS - product.rating).fill(emptyStar)}
                     <p className="visually-hidden">Рейтинг: {product.rating}</p>
                     <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{product.reviewCount}</p>
                   </div>
