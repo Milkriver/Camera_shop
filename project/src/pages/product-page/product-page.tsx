@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
+import UpButton from '../../components/up-button/up-button';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-actions';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -118,11 +119,7 @@ function ProductPage(): JSX.Element {
           </div>
         </div>
       </main>
-      <a className="up-btn" href="#header">
-        <svg width="12" height="18" aria-hidden="true">
-          <use xlinkHref="#icon-arrow2"></use>
-        </svg>
-      </a>
+      <UpButton />
     </>);
 }
 
