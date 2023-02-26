@@ -24,7 +24,7 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }
 >(
-  'offers/fetchPromoOffer',
+  'offers/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<IOfferItem[]>(APIRoutes.Offers);
     dispatch(loadOffers(data));
