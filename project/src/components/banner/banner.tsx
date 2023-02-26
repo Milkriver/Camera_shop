@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { generatePath, Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
 
 function Banner(): JSX.Element {
@@ -12,7 +13,7 @@ function Banner(): JSX.Element {
       <p className="banner__info">
         <span className="banner__message">Новинка!</span>
         <span className="title title--h1">{promoOffer.name}</span><span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
-        <Link className="btn" to="#">Подробнее</Link>
+        <Link className="btn" to={generatePath(AppRoute.Product, { id: String(promoOffer.id) })}>Подробнее</Link>
       </p>
     </div>
 
