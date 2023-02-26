@@ -1,39 +1,25 @@
-// import { useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
-
 type IProps = {
-  isModalOpen: boolean;
+  onClose: () => void;
+  onClick: () => void;
 };
 
-function AddReviewModalSuccess({ isModalOpen }: IProps): JSX.Element {
-  // const isModalOpen = useAppSelector((state) => state.reviewModalState);
-  const classname = `modal ${isModalOpen ? 'is-active modal--narrow' : ''}`;
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isModalOpen]);
-
-
+function AddReviewModalSuccess({ onClose, onClick }: IProps): JSX.Element {
   return (
-    <div className={classname}>
+    <div className='modal is-active modal--narrow'>
       <div className="modal__wrapper">
-        <div className="modal__overlay"></div>
+        <div className="modal__overlay" onClick={onClick}></div>
         <div className="modal__content">
           <p className="title title--h4">Спасибо за отзыв</p>
           <svg className="modal__icon" width="80" height="78" aria-hidden="true">
-            <use xlinkHref="img/sprite_auto.svg#icon-review-success"></use>
+            <use xlinkHref="#icon-review-success"></use>
           </svg>
           <div className="modal__buttons">
-            <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">Вернуться к покупкам
+            <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button" onClick={onClose}>Вернуться к покупкам
             </button>
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап">
+          <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={onClose}>
             <svg width="10" height="10" aria-hidden="true">
-              <use xlinkHref="img/sprite_auto.svg#icon-close"></use>
+              <use xlinkHref="#icon-close"></use>
             </svg>
           </button>
         </div>

@@ -1,6 +1,6 @@
 export enum AppRoute {
     Main = '/',
-    Product = 'product'
+    Product = '/product/:id'
 }
 
 export enum APIRoutes {

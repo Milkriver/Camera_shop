@@ -6,7 +6,7 @@ type InitialState = {
 promoOffer: IPromoOffer;
 offers: IOfferItem[];
 activePaginationPage: number;
-offer: IOfferItem;
+offer: IOfferItem | undefined;
 similarOffers: IOfferItem[];
 offerReviews: IReview[];
 reviewModalState: boolean;
@@ -37,22 +37,7 @@ const initialState: InitialState = {
     previewImgWebp2x: '',
     reviewCount: 0,
   }],
-  offer: {
-    id: 0,
-    name: '',
-    vendorCode: '',
-    type: '',
-    category: '',
-    description: '',
-    level: '',
-    rating: 0,
-    price: 0,
-    previewImg: '',
-    previewImg2x: '',
-    previewImgWebp: '',
-    previewImgWebp2x: '',
-    reviewCount: 0,
-  },
+  offer: undefined,
   activePaginationPage: 1,
   similarOffers: [{
     id: 0,

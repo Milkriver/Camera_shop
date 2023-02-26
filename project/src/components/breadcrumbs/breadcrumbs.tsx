@@ -14,7 +14,7 @@ function Breadcrumbs({ name }: IProps): JSX.Element {
           <li className="breadcrumbs__item">
             <Link className="breadcrumbs__link" to={AppRoute.Main}>Главная
               <svg width="5" height="8" aria-hidden="true">
-                <use xlinkHref="img/sprite_auto.svg#icon-arrow-mini"></use>
+                <use xlinkHref="#icon-arrow-mini"></use>
               </svg>
             </Link>
           </li>

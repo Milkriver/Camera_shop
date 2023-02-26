@@ -14,8 +14,10 @@ function SimilarProducts(): JSX.Element {
   const end = start + PRODUCTS_CARD_QUANTITY;
   const dispatch = useDispatch<AppDispatch>();
   useEffect(()=> {
-    dispatch(fetchSimilarOffersAction(product.id));
-  },[dispatch, product.id]);
+    if(product){
+      dispatch(fetchSimilarOffersAction(product.id));
+    }
+  },[dispatch, product]);
   const handleIncClick = () => setStart(start + PRODUCTS_CARD_QUANTITY);
   const handleDecClick = () => setStart(start - PRODUCTS_CARD_QUANTITY);
   return (
@@ -29,12 +31,12 @@ function SimilarProducts(): JSX.Element {
           </div>
           <button className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" onClick={handleDecClick} disabled={start > 0}>
             <svg width="7" height="12" aria-hidden="true">
-              <use xlinkHref="img/sprite_auto.svg#icon-arrow"></use>
+              <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
           <button className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" onClick={handleIncClick}>
             <svg width="7" height="12" aria-hidden="true">
-              <use xlinkHref="img/sprite_auto.svg#icon-arrow"></use>
+              <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
         </div>

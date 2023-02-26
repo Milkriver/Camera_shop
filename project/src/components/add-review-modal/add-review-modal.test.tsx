@@ -4,7 +4,8 @@ import AddReviewModal from './add-review-modal';
 
 describe('AddReviewModal', () => {
   test('loads and displays AddReviewModal', async () => {
-    render(<AddReviewModal isModalOpen/>);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    render(<AddReviewModal onClose={() => {}} onClick={() => {}}/>);
     const button = await screen.findByText('Оставить отзыв');
     expect(button).toHaveTextContent('Оставить отзыв');
   });

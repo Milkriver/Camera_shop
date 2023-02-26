@@ -1,7 +1,5 @@
-import React from 'react';
-import { STARS } from '../../const';
 import { IReview } from '../../types/offers';
-import { emptyStar, fullStar, getRandomArbitrary, getReviewDate } from '../../utils';
+import { getReviewDate } from '../../utils';
 
 type IProps = {
   review: IReview;
@@ -15,8 +13,14 @@ function ReviewItem({ review }: IProps): JSX.Element {
         <time className="review-card__data" dateTime={review.createAt}>{getReviewDate(review.createAt)}</time>
       </div>
       <div className="rate review-card__rate">
-        {Array(review.rating).fill(<React.Fragment key={review.rating + getRandomArbitrary()}>{fullStar}</React.Fragment>)}
-        {Array(STARS - review.rating).fill(emptyStar)}
+        {
+          Array.from({ length: 5 }, (_, index) => (
+            <svg width="17" height="16" aria-hidden="true" key={index}>
+              {review.rating > index && <use xlinkHref="#icon-full-star" />}
+              {review.rating <= index && <use xlinkHref="#icon-star" />}
+            </svg>
+          ))
+        }
         <p className="visually-hidden">Оценка: {review.rating}</p>
       </div>
       <ul className="review-card__list">

@@ -1,12 +1,13 @@
 import { useAppSelector } from '../../hooks';
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { STARS } from '../../const';
 import { addNewCommentAction, fetchOfferReviewsAction } from '../../store/api-actions';
 import { IReviewPost } from '../../types/offers';
 import { useAppDispatch } from '../../hooks';
 
 type IProps = {
-  isModalOpen: boolean;
+  onClose: () => void;
+  onClick: () => void;
 };
 
 const ratingStars = [
@@ -18,11 +19,8 @@ const ratingStars = [
 ];
 const MIN_COMMENT_LENGTH = 5;
 
-function AddReviewModal({ isModalOpen }: IProps): JSX.Element {
-  // const isModalOpen = useAppSelector((state) => state.reviewModalState);
-  const [, setIsOpen] = useState(isModalOpen);
-  const classname = `modal ${isModalOpen ? 'is-active' : ''}`;
-  const snowflakeIcon = <svg width="9" height="9" aria-hidden="true"><use xlinkHref="img/sprite_auto.svg#icon-snowflake"></use></svg>;
+function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
+  const snowflakeIcon = <svg width="9" height="9" aria-hidden="true"><use xlinkHref="#icon-snowflake"></use></svg>;
   const dispatch = useAppDispatch();
   const product = useAppSelector((state) => state.offer);
   const [userName, setUserName] = useState<string>('');
@@ -36,17 +34,18 @@ function AddReviewModal({ isModalOpen }: IProps): JSX.Element {
   const handleDisadvantageChange = (event: React.ChangeEvent<HTMLInputElement>) => setDisadvantage(event.target.value);
   const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setComment(event.target.value);
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => setRating(Number(event.target.value));
-  const handleClose = () => setIsOpen(false);
   const onSubmit = (review: IReviewPost) => {
     dispatch(addNewCommentAction(review));
-    dispatch(fetchOfferReviewsAction(product.id));
+    if (product) {
+      dispatch(fetchOfferReviewsAction(product.id));
+    }
     setStatusSubmit(false);
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setStatusSubmit(true);
-    if (comment !== null && rating !== null) {
+    if (comment !== null && rating !== null && product) {
       onSubmit(
         {
           cameraId: product.id,
@@ -62,22 +61,14 @@ function AddReviewModal({ isModalOpen }: IProps): JSX.Element {
       setDisadvantage('');
       setComment('');
       setRating(0);
+      onClose();
     }
   };
 
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [isModalOpen]);
-
-
   return (
-    <div className={classname}>
+    <div className='modal is-active'>
       <div className="modal__wrapper">
-        <div className="modal__overlay"></div>
+        <div className="modal__overlay" onClick={onClick}></div>
         <div className="modal__content">
           <p className="title title--h4">Оставить отзыв</p>
           <div className="htmlForm-review">
@@ -167,16 +158,21 @@ function AddReviewModal({ isModalOpen }: IProps): JSX.Element {
               <button
                 className="btn btn--purple htmlForm-review__btn"
                 type="submit"
-                disabled={!rating || statusSubmit}
+                disabled={
+                  !rating ||
+                  statusSubmit
+                  || comment.length <= MIN_COMMENT_LENGTH
+                  || advantage.length <= MIN_COMMENT_LENGTH
+                  || disadvantage.length <= MIN_COMMENT_LENGTH
+                  || userName.length <= MIN_COMMENT_LENGTH
+                }
               >
                 Отправить отзыв
               </button>
             </form>
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleClose}>
-            <svg width="10" height="10" aria-hidden="true">
-              <use xlinkHref="img/sprite_auto.svg#icon-close"></use>
-            </svg>
+          <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={onClick}>
+            <svg width="10" height="10" aria-hidden="true"><use xlinkHref="#icon-close" /></svg>
           </button>
         </div>
       </div>
@@ -185,5 +181,3 @@ function AddReviewModal({ isModalOpen }: IProps): JSX.Element {
 }
 
 export default AddReviewModal;
-
-
