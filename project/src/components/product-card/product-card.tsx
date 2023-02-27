@@ -1,9 +1,7 @@
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-// import { useAppDispatch } from '../../hooks';
-// import { fetchOfferAction } from '../../store/api-actions';
 import { IOfferItem } from '../../types/offers';
-// import { renderEmptyStar, renderFullStar } from '../../utils';
+
 
 type IProps = {
   product: IOfferItem;
