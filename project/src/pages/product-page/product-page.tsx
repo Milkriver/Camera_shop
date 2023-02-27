@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
 import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import UpButton from '../../components/up-button/up-button';
@@ -64,6 +66,7 @@ function ProductPage(): JSX.Element {
 
   return (
     <>
+      <Header />
       <main>
         <div className="page-content">
           <Breadcrumbs name={product.name} />
@@ -72,8 +75,8 @@ function ProductPage(): JSX.Element {
               <div className="container">
                 <div className="product__img">
                   <picture>
-                    <source type="image/webp" srcSet={`${product.previewImgWebp}, ${product.previewImgWebp}`} />
-                    <img src={product.previewImg} srcSet={product.previewImgWebp2x} width="560" height="480" alt={product.name} />
+                    <source type="image/webp" srcSet={`/${product.previewImgWebp}, /${product.previewImgWebp}`} />
+                    <img src={`/${product.previewImg}`} srcSet={`/${product.previewImgWebp2x}`} width="560" height="480" alt={product.name} />
                   </picture>
                 </div>
                 <div className="product__content">
@@ -120,6 +123,7 @@ function ProductPage(): JSX.Element {
         </div>
       </main>
       <UpButton />
+      <Footer />
     </>);
 }
 

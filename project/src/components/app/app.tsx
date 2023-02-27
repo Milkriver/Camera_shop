@@ -12,6 +12,10 @@ function App(): JSX.Element {
         element={<CatalogPage />}
       />
       <Route
+        path={AppRoute.Catalog}
+        element={<CatalogPage />}
+      />
+      <Route
         path={AppRoute.Product}
         element={<ProductPage />}
       />

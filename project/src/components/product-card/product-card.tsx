@@ -14,8 +14,8 @@ function ProductCard({ product, isActive }: IProps): JSX.Element {
     <div className={`product-card ${isActive ? 'is-active' : ''}`}>
       <div className="product-card__img">
         <picture>
-          <source type={product.previewImgWebp} srcSet={product.previewImgWebp2x} />
-          <img src={product.previewImg} srcSet={product.previewImg2x} width="280" height="240" alt={product.name} />
+          <source type={`/${product.previewImgWebp}`} srcSet={`/${product.previewImgWebp2x}`} />
+          <img src={`/${product.previewImg}`} srcSet={`/${product.previewImg2x}`} width="280" height="240" alt={product.name} />
         </picture>
       </div>
       <div className="product-card__info">
