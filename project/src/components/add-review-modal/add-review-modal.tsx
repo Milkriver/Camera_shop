@@ -35,9 +35,9 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
   const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setComment(event.target.value);
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => setRating(Number(event.target.value));
   const onSubmit = (review: TReviewPost) => {
-    dispatch(addNewCommentAction(review));
+    // dispatch(addNewCommentAction(review));
     if (product) {
-      dispatch(fetchOfferReviewsAction(product.id));
+      // dispatch(fetchOfferReviewsAction(product.id));
     }
     setStatusSubmit(false);
   };
