@@ -2,7 +2,7 @@ import { useAppSelector } from '../../hooks';
 import React, { FormEvent, useState } from 'react';
 import { STARS } from '../../const';
 import { addNewCommentAction, fetchOfferReviewsAction } from '../../store/api-actions';
-import { IReviewPost } from '../../types/offers';
+import { TReviewPost } from '../../types/offers';
 import { useAppDispatch } from '../../hooks';
 
 type IProps = {
@@ -34,7 +34,7 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
   const handleDisadvantageChange = (event: React.ChangeEvent<HTMLInputElement>) => setDisadvantage(event.target.value);
   const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setComment(event.target.value);
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => setRating(Number(event.target.value));
-  const onSubmit = (review: IReviewPost) => {
+  const onSubmit = (review: TReviewPost) => {
     dispatch(addNewCommentAction(review));
     if (product) {
       dispatch(fetchOfferReviewsAction(product.id));

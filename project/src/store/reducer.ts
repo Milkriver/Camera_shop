@@ -1,70 +1,24 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { IOfferItem, IPromoOffer, IReview } from '../types/offers';
+import { TOfferItem, TPromoOffer, TReview } from '../types/offers';
 import { changeActivePaginationPage, changeModalState, loadOffer, loadOffers, loadPromoOffer, loadReviews, loadSimilarOffers } from './actions';
 
 type InitialState = {
-promoOffer: IPromoOffer;
-offers: IOfferItem[];
+promoOffer: TPromoOffer | undefined;
+offers: TOfferItem[] | undefined;
 activePaginationPage: number;
-offer: IOfferItem | undefined;
-similarOffers: IOfferItem[];
-offerReviews: IReview[];
+offer: TOfferItem | undefined;
+similarOffers: TOfferItem[] | undefined;
+offerReviews: TReview[] | undefined;
 reviewModalState: boolean;
 };
 
 const initialState: InitialState = {
-  promoOffer: {
-    id: 0,
-    name: '',
-    previewImg: '',
-    previewImg2x: '',
-    previewImgWebp: '',
-    previewImgWebp2x: '',
-  },
-  offers: [{
-    id: 0,
-    name: '',
-    vendorCode: '',
-    type: '',
-    category: '',
-    description: '',
-    level: '',
-    rating: 0,
-    price: 0,
-    previewImg: '',
-    previewImg2x: '',
-    previewImgWebp: '',
-    previewImgWebp2x: '',
-    reviewCount: 0,
-  }],
+  promoOffer: undefined,
+  offers: undefined,
   offer: undefined,
   activePaginationPage: 1,
-  similarOffers: [{
-    id: 0,
-    name: '',
-    vendorCode: '',
-    type: '',
-    category: '',
-    description: '',
-    level: '',
-    rating: 0,
-    price: 0,
-    previewImg: '',
-    previewImg2x: '',
-    previewImgWebp: '',
-    previewImgWebp2x: '',
-    reviewCount: 0,
-  }],
-  offerReviews: [{
-    id: '',
-    userName: '',
-    advantage: '',
-    disadvantage: '',
-    review: '',
-    rating: 0,
-    createAt: '',
-    cameraId: 0,
-  }],
+  similarOffers: undefined,
+  offerReviews: undefined,
   reviewModalState: false,
 };
 

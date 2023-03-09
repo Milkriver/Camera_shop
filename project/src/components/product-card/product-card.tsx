@@ -1,10 +1,10 @@
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { IOfferItem } from '../../types/offers';
+import { TOfferItem } from '../../types/offers';
 
 
 type IProps = {
-  product: IOfferItem;
+  product: TOfferItem;
   isActive?: boolean;
 }
 

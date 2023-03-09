@@ -1,8 +1,8 @@
-import { IReview } from '../../types/offers';
+import { TReview } from '../../types/offers';
 import { getReviewDate } from '../../utils';
 
 type IProps = {
-  review: IReview;
+  review: TReview;
 };
 
 function ReviewItem({ review }: IProps): JSX.Element {
