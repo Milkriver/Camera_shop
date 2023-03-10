@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: ReviewBlock should render correctly 1`] = `
+<div>
+  <section
+    class="review-block"
+  >
+    <div
+      class="container"
+    >
+      <div
+        class="page-content__headed"
+      >
+        <h2
+          class="title title--h3"
+        >
+          Отзывы
+        </h2>
+        <button
+          class="btn"
+          type="button"
+        >
+          Оставить свой отзыв
+        </button>
+      </div>
+    </div>
+  </section>
+</div>
+`;

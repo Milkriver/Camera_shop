@@ -1,28 +1,34 @@
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import {render} from '@testing-library/react';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
 import thunk from 'redux-thunk';
 import HistoryRouter from '../../components/history-router/history-router';
-import AddReviewModalSuccess from './add-review-modal-success';
+import SimilarProducts from './similar-products';
 
-describe('AddReviewModalSuccess', () => {
-  test('loads and displays AddReviewModalSuccess', async () => {
+
+
+describe('Component: SimilarProducts', () => {
+  test('should render correctly', () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
 
-    const store = mockStore({});
+    const store = mockStore({
+        OFFERS: {
+            offers: [],
+        }
+    });
+
     const history = createMemoryHistory();
 
-    render(
+    const {container} = render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <AddReviewModalSuccess onClick={()=>{}} onClose={()=>{}}/>
+          <SimilarProducts />
         </HistoryRouter>
       </Provider>,
     );
-    const text = await screen.findByText('Спасибо за отзыв');
-    expect(text).toHaveTextContent('Спасибо за отзыв');
+
+    expect(container).toMatchSnapshot();
   });
 });
