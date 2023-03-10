@@ -3,13 +3,14 @@ import { useDispatch } from 'react-redux';
 import { PRODUCTS_CARD_QUANTITY } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { fetchSimilarOffersAction } from '../../store/api-actions';
+import { setOffer, setSimilarOffers } from '../../store/offer-process/selectors';
 import { AppDispatch } from '../../types/state';
 import ProductCard from '../product-card/product-card';
 
 
 function SimilarProducts(): JSX.Element {
-  const product = useAppSelector((state) => state.offer);
-  const similarProducts = useAppSelector((state) => state.similarOffers);
+  const product = useAppSelector(setOffer);
+  const similarProducts = useAppSelector(setSimilarOffers);
   const [start, setStart] = useState(0);
   const end = start + PRODUCTS_CARD_QUANTITY;
   const dispatch = useDispatch<AppDispatch>();

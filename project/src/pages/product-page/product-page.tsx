@@ -8,13 +8,14 @@ import SimilarProducts from '../../components/similar-products/similar-products'
 import UpButton from '../../components/up-button/up-button';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-actions';
+import { setOffer } from '../../store/offer-process/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function ProductPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const product = useAppSelector((state) => state.offer);
+  const product = useAppSelector(setOffer);
   const [activeTab, setActiveTab] = useState('Details');
   const handleOverview = () => setActiveTab('Overview');
   const handleDetails = () => setActiveTab('Details');

@@ -1,12 +1,13 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeActivePaginationPage } from '../../store/actions';
+import { changeActivePaginationPage } from '../../store/data-process/data-process';
+import { setActivePaginationPage } from '../../store/data-process/selectors';
 
 type IProps = {
   pages: number[];
 }
 
 function Pagination({ pages }: IProps): JSX.Element {
-  const activePage = useAppSelector((state) => state.activePaginationPage);
+  const activePage = useAppSelector(setActivePaginationPage);
   const dispatch = useAppDispatch();
   const handlePageClick = (item: number) => dispatch(changeActivePaginationPage(item));
   const renderPaginationItem = (item: number) => (

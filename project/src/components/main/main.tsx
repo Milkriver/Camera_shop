@@ -1,8 +1,10 @@
 import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { setActivePaginationPage } from '../../store/data-process/selectors';
+import { setOffers } from '../../store/offer-process/selectors';
 import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Filter from '../filter/filter';
-// import Modal from '../modal/modal';
 import Pagination from '../pagination/pagination';
 import ProductCard from '../product-card/product-card';
 import SortForm from '../sort-form/sort-form';
@@ -10,8 +12,11 @@ import SortForm from '../sort-form/sort-form';
 const productsOnPage = 9;
 
 function Main(): JSX.Element {
-  const products = useAppSelector((state) => state.offers);
-  const activePaginationPage = useAppSelector((state) => state.activePaginationPage);
+  const products = useAppSelector(setOffers);
+  if(!products){
+    return <LoadingScreen/>
+  }
+  const activePaginationPage = useAppSelector(setActivePaginationPage);
   const start = productsOnPage * (activePaginationPage - 1);
   const pages = Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1);
   return (
@@ -39,7 +44,6 @@ function Main(): JSX.Element {
           </div>
         </section>
       </div>
-      {/* <Modal/> */}
     </main>
   );
 }
