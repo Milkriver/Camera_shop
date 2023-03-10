@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Pagination should render correctly 1`] = `
+<div>
+  <ul
+    class="pagination__list"
+  >
+    <li
+      class="pagination__item"
+      style="cursor: pointer;"
+    >
+      <div
+        class="pagination__link pagination__link--active"
+      >
+        1
+      </div>
+    </li>
+    <li
+      class="pagination__item"
+      style="cursor: pointer;"
+    >
+      <div
+        class="pagination__link "
+      >
+        2
+      </div>
+    </li>
+    <li
+      class="pagination__item"
+      style="cursor: pointer;"
+    >
+      <div
+        class="pagination__link "
+      >
+        3
+      </div>
+    </li>
+    <li
+      class="pagination__item"
+      style="cursor: pointer;"
+    >
+      <div
+        class="pagination__link pagination__link--text"
+      >
+        Далее
+      </div>
+    </li>
+  </ul>
+</div>
+`;

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: NavMenu should render correctly 1`] = `
+<div>
+  <ul
+    class="__list"
+  >
+    <li
+      class="__item"
+    >
+      <a
+        class="link"
+        href="/catalog.html"
+      >
+        Каталог
+      </a>
+    </li>
+    <li
+      class="__item"
+    >
+      <a
+        class="link"
+        href="/"
+      >
+        Гарантии
+      </a>
+    </li>
+    <li
+      class="__item"
+    >
+      <a
+        class="link"
+        href="/"
+      >
+        Доставка
+      </a>
+    </li>
+    <li
+      class="__item"
+    >
+      <a
+        class="link"
+        href="/"
+      >
+        О компании
+      </a>
+    </li>
+  </ul>
+</div>
+`;

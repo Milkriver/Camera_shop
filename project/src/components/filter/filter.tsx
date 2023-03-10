@@ -1,9 +1,6 @@
 
 function Filter(): JSX.Element {
-  const handleChange = () => {
-    // eslint-disable-next-line no-console
-    console.log('onChange');
-  };
+  const handleChange = () => {};
   return (
     <div className="catalog-filter">
       <form action="#">
