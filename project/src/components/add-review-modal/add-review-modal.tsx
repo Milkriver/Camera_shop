@@ -4,6 +4,7 @@ import { STARS } from '../../const';
 import { addNewCommentAction, fetchOfferReviewsAction } from '../../store/api-actions';
 import { TReviewPost } from '../../types/offers';
 import { useAppDispatch } from '../../hooks';
+import { setOffer } from '../../store/offer-process/selectors';
 
 type IProps = {
   onClose: () => void;
@@ -22,7 +23,7 @@ const MIN_COMMENT_LENGTH = 5;
 function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
   const snowflakeIcon = <svg width="9" height="9" aria-hidden="true"><use xlinkHref="#icon-snowflake"></use></svg>;
   const dispatch = useAppDispatch();
-  const product = useAppSelector((state) => state.offer);
+  const product = useAppSelector(setOffer);
   const [userName, setUserName] = useState<string>('');
   const [advantage, setAdvantage] = useState<string>('');
   const [disadvantage, setDisadvantage] = useState<string>('');
@@ -35,9 +36,9 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
   const handleReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => setComment(event.target.value);
   const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => setRating(Number(event.target.value));
   const onSubmit = (review: TReviewPost) => {
-    // dispatch(addNewCommentAction(review));
+    dispatch(addNewCommentAction(review));
     if (product) {
-      // dispatch(fetchOfferReviewsAction(product.id));
+      dispatch(fetchOfferReviewsAction(product.id));
     }
     setStatusSubmit(false);
   };

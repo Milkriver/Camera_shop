@@ -18,13 +18,9 @@ export const dataProcess = createSlice({
     changeActivePaginationPage: (state, action) => {
       state.activePaginationPage = action.payload;
     },
-    changeModalState: (state, action) => {
-      state.reviewModalState = action.payload;
-    },
   },
 });
 
 export const {
   changeActivePaginationPage,
-  changeModalState
 } = dataProcess.actions;

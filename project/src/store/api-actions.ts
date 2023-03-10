@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoutes } from '../const';
 import { TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
-import { loadOffer, loadOffers, loadPromoOffer, loadReviews, loadSimilarOffers, setNewComment } from './actions';
+import { setNewComment } from './actions';
 
 export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
   dispatch: AppDispatch;
@@ -14,7 +14,6 @@ export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
   'offers/fetchPromoOffer',
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<TPromoOffer>(APIRoutes.Promo);
-    dispatch(loadPromoOffer(data));
     return data;
   },
 );
@@ -28,7 +27,6 @@ export const fetchOffersAction = createAsyncThunk<TOfferItem[], undefined, {
   'offers/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<TOfferItem[]>(APIRoutes.Offers);
-    dispatch(loadOffers(data));
     return data;
   },
 );
@@ -42,7 +40,6 @@ export const fetchOfferAction = createAsyncThunk<TOfferItem, number, {
   'offers/fetchOffer',
   async (id, { dispatch, extra: api }) => {
     const { data } = await api.get<TOfferItem>(`${APIRoutes.Offers}/${id}`);
-    dispatch(loadOffer(data));
     return data;
   },
 );
@@ -56,7 +53,6 @@ export const fetchSimilarOffersAction = createAsyncThunk<TOfferItem[], number, {
   'offers/fetchSimilarOffers',
   async (id, { dispatch, extra: api }) => {
     const { data } = await api.get<TOfferItem[]>(`${APIRoutes.Offers}/${id}/similar`);
-    dispatch(loadSimilarOffers(data));
     return data;
   },
 );
@@ -70,7 +66,6 @@ export const fetchOfferReviewsAction = createAsyncThunk<TReview[], number, {
   'offers/fetchOfferReviewsAction',
   async (id, { dispatch, extra: api }) => {
     const { data } = await api.get<TReview[]>(`${APIRoutes.Offers}/${id}/reviews`);
-    dispatch(loadReviews(data));
     return data;
   },
 );
