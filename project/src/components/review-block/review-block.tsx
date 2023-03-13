@@ -64,8 +64,7 @@ function ReviewBlock(): JSX.Element {
           <div className="review-block__buttons">
             {reviews.length > reviewsShowList && <button className="btn btn--purple" type="button" onClick={handleClick}>Показать больше отзывов</button>}
           </div>
-        </>
-        }
+        </>}
       </div>
     </section>
   );

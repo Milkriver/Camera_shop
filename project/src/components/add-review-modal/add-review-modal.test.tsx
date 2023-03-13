@@ -8,21 +8,21 @@ import HistoryRouter from '../../components/history-router/history-router';
 import AddReviewModal from './add-review-modal';
 
 describe('AddReviewModal', () => {
-  test('loads and displays AddReviewModal', async () => {
+  test('loads and displays AddReviewModal', () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
-
+    const onClick = jest.fn();
     const store = mockStore({
-        OFFERS: {
-            offer: {},
-        },
+      OFFERS: {
+        offer: {},
+      },
     });
     const history = createMemoryHistory();
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <AddReviewModal onClick={()=>{}} onClose={()=>{}}/>
+          <AddReviewModal onClick={() => onClick} onClose={() => onClick}/>
         </HistoryRouter>
       </Provider>,
     );

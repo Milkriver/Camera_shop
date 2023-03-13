@@ -1,18 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { NameSpace } from "../../const";
-import { TReview } from "../../types/offers";
-import { fetchOfferReviewsAction } from "../api-actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { NameSpace } from '../../const';
+import { TReview } from '../../types/offers';
+import { fetchOfferReviewsAction } from '../api-actions';
 
 type TInitialState = {
     offerReviews: TReview[] | undefined;
     reviewModalState: boolean;
     };
-    
-    const initialState: TInitialState = {
-      offerReviews: undefined,
-      reviewModalState: false,
-    };
 
+const initialState: TInitialState = {
+  offerReviews: undefined,
+  reviewModalState: false,
+};
 
 
 export const reviewProcess = createSlice({
@@ -25,9 +24,9 @@ export const reviewProcess = createSlice({
   },
   extraReducers(builder) {
     builder
-    .addCase(fetchOfferReviewsAction.fulfilled, (state, action)=>{
-      state.offerReviews = action.payload;
-    })
+      .addCase(fetchOfferReviewsAction.fulfilled, (state, action)=>{
+        state.offerReviews = action.payload;
+      });
   },
 });
 

@@ -13,10 +13,10 @@ const productsOnPage = 9;
 
 function Main(): JSX.Element {
   const products = useAppSelector(setOffers);
-  if(!products){
-    return <LoadingScreen/>
-  }
   const activePaginationPage = useAppSelector(setActivePaginationPage);
+  if(!products){
+    return <LoadingScreen/>;
+  }
   const start = productsOnPage * (activePaginationPage - 1);
   const pages = Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1);
   return (

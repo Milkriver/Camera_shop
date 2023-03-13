@@ -11,14 +11,14 @@ describe('AddReviewModalSuccess', () => {
   test('loads and displays AddReviewModalSuccess', async () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
-
+    const onClick = jest.fn();
     const store = mockStore({});
     const history = createMemoryHistory();
 
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <AddReviewModalSuccess onClick={()=>{}} onClose={()=>{}}/>
+          <AddReviewModalSuccess onClick={() => onClick} onClose={() => onClick}/>
         </HistoryRouter>
       </Provider>,
     );

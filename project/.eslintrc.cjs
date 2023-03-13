@@ -1,5 +1,5 @@
 module.exports = {
     "rules": {
-      "@typescript-eslint/no-unsafe-assignment": "warning"
+      // "@typescript-eslint/no-unsafe-assignment": "warn"
     }
   };
