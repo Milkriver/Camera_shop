@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -15,10 +15,17 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 function ProductPage(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const product = useAppSelector(setOffer);
   const [activeTab, setActiveTab] = useState('Details');
-  const handleOverview = () => setActiveTab('Overview');
-  const handleDetails = () => setActiveTab('Details');
+  const handleOverview = () => {
+    setActiveTab('Overview');
+    navigate(`#overview`);
+  };
+  const handleDetails = () => {
+    setActiveTab('Details');
+    navigate(`#details`);
+  }
 
   useEffect(() => {
     dispatch(fetchOfferAction(Number(id)));
