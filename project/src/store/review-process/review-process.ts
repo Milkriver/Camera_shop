@@ -3,7 +3,7 @@ import { NameSpace } from '../../const';
 import { TReview } from '../../types/offers';
 import { fetchOfferReviewsAction } from '../api-actions';
 
-type TInitialState = {
+export type TInitialState = {
     offerReviews: TReview[] | undefined;
     reviewModalState: boolean;
     };

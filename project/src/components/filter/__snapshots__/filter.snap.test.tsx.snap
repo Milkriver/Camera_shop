@@ -63,6 +63,7 @@ exports[`Component: Filter should render correctly 1`] = `
             <input
               checked=""
               name="photocamera"
+              readonly=""
               type="checkbox"
             />
             <span
@@ -109,6 +110,7 @@ exports[`Component: Filter should render correctly 1`] = `
             <input
               checked=""
               name="digital"
+              readonly=""
               type="checkbox"
             />
             <span
@@ -166,6 +168,7 @@ exports[`Component: Filter should render correctly 1`] = `
               checked=""
               disabled=""
               name="collection"
+              readonly=""
               type="checkbox"
             />
             <span
@@ -194,6 +197,7 @@ exports[`Component: Filter should render correctly 1`] = `
             <input
               checked=""
               name="zero"
+              readonly=""
               type="checkbox"
             />
             <span

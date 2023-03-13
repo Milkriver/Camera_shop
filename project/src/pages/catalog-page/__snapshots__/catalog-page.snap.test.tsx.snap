@@ -279,6 +279,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           <input
                             checked=""
                             name="photocamera"
+                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -325,6 +326,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           <input
                             checked=""
                             name="digital"
+                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -382,6 +384,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                             checked=""
                             disabled=""
                             name="collection"
+                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -410,6 +413,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           <input
                             checked=""
                             name="zero"
+                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -495,6 +499,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                             checked=""
                             id="sortPrice"
                             name="sort"
+                            readonly=""
                             type="radio"
                           />
                           <label
@@ -529,6 +534,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                             checked=""
                             id="up"
                             name="sort-icon"
+                            readonly=""
                             type="radio"
                           />
                           <label
@@ -552,6 +558,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                             aria-label="По убыванию"
                             id="down"
                             name="sort-icon"
+                            readonly=""
                             type="radio"
                           />
                           <label

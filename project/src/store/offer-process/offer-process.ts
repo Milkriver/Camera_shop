@@ -3,10 +3,9 @@ import { NameSpace } from '../../const';
 import { TOfferItem, TPromoOffer } from '../../types/offers';
 import { fetchOfferAction, fetchOffersAction, fetchPromoOfferAction, fetchSimilarOffersAction } from '../api-actions';
 
-type TInitialState = {
+export type TInitialState = {
   promoOffer: TPromoOffer | undefined;
   offers: TOfferItem[] | undefined;
-  activePaginationPage: number;
   offer: TOfferItem | undefined;
   similarOffers: TOfferItem[] | undefined;
   isDataLoading: boolean;
@@ -17,7 +16,6 @@ const initialState: TInitialState = {
   promoOffer: undefined,
   offers: undefined,
   offer: undefined,
-  activePaginationPage: 1,
   similarOffers: undefined,
   isDataLoading: false,
   hasError: false,

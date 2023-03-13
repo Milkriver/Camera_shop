@@ -26,6 +26,7 @@ exports[`Component: SortForm should render correctly 1`] = `
               checked=""
               id="sortPrice"
               name="sort"
+              readonly=""
               type="radio"
             />
             <label
@@ -60,6 +61,7 @@ exports[`Component: SortForm should render correctly 1`] = `
               checked=""
               id="up"
               name="sort-icon"
+              readonly=""
               type="radio"
             />
             <label
@@ -83,6 +85,7 @@ exports[`Component: SortForm should render correctly 1`] = `
               aria-label="По убыванию"
               id="down"
               name="sort-icon"
+              readonly=""
               type="radio"
             />
             <label
