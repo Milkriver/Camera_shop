@@ -1,4 +1,4 @@
-export type IOfferItem = {
+export type TOfferItem = {
     id: number;
     name: string;
     vendorCode: string;
@@ -15,7 +15,7 @@ export type IOfferItem = {
     reviewCount: number;
   }
 
-export type IReview = {
+export type TReview = {
     id: string;
     userName: string;
     advantage: string;
@@ -26,7 +26,7 @@ export type IReview = {
     cameraId: number;
   }
 
-export type IPromoOffer = {
+export type TPromoOffer = {
     id: number;
     name: string;
     previewImg: string;
@@ -35,7 +35,7 @@ export type IPromoOffer = {
     previewImgWebp2x: string;
   }
 
-export type IReviewPost = {
+export type TReviewPost = {
   cameraId: number;
   userName: string;
   advantage: string;
@@ -43,11 +43,11 @@ export type IReviewPost = {
   review: string;
   rating: number;
 }
-export type ICouponPost = {
+export type TCouponPost = {
     coupon: string;
 }
 
-export type OrderPost = {
+export type TOrderPost = {
     camerasIds: number[];
     coupon: string | null;
   }

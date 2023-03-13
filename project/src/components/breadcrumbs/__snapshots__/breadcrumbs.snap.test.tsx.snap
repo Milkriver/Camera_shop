@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Breadcrumbs should render correctly 1`] = `
+<div>
+  <div
+    class="breadcrumbs"
+  >
+    <div
+      class="container"
+    >
+      <ul
+        class="breadcrumbs__list"
+      >
+        <li
+          class="breadcrumbs__item"
+        >
+          <a
+            class="breadcrumbs__link"
+            href="/"
+          >
+            Главная
+            <svg
+              aria-hidden="true"
+              height="8"
+              width="5"
+            >
+              <use
+                xlink:href="#icon-arrow-mini"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: UpButton should render correctly 1`] = `
+<div>
+  <div
+    class="up-btn"
+  >
+    <svg
+      aria-hidden="true"
+      height="18"
+      width="12"
+    >
+      <use
+        xlink:href="#icon-arrow2"
+      />
+    </svg>
+  </div>
+</div>
+`;

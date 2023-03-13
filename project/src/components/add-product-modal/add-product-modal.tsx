@@ -1,4 +1,4 @@
-function Modal(): JSX.Element {
+function AddProductModal(): JSX.Element {
   return (
     <div className="modal is-active">
       <div className="modal__wrapper">
@@ -41,4 +41,4 @@ function Modal(): JSX.Element {
   );
 }
 
-export default Modal;
+export default AddProductModal;

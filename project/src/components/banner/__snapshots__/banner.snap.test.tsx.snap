@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Component: Banner should render correctly 1`] = `
+<div>
+  <div
+    class="banner"
+  >
+    <picture>
+      <source
+        srcset="undefined, undefined"
+        type="image/webp"
+      />
+      <img
+        alt="баннер"
+        height="280"
+        width="1280"
+      />
+    </picture>
+    <p
+      class="banner__info"
+    >
+      <span
+        class="banner__message"
+      >
+        Новинка!
+      </span>
+      <span
+        class="title title--h1"
+      />
+      <span
+        class="banner__text"
+      >
+        Профессиональная камера от известного производителя
+      </span>
+      <a
+        class="btn"
+        href="/product/undefined"
+      >
+        Подробнее
+      </a>
+    </p>
+  </div>
+</div>
+`;
