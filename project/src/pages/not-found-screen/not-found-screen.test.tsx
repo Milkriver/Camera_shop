@@ -1,9 +1,9 @@
-import { configureMockStore } from "@jedmao/redux-mock-store";
-import { render, screen } from "@testing-library/react";
-import { createMemoryHistory } from "history";
-import { Provider } from "react-redux";
-import HistoryRouter from "../../components/history-router/history-router";
-import NotFoundScreen from "./not-found-screen";
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
+import HistoryRouter from '../../components/history-router/history-router';
+import NotFoundScreen from './not-found-screen';
 
 const mockStore = configureMockStore();
 

@@ -13,7 +13,7 @@ export const dataProcess = createSlice({
   name: NameSpace.Data,
   initialState,
   reducers: {
-    changeActivePaginationPage: (state, action) => {
+    changeActivePaginationPage: (state, action: {payload: number; type: string}) => {
       state.activePaginationPage = action.payload;
     },
   },

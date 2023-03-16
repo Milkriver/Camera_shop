@@ -13,12 +13,12 @@ describe('Component: CatalogPage', () => {
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
-        OFFERS: {
-            offers: [],
-        },
-        DATA: {
-            activePaginationPage: 1,
-        }
+      OFFERS: {
+        offers: [],
+      },
+      DATA: {
+        activePaginationPage: 1,
+      }
     });
 
     const history = createMemoryHistory();

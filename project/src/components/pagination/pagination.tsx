@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeActivePaginationPage } from '../../store/data-process/data-process';
 import { setActivePaginationPage } from '../../store/data-process/selectors';
