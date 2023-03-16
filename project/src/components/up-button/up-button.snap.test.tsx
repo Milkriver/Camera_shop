@@ -9,7 +9,7 @@ const history = createMemoryHistory();
 describe('Component: UpButton', () => {
   it('should render correctly', () => {
     const {container} = render(
-        <HistoryRouter history={history}>
+      <HistoryRouter history={history}>
         <UpButton />
       </HistoryRouter>
     );

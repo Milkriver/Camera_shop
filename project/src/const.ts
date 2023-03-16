@@ -4,12 +4,15 @@ export enum AppRoute {
     Product = '/product/:id'
 }
 
-export enum APIRoutes {
+export enum APIRoute {
 Offers = '/cameras',
 Promo = '/promo',
 Reviews = '/reviews',
-Coupons = '/coupons',
-Orders = '/orders'
+}
+
+export enum TABS {
+    Overview = '#overview',
+    Details = '#details',
 }
 
 export const STARS = 5;

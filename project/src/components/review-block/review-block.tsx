@@ -29,32 +29,28 @@ function ReviewBlock(): JSX.Element {
   }, [dispatch, product]);
 
   useEffect(() => {
-    if (isModalOpen || isSuccessModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = (isModalOpen || isSuccessModalOpen) ? 'hidden' : 'unset';
   }, [isModalOpen, isSuccessModalOpen]);
 
   const handleClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
   const handleClickReview = () => setIsModalOpen(true);
-  const onModalClose = () => {
+  const handleModalClose = () => {
     setIsModalOpen(false);
     setIsSuccessModalOpen(false);
   };
-  const onModalReviewClose = () => {
+  const handleModalReviewClose = () => {
     setIsModalOpen(false);
     setIsSuccessModalOpen(true);
   };
-  const onSuccessModalClose = () => setIsSuccessModalOpen(false);
+  const handleSuccessModalClose = () => setIsSuccessModalOpen(false);
   return (
     <section className="review-block">
       <div className="container">
         <div className="page-content__headed">
           <h2 className="title title--h3">Отзывы</h2>
           <button className="btn" type="button" onClick={handleClickReview}>Оставить свой отзыв</button>
-          {isModalOpen && <AddReviewModal onClose={onModalReviewClose} onClick={onModalClose} />}
-          {isSuccessModalOpen && <AddReviewModalSuccess onClose={onSuccessModalClose} onClick={onModalClose} />}
+          {isModalOpen && <AddReviewModal onClose={handleModalReviewClose} onClick={handleModalClose} />}
+          {isSuccessModalOpen && <AddReviewModalSuccess onClose={handleSuccessModalClose} onClick={handleModalClose} />}
         </div>
         {reviews &&
         <>

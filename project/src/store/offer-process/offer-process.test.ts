@@ -6,12 +6,12 @@ describe('Reducer: review', () => {
   let state: TInitialState;
   beforeEach(() => {
     state = {
-        promoOffer: undefined,
-        offers: undefined,
-        offer: undefined,
-        similarOffers: undefined,
-        isDataLoading: false,
-        hasError: false,
+      promoOffer: undefined,
+      offers: undefined,
+      offer: undefined,
+      similarOffers: undefined,
+      isDataLoading: false,
+      hasError: false,
     };
   });
 

@@ -8,7 +8,7 @@ const history = createMemoryHistory();
 describe('Component: SortForm', () => {
   it('should render correctly', () => {
     const {container} = render(
-        <HistoryRouter history={history}>
+      <HistoryRouter history={history}>
         <SortForm />
       </HistoryRouter>
     );

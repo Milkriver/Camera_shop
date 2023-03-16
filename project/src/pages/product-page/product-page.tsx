@@ -6,6 +6,7 @@ import Header from '../../components/header/header';
 import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import UpButton from '../../components/up-button/up-button';
+import { STARS, TABS } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-actions';
 import { setOffer } from '../../store/offer-process/selectors';
@@ -17,15 +18,15 @@ function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product = useAppSelector(setOffer);
-  const [activeTab, setActiveTab] = useState('Details');
+  const [activeTab, setActiveTab] = useState(TABS.Details);
   const handleOverview = () => {
-    setActiveTab('Overview');
-    navigate(`#overview`);
+    setActiveTab(TABS.Overview);
+    navigate(TABS.Overview);
   };
   const handleDetails = () => {
-    setActiveTab('Details');
-    navigate(`#details`);
-  }
+    setActiveTab(TABS.Details);
+    navigate(TABS.Details);
+  };
 
   useEffect(() => {
     dispatch(fetchOfferAction(Number(id)));
@@ -40,13 +41,13 @@ function ProductPage(): JSX.Element {
   }
   const changeActiveTab = () => {
     switch (activeTab) {
-      case 'Overview':
+      case TABS.Overview:
         return (
           <div className="product__tabs-text">
             {product.description}
           </div>
         );
-      case 'Details':
+      case TABS.Details:
         return (
           <ul className="product__tabs-list">
             <li className="item-list"><span className="item-list__title">Артикул:</span>
@@ -91,7 +92,7 @@ function ProductPage(): JSX.Element {
                   <h1 className="title title--h3">{product.name}</h1>
                   <div className="rate product__rate">
                     {
-                      Array.from({ length: 5 }, (_, index) => (
+                      Array.from({ length: STARS }, (_, index) => (
                         <svg width="17" height="16" aria-hidden="true" key={index}>
                           {product.rating > index && <use xlinkHref="#icon-full-star" />}
                           {product.rating <= index && <use xlinkHref="#icon-star" />}
@@ -109,8 +110,8 @@ function ProductPage(): JSX.Element {
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
-                      <button className={`tabs__control ${activeTab === 'Details' ? 'is-active' : ''}`} type="button" onClick={handleDetails}>Характеристики</button>
-                      <button className={`tabs__control ${activeTab === 'Overview' ? 'is-active' : ''}`} type="button" onClick={handleOverview}>Описание</button>
+                      <button className={`tabs__control ${activeTab === TABS.Details ? 'is-active' : ''}`} type="button" onClick={handleDetails}>Характеристики</button>
+                      <button className={`tabs__control ${activeTab === TABS.Overview ? 'is-active' : ''}`} type="button" onClick={handleOverview}>Описание</button>
                     </div>
                     <div className="tabs__content">
                       <div className="tabs__element is-active">

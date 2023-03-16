@@ -1,5 +1,5 @@
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, STARS } from '../../const';
 import { TOfferItem } from '../../types/offers';
 
 
@@ -21,7 +21,7 @@ function ProductCard({ product, isActive }: IProps): JSX.Element {
       <div className="product-card__info">
         <div className="rate product-card__rate">
           {
-            Array.from({ length: 5 }, (_, index) => (
+            Array.from({ length: STARS }, (_, index) => (
               <svg width="17" height="16" aria-hidden="true" key={index}>
                 {product.rating > index && <use xlinkHref="#icon-full-star" />}
                 {product.rating <= index && <use xlinkHref="#icon-star" />}

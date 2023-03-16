@@ -15,15 +15,15 @@ describe('Component: Pagination', () => {
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
-        DATA: {
-            activePaginationPage: 1,
-        }
+      DATA: {
+        activePaginationPage: 1,
+      }
     });
     const {container} = render(
-        <Provider store={store}>
-            <HistoryRouter history={history}>
-                <Pagination pages={mockPages}/>
-            </HistoryRouter>
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Pagination pages={mockPages}/>
+        </HistoryRouter>
       </Provider>,
     );
 

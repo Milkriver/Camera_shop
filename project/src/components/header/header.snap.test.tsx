@@ -9,7 +9,7 @@ const history = createMemoryHistory();
 describe('Component: Header', () => {
   it('should render correctly', () => {
     const {container} = render(
-        <HistoryRouter history={history}>
+      <HistoryRouter history={history}>
         <Header />
       </HistoryRouter>
     );

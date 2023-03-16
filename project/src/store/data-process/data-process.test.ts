@@ -4,7 +4,7 @@ describe('Reducer: data', () => {
   let state: TInitialState;
   beforeEach(() => {
     state = {
-        activePaginationPage: 1,
+      activePaginationPage: 1,
     };
   });
   const mockState = {

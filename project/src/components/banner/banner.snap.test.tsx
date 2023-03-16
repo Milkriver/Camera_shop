@@ -15,16 +15,16 @@ describe('Component: Banner', () => {
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
-        OFFERS: {
-            promoOffer: {}
-        }
+      OFFERS: {
+        promoOffer: {}
+      }
     });
     const {container} = render(
-        <Provider store={store}>
-            <HistoryRouter history={history}>
-                <Banner />
-            </HistoryRouter>
-        </Provider>,
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Banner />
+        </HistoryRouter>
+      </Provider>,
     );
 
     expect(container).toMatchSnapshot();

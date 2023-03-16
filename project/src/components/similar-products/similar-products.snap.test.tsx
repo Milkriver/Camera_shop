@@ -7,16 +7,15 @@ import HistoryRouter from '../../components/history-router/history-router';
 import SimilarProducts from './similar-products';
 
 
-
 describe('Component: SimilarProducts', () => {
   test('should render correctly', () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
-        OFFERS: {
-            offers: [],
-        }
+      OFFERS: {
+        offers: [],
+      }
     });
 
     const history = createMemoryHistory();
