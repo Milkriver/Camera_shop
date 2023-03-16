@@ -1,3 +1,4 @@
+import { STARS } from '../../const';
 import { TReview } from '../../types/offers';
 import { getReviewDate } from '../../utils';
 
@@ -14,7 +15,7 @@ function ReviewItem({ review }: IProps): JSX.Element {
       </div>
       <div className="rate review-card__rate">
         {
-          Array.from({ length: 5 }, (_, index) => (
+          Array.from({ length: STARS }, (_, index) => (
             <svg width="17" height="16" aria-hidden="true" key={index}>
               {review.rating > index && <use xlinkHref="#icon-full-star" />}
               {review.rating <= index && <use xlinkHref="#icon-star" />}

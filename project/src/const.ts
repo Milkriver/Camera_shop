@@ -10,6 +10,11 @@ Promo = '/promo',
 Reviews = '/reviews',
 }
 
+export enum TABS {
+    Overview = '#overview',
+    Details = '#details',
+}
+
 export const STARS = 5;
 
 export const PRODUCTS_CARD_QUANTITY = 3;
