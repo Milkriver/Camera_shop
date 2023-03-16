@@ -8,9 +8,9 @@ const history = createMemoryHistory();
 describe('Component: SearchForm', () => {
   it('should render correctly', () => {
     const {container} = render(
-        <HistoryRouter history={history}>
-            <SearchForm />
-        </HistoryRouter>
+      <HistoryRouter history={history}>
+        <SearchForm />
+      </HistoryRouter>
     );
 
     expect(container).toMatchSnapshot();

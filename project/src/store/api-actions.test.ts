@@ -29,8 +29,8 @@ describe('Async actions', () => {
     await store.dispatch(fetchPromoOfferAction());
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-        fetchPromoOfferAction.pending.type,
-        fetchPromoOfferAction.fulfilled.type
+      fetchPromoOfferAction.pending.type,
+      fetchPromoOfferAction.fulfilled.type
     ]);
   });
 
@@ -54,8 +54,8 @@ describe('Async actions', () => {
     await store.dispatch(fetchOfferAction(mockId));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-        fetchOfferAction.pending.type,
-        fetchOfferAction.fulfilled.type
+      fetchOfferAction.pending.type,
+      fetchOfferAction.fulfilled.type
     ]);
   });
 
@@ -66,8 +66,8 @@ describe('Async actions', () => {
     await store.dispatch(fetchSimilarOffersAction(mockId));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-        fetchSimilarOffersAction.pending.type,
-        fetchSimilarOffersAction.fulfilled.type
+      fetchSimilarOffersAction.pending.type,
+      fetchSimilarOffersAction.fulfilled.type
     ]);
   });
 
@@ -78,8 +78,8 @@ describe('Async actions', () => {
     await store.dispatch(fetchOfferReviewsAction(mockId));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-        fetchOfferReviewsAction.pending.type,
-        fetchOfferReviewsAction.fulfilled.type
+      fetchOfferReviewsAction.pending.type,
+      fetchOfferReviewsAction.fulfilled.type
     ]);
   });
 

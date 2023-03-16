@@ -14,18 +14,18 @@ describe('Component: Main', () => {
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
-        DATA: {
-            activePaginationPage: 1,
-        },
-        OFFERS: {
-            offers: []
-        }
+      DATA: {
+        activePaginationPage: 1,
+      },
+      OFFERS: {
+        offers: []
+      }
     });
     const {container} = render(
-        <Provider store={store}>
-            <HistoryRouter history={history}>
-                <Main/>
-            </HistoryRouter>
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <Main/>
+        </HistoryRouter>
       </Provider>,
     );
 

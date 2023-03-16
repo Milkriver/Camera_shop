@@ -4,13 +4,13 @@ import HistoryRouter from '../history-router/history-router';
 import NavMenu from './nav-menu';
 
 const history = createMemoryHistory();
-const mockClassName= '';
+const mockClassName = '';
 
 describe('Component: NavMenu', () => {
   it('should render correctly', () => {
     const {container} = render(
-        <HistoryRouter history={history}>
-            <NavMenu classname={mockClassName}/>
+      <HistoryRouter history={history}>
+        <NavMenu classname={mockClassName}/>
       </HistoryRouter>
     );
 

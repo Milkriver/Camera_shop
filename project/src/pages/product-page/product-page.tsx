@@ -26,7 +26,7 @@ function ProductPage(): JSX.Element {
   const handleDetails = () => {
     setActiveTab(TABS.Details);
     navigate(TABS.Details);
-  }
+  };
 
   useEffect(() => {
     dispatch(fetchOfferAction(Number(id)));

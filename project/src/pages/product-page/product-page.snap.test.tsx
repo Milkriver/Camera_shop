@@ -13,11 +13,11 @@ describe('Component: ProductPage', () => {
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
-        OFFERS: {
-            offers: [],
-            offer: {},
-            similarOffers: []
-        }
+      OFFERS: {
+        offers: [],
+        offer: {},
+        similarOffers: []
+      }
     });
 
     const history = createMemoryHistory();

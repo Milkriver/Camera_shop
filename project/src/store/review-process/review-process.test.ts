@@ -6,8 +6,8 @@ describe('Reducer: review', () => {
   let state: TInitialState;
   beforeEach(() => {
     state = {
-        offerReviews: undefined,
-        reviewModalState: false,
+      offerReviews: undefined,
+      reviewModalState: false,
     };
   });
   const mockState = {

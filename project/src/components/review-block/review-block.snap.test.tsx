@@ -7,19 +7,18 @@ import HistoryRouter from '../../components/history-router/history-router';
 import ReviewBlock from './review-block';
 
 
-
 describe('Component: ReviewBlock', () => {
   test('should render correctly', () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
-        OFFERS: {
-            offer: {},
-        },
-        REVIEWS: {
-            reviews: {},
-        } 
+      OFFERS: {
+        offer: {},
+      },
+      REVIEWS: {
+        reviews: {},
+      }
     });
 
     const history = createMemoryHistory();

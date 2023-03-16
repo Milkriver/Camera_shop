@@ -10,7 +10,7 @@ const mockName = '';
 describe('Component: Breadcrumbs', () => {
   it('should render correctly', () => {
     const {container} = render(
-        <HistoryRouter history={history}>
+      <HistoryRouter history={history}>
         <Breadcrumbs name = {mockName} />
       </HistoryRouter>
     );
