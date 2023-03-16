@@ -18,7 +18,7 @@ export const reviewProcess = createSlice({
   name: NameSpace.Reviews,
   initialState,
   reducers: {
-    changeModalState: (state, action) => {
+    changeModalState: (state, action: {payload: boolean; type: string}) => {
       state.reviewModalState = action.payload;
     },
   },
