@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
-import { APIRoutes } from '../const';
+import { APIRoute } from '../const';
 import { TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
 import { setNewComment } from './actions';
 
@@ -13,7 +13,7 @@ export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
 >(
   'offers/fetchPromoOffer',
   async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<TPromoOffer>(APIRoutes.Promo);
+    const { data } = await api.get<TPromoOffer>(APIRoute.Promo);
     return data;
   },
 );
@@ -26,7 +26,7 @@ export const fetchOffersAction = createAsyncThunk<TOfferItem[], undefined, {
 >(
   'offers/fetchOffers',
   async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<TOfferItem[]>(APIRoutes.Offers);
+    const { data } = await api.get<TOfferItem[]>(APIRoute.Offers);
     return data;
   },
 );
@@ -39,7 +39,7 @@ export const fetchOfferAction = createAsyncThunk<TOfferItem, number, {
 >(
   'offers/fetchOffer',
   async (id, { dispatch, extra: api }) => {
-    const { data } = await api.get<TOfferItem>(`${APIRoutes.Offers}/${id}`);
+    const { data } = await api.get<TOfferItem>(`${APIRoute.Offers}/${id}`);
     return data;
   },
 );
@@ -52,7 +52,7 @@ export const fetchSimilarOffersAction = createAsyncThunk<TOfferItem[], number, {
 >(
   'offers/fetchSimilarOffers',
   async (id, { dispatch, extra: api }) => {
-    const { data } = await api.get<TOfferItem[]>(`${APIRoutes.Offers}/${id}/similar`);
+    const { data } = await api.get<TOfferItem[]>(`${APIRoute.Offers}/${id}/similar`);
     return data;
   },
 );
@@ -65,7 +65,7 @@ export const fetchOfferReviewsAction = createAsyncThunk<TReview[], number, {
 >(
   'offers/fetchOfferReviewsAction',
   async (id, { dispatch, extra: api }) => {
-    const { data } = await api.get<TReview[]>(`${APIRoutes.Offers}/${id}/reviews`);
+    const { data } = await api.get<TReview[]>(`${APIRoute.Offers}/${id}/reviews`);
     return data;
   },
 );
@@ -78,7 +78,7 @@ export const addNewCommentAction = createAsyncThunk<void, TReviewPost, {
 >(
   'offers/addNewComment',
   async ( review, { dispatch, extra: api }) => {
-    const { data } = await api.post<TReviewPost>(APIRoutes.Reviews, review);
+    const { data } = await api.post<TReviewPost>(APIRoute.Reviews, review);
     dispatch(setNewComment(data));
   },
 );
