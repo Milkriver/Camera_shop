@@ -12,8 +12,8 @@ describe('Reducer: data', () => {
   };
 
   it('should get activePaginationPage by a given value', () => {
-    expect(dataProcess.reducer(state, changeActivePaginationPage({ activePaginationPage: 2 })).activePaginationPage)
-      .toEqual(mockState);
+    expect(dataProcess.reducer(state, changeActivePaginationPage(2)).activePaginationPage)
+      .toEqual(mockState.activePaginationPage);
   });
 
 });

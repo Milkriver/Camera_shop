@@ -16,8 +16,8 @@ describe('Reducer: review', () => {
   };
 
   it('should get reviewModalState by a given value', () => {
-    expect(reviewProcess.reducer(state, changeModalState({ reviewModalState: true })).reviewModalState)
-      .toEqual(mockState);
+    expect(reviewProcess.reducer(state, changeModalState(true)).reviewModalState)
+      .toEqual(mockState.reviewModalState);
   });
 
   it('should update reviews if fetchOfferReviewsAction fulfilled', () => {
