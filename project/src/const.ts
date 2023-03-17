@@ -10,7 +10,7 @@ Promo = '/promo',
 Reviews = '/reviews',
 }
 
-export enum TABS {
+export enum TAB {
     Overview = '#overview',
     Details = '#details',
 }
