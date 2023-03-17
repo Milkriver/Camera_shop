@@ -6,7 +6,7 @@ import Header from '../../components/header/header';
 import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import UpButton from '../../components/up-button/up-button';
-import { STARS, TABS } from '../../const';
+import { STARS, TAB } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-actions';
 import { setOffer } from '../../store/offer-process/selectors';
@@ -18,14 +18,14 @@ function ProductPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const product = useAppSelector(setOffer);
-  const [activeTab, setActiveTab] = useState(TABS.Details);
+  const [activeTab, setActiveTab] = useState(TAB.Details);
   const handleOverview = () => {
-    setActiveTab(TABS.Overview);
-    navigate(TABS.Overview);
+    setActiveTab(TAB.Overview);
+    navigate(TAB.Overview);
   };
   const handleDetails = () => {
-    setActiveTab(TABS.Details);
-    navigate(TABS.Details);
+    setActiveTab(TAB.Details);
+    navigate(TAB.Details);
   };
 
   useEffect(() => {
@@ -41,13 +41,13 @@ function ProductPage(): JSX.Element {
   }
   const changeActiveTab = () => {
     switch (activeTab) {
-      case TABS.Overview:
+      case TAB.Overview:
         return (
           <div className="product__tabs-text">
             {product.description}
           </div>
         );
-      case TABS.Details:
+      case TAB.Details:
         return (
           <ul className="product__tabs-list">
             <li className="item-list"><span className="item-list__title">Артикул:</span>
@@ -110,8 +110,8 @@ function ProductPage(): JSX.Element {
                   </button>
                   <div className="tabs product__tabs">
                     <div className="tabs__controls product__tabs-controls">
-                      <button className={`tabs__control ${activeTab === TABS.Details ? 'is-active' : ''}`} type="button" onClick={handleDetails}>Характеристики</button>
-                      <button className={`tabs__control ${activeTab === TABS.Overview ? 'is-active' : ''}`} type="button" onClick={handleOverview}>Описание</button>
+                      <button className={`tabs__control ${activeTab === TAB.Details ? 'is-active' : ''}`} type="button" onClick={handleDetails}>Характеристики</button>
+                      <button className={`tabs__control ${activeTab === TAB.Overview ? 'is-active' : ''}`} type="button" onClick={handleOverview}>Описание</button>
                     </div>
                     <div className="tabs__content">
                       <div className="tabs__element is-active">
