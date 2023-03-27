@@ -2,7 +2,10 @@ import './up-button.css';
 
 function UpButton(): JSX.Element {
   const handleСlick = () => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
   return (
     <div className="up-btn" onClick={handleСlick}>

@@ -19,6 +19,7 @@ const ratingStars = [
   { title: 'Ужасно', id: 1, },
 ];
 const MIN_COMMENT_LENGTH = 5;
+const MIN_NAME_LENGTH = 3;
 
 function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
   const snowflakeIcon = <svg width="9" height="9" aria-hidden="true"><use xlinkHref="#icon-snowflake"></use></svg>;
@@ -72,10 +73,10 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
         <div className="modal__overlay" onClick={onClick}></div>
         <div className="modal__content">
           <p className="title title--h4">Оставить отзыв</p>
-          <div className="htmlForm-review">
+          <div className="form-review">
             <form onSubmit={handleSubmit}>
-              <div className="htmlForm-review__rate">
-                <fieldset className="rate htmlForm-review__item">
+              <div className="form-review__rate">
+                <fieldset className="rate form-review__item">
                   <legend className="rate__caption">Рейтинг{snowflakeIcon}
                   </legend>
                   <div className="rate__bar">
@@ -101,7 +102,7 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
                   </div>
                   <p className="rate__message">Нужно оценить товар</p>
                 </fieldset>
-                <div className="custom-input htmlForm-review__item">
+                <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">Ваше имя {snowflakeIcon}</span>
                     <input
@@ -113,9 +114,9 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
                       onChange={handleNameChange}
                     />
                   </label>
-                  <p className="custom-input__error">Нужно указать имя</p>
+                  <p className="custom-input__error" style={{opacity: userName.length < MIN_NAME_LENGTH ? 1 : 0}}>Нужно указать имя</p>
                 </div>
-                <div className="custom-input htmlForm-review__item">
+                <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">Достоинства{snowflakeIcon}</span>
                     <input
@@ -126,9 +127,9 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
                       required
                     />
                   </label>
-                  <p className="custom-input__error">Нужно указать достоинства</p>
+                  <p className="custom-input__error" style={{opacity: advantage.length < MIN_COMMENT_LENGTH ? 1 : 0}}>Нужно указать достоинства</p>
                 </div>
-                <div className="custom-input htmlForm-review__item">
+                <div className="custom-input form-review__item">
                   <label>
                     <span className="custom-input__label">Недостатки{snowflakeIcon}</span>
                     <input
@@ -140,9 +141,9 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
                       required
                     />
                   </label>
-                  <p className="custom-input__error">Нужно указать недостатки</p>
+                  <p className="custom-input__error" style={{opacity: disadvantage.length < MIN_COMMENT_LENGTH ? 1 : 0}}>Нужно указать недостатки</p>
                 </div>
-                <div className="custom-textarea htmlForm-review__item">
+                <div className="custom-textarea form-review__item">
                   <label>
                     <span className="custom-textarea__label">Комментарий{snowflakeIcon}</span>
                     <textarea
@@ -153,19 +154,19 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
                       value={comment}
                     />
                   </label>
-                  <div className="custom-textarea__error">Нужно добавить комментарий</div>
+                  <div className="custom-textarea__error" style={{opacity: comment.length < MIN_COMMENT_LENGTH ? 1 : 0}}>Нужно добавить комментарий</div>
                 </div>
               </div>
               <button
-                className="btn btn--purple htmlForm-review__btn"
+                className="btn btn--purple form-review__btn"
                 type="submit"
                 disabled={
                   !rating ||
                   statusSubmit
-                  || comment.length <= MIN_COMMENT_LENGTH
-                  || advantage.length <= MIN_COMMENT_LENGTH
-                  || disadvantage.length <= MIN_COMMENT_LENGTH
-                  || userName.length <= MIN_COMMENT_LENGTH
+                  || comment.length < MIN_COMMENT_LENGTH
+                  || advantage.length < MIN_COMMENT_LENGTH
+                  || disadvantage.length < MIN_COMMENT_LENGTH
+                  || userName.length < MIN_NAME_LENGTH
                 }
               >
                 Отправить отзыв
