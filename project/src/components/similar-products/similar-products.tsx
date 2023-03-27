@@ -30,12 +30,12 @@ function SimilarProducts(): JSX.Element {
           <div className="product-similar__slider-list">
             {similarProducts.map((element, index) => <ProductCard product = {element} key={element.id} isActive={index >= start && index < end}/>)}
           </div>
-          <button className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" onClick={handleDecClick} disabled={start > 0}>
+          <button className="slider-controls slider-controls--prev" type="button" aria-label="Предыдущий слайд" onMouseDown={handleDecClick} disabled={start === 0}>
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>
           </button>
-          <button className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" onClick={handleIncClick}>
+          <button className="slider-controls slider-controls--next" type="button" aria-label="Следующий слайд" onMouseDown={handleIncClick} disabled={end >= similarProducts.length}>
             <svg width="7" height="12" aria-hidden="true">
               <use xlinkHref="#icon-arrow"></use>
             </svg>

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { REVIEWS_QUANTITY } from '../../const';
 import { useAppSelector } from '../../hooks';
@@ -31,6 +31,21 @@ function ReviewBlock(): JSX.Element {
   useEffect(() => {
     document.body.style.overflow = (isModalOpen || isSuccessModalOpen) ? 'hidden' : 'unset';
   }, [isModalOpen, isSuccessModalOpen]);
+
+  const ecsPress = useCallback((event: { keyCode: number }) => {
+    if (event.keyCode === 27) {
+      setIsModalOpen(false);
+      setIsSuccessModalOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keydown', ecsPress);
+    return () => {
+      document.removeEventListener('keydown', ecsPress);
+    };
+  }, [ecsPress]);
+
 
   const handleClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
   const handleClickReview = () => setIsModalOpen(true);
