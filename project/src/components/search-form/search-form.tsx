@@ -10,9 +10,8 @@ function SearchForm(): JSX.Element {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.currentTarget.value);
   const handleClick = () => setSearchValue('');
   const filteredProducts = products ? products.filter((element) => element.name.toLowerCase().includes(searchValue.toLowerCase())) : [];
-
   return (
-    <div className={`form-search ${searchValue ? 'list-opened' : ''}`}>
+    <div className={`form-search ${searchValue && filteredProducts.length !== 0 ? 'list-opened' : ''}`}>
       <form>
         <label>
           <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
@@ -23,7 +22,7 @@ function SearchForm(): JSX.Element {
         <ul className="form-search__select-list">
           {filteredProducts && filteredProducts.map((element) => (
             <li className="form-search__select-item" tabIndex={0} key={element.name}>
-              <Link to={generatePath(AppRoute.Product, { id: String(element.id) })}>{element.name}</Link>
+              <Link to={generatePath(AppRoute.Product, { id: String(element.id) })} onClick={handleClick}>{element.name}</Link>
             </li>
           ))}
         </ul>
