@@ -39,7 +39,7 @@ describe('Async actions', () => {
       .onGet(APIRoute.Offers)
       .reply(200, mockOffers);
     const store = mockStore();
-    await store.dispatch(fetchOffersAction());
+    await store.dispatch(fetchOffersAction(''));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
       fetchOffersAction.pending.type,

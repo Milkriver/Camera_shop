@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { orderTypes, sortTypes } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { fetchOffersAction } from '../../store/api-actions';
 import { TSortType } from '../../types/utils';
 
 function SortForm(): JSX.Element {
-  const [sortType, setSortType] = useState('price');
+  const [sortType, setSortType] = useState('');
   const [orderType, setOrderType] = useState('asc');
   const handleSortClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSortType(event.target.value);
@@ -11,9 +13,20 @@ function SortForm(): JSX.Element {
   const handleSortOrderClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOrderType(event.target.value);
   };
+  const dispatch = useAppDispatch();
+  const params = new URLSearchParams();
+  if(sortType){
+    params.append('_sort', sortType);
+  }
+  params.append('_order', orderType);
+  const sortParams = params.toString();
+
+  useEffect(()=>{
+    dispatch(fetchOffersAction(sortParams));
+  },[dispatch, sortParams]);
 
   const renderSortButton = (option: TSortType) => (
-    <div className={`catalog-sort__btn-${option.type}`}>
+    <div className={`catalog-sort__btn-${option.type}`} key={option.name}>
       <input
         type="radio"
         id={option.name}
@@ -26,7 +39,7 @@ function SortForm(): JSX.Element {
     </div>);
 
   const renderOrderButton = (option: TSortType) => (
-    <div className={`catalog-sort__btn catalog-sort__btn--${option.type}`}>
+    <div className={`catalog-sort__btn catalog-sort__btn--${option.type}`} key={option.name}>
       <input
         type="radio"
         id={option.type}

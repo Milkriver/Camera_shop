@@ -18,15 +18,15 @@ export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
   },
 );
 
-export const fetchOffersAction = createAsyncThunk<TOfferItem[], undefined, {
+export const fetchOffersAction = createAsyncThunk<TOfferItem[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
   'offers/fetchOffers',
-  async (_arg, { dispatch, extra: api }) => {
-    const { data } = await api.get<TOfferItem[]>(APIRoute.Offers);
+  async (params, { dispatch, extra: api }) => {
+    const { data } = await api.get<TOfferItem[]>(`${APIRoute.Offers}${params ? `?${params}` : ''}`);
     return data;
   },
 );
