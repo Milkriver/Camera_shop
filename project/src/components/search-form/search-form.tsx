@@ -9,10 +9,7 @@ function SearchForm(): JSX.Element {
   const [searchValue, setSearchValue] = useState('');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.currentTarget.value);
   const handleClick = () => setSearchValue('');
-  if(!products){
-    return <li className="form-search__select-item" tabIndex={0}></li>;
-  }
-  const filteredProducts = products.filter((element) => element.name.toLowerCase().includes(searchValue.toLowerCase()));
+  const filteredProducts = products ? products.filter((element) => element.name.toLowerCase().includes(searchValue.toLowerCase())) : [];
 
   return (
     <div className={`form-search ${searchValue ? 'list-opened' : ''}`}>
