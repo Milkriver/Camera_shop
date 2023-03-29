@@ -1,20 +1,37 @@
+import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
+import { setOffers } from '../../store/offer-process/selectors';
+
 function SearchForm(): JSX.Element {
+  const products = useAppSelector(setOffers);
+  const [searchValue, setSearchValue] = useState('');
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.currentTarget.value);
+  if(!products){
+    return <li className="form-search__select-item" tabIndex={0}></li>;
+  }
+  const filteredProducts = products.filter((element) => element.name.toLowerCase().includes(searchValue.toLowerCase()));
+
   return (
-    <form>
-      <label>
-        <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
-          <use xlinkHref="#icon-lens"></use>
-        </svg>
-        <input className="form-search__input" type="text" autoComplete="off" placeholder="Поиск по сайту"/>
-      </label>
-      <ul className="form-search__select-list">
-        <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 8i</li>
-        <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 7i</li>
-        <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 6i</li>
-        <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 5i</li>
-        <li className="form-search__select-item" tabIndex={0}>Cannonball Pro MX 4i</li>
-      </ul>
-    </form>
+    <div className={`form-search ${searchValue ? 'list-opened' : ''}`}>
+      <form>
+        <label>
+          <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
+            <use xlinkHref="#icon-lens"></use>
+          </svg>
+          <input className="form-search__input" type="text" autoComplete="off" placeholder="Поиск по сайту" onChange={handleChange}/>
+        </label>
+        <ul className="form-search__select-list">
+          {filteredProducts && filteredProducts.map((element) => <li className="form-search__select-item" tabIndex={0} key={element.name}>{element.name}</li>)}
+        </ul>
+      </form>
+      <button className="form-search__reset" type="reset">
+        <svg width="10" height="10" aria-hidden="true">
+          <use xlinkHref="#icon-close"></use>
+        </svg><span className="visually-hidden">Сбросить поиск</span>
+      </button>
+    </div>
+
+
   );
 }
 
