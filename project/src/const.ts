@@ -23,7 +23,7 @@ export const sortTypes = [
   },
   {
     type: 'text',
-    name: 'popular',
+    name: 'rating',
     label: 'по популярности'
   },
 ];
