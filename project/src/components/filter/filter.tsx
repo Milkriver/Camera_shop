@@ -8,11 +8,11 @@ function Filter(): JSX.Element {
   const [checkedFilterList, setCheckedFilterList] = useState(filterItem);
   const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => setStartPrice(event.target.value);
   const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => setEndPrice(event.target.value);
-  const renderFilterItem = (item: TFilterItem, type: string, checkHandler:() => void) => (
+  const renderFilterItem = (item: TFilterItem, type: string, handleCheck:() => void) => (
     type === item.type &&
     <div className="custom-checkbox catalog-filter__item" key={item.name}>
       <label>
-        <input type="checkbox" name={item.name} checked={item.checked} onChange={checkHandler}/>
+        <input type="checkbox" name={item.name} checked={item.checked} onChange={handleCheck}/>
         <span className="custom-checkbox__icon"/>
         <span className="custom-checkbox__label">{item.title}</span>
       </label>
