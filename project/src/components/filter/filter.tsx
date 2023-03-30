@@ -1,17 +1,35 @@
-import { categoryFilter, levelFilter, typeFilter } from '../../const';
+import { useState } from 'react';
+import { filterItem, FilterType } from '../../const';
 import { TFilterItem } from '../../types/utils';
 
 function Filter(): JSX.Element {
-
-  const renderFilterItem = (item: TFilterItem) => (
+  const [ startPrice, setStartPrice ] = useState('');
+  const [ endPrice, setEndPrice ] = useState('');
+  const [checkedFilterList, setCheckedFilterList] = useState(filterItem);
+  const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => setStartPrice(event.target.value);
+  const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => setEndPrice(event.target.value);
+  const renderFilterItem = (item: TFilterItem, type: string, checkHandler:() => void) => (
+    type === item.type &&
     <div className="custom-checkbox catalog-filter__item" key={item.name}>
       <label>
-        <input type="checkbox" name={item.name} checked={item.checked} />
+        <input type="checkbox" name={item.name} checked={item.checked} onChange={checkHandler}/>
         <span className="custom-checkbox__icon"/>
         <span className="custom-checkbox__label">{item.title}</span>
       </label>
     </div>
   );
+  const updateCheckStatus = (index: number) => {
+    setCheckedFilterList(
+      checkedFilterList.map((filter, currentIndex) =>
+        currentIndex === index ? { ...filter, checked: !filter.checked } : filter
+      )
+    );
+  };
+  const onResetFilter = () => {
+    setCheckedFilterList(filterItem);
+    setStartPrice('');
+    setEndPrice('');
+  };
   return (
     <div className="catalog-filter">
       <form action="#">
@@ -21,29 +39,29 @@ function Filter(): JSX.Element {
           <div className="catalog-filter__price-range">
             <div className="custom-input">
               <label>
-                <input type="number" name="price" placeholder="от"/>
+                <input type="number" name="price" placeholder="от" value={Number(startPrice) >= 0 ? startPrice : 0} onChange={handleStartPrice}/>
               </label>
             </div>
             <div className="custom-input">
               <label>
-                <input type="number" name="priceUp" placeholder="до"/>
+                <input type="number" name="priceUp" placeholder="до" value={endPrice} onChange={handleEndPrice}/>
               </label>
             </div>
           </div>
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Категория</legend>
-          {categoryFilter.map((item) => renderFilterItem(item))}
+          {filterItem.map((item, index) => renderFilterItem(item, FilterType.Category, () => updateCheckStatus(index)))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
-          {typeFilter.map((item) => renderFilterItem(item))}
+          {filterItem.map((item, index) => renderFilterItem(item, FilterType.Type, () => updateCheckStatus(index)))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Уровень</legend>
-          {levelFilter.map((item) => renderFilterItem(item))}
+          {filterItem.map((item, index) => renderFilterItem(item, FilterType.Level, () => updateCheckStatus(index)))}
         </fieldset>
-        <button className="btn catalog-filter__reset-btn" type="reset">Сбросить фильтры
+        <button className="btn catalog-filter__reset-btn" type="reset" onClick={onResetFilter}>Сбросить фильтры
         </button>
       </form>
     </div>

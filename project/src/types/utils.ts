@@ -6,6 +6,7 @@ export type TSortType =
     }
 
 export type TFilterItem = {
+      type: string;
       name: string;
       checked: boolean;
       title: string;
