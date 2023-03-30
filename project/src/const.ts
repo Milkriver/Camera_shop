@@ -52,3 +52,57 @@ export enum NameSpace {
     Offers = 'OFFERS',
     Reviews = 'REVIEWS'
 }
+
+export const categoryFilter = [
+  {
+    name: 'photocamera',
+    checked: false,
+    title: 'Фотокамера',
+  },
+  {
+    name: 'videocamera',
+    checked: false,
+    title: 'Видеокамера',
+  }
+];
+
+export const typeFilter = [
+  {
+    name: 'digital',
+    checked: false,
+    title: 'Цифровая',
+  },
+  {
+    name: 'film',
+    checked: false,
+    title: 'Плёночная',
+  },
+  {
+    name: 'snapshot',
+    checked: false,
+    title: 'Моментальная',
+  },
+  {
+    name: 'collection',
+    checked: false,
+    title: 'Коллекционная',
+  }
+];
+
+export const levelFilter = [
+  {
+    name: 'zero',
+    checked: false,
+    title: 'Нулевой',
+  },
+  {
+    name: 'non-professional',
+    checked: false,
+    title: 'Любительский',
+  },
+  {
+    name: 'professional',
+    checked: false,
+    title: 'Профессиональный',
+  }
+];

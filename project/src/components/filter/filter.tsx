@@ -1,5 +1,17 @@
+import { categoryFilter, levelFilter, typeFilter } from '../../const';
+import { TFilterItem } from '../../types/utils';
 
 function Filter(): JSX.Element {
+
+  const renderFilterItem = (item: TFilterItem) => (
+    <div className="custom-checkbox catalog-filter__item" key={item.name}>
+      <label>
+        <input type="checkbox" name={item.name} checked={item.checked} />
+        <span className="custom-checkbox__icon"/>
+        <span className="custom-checkbox__label">{item.title}</span>
+      </label>
+    </div>
+  );
   return (
     <div className="catalog-filter">
       <form action="#">
@@ -21,57 +33,15 @@ function Filter(): JSX.Element {
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Категория</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="photocamera" checked readOnly /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Фотокамера</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="videocamera" /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Видеокамера</span>
-            </label>
-          </div>
+          {categoryFilter.map((item) => renderFilterItem(item))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="digital" checked readOnly /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Цифровая</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="film" disabled /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Плёночная</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="snapshot" /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Моментальная</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="collection" checked readOnly disabled /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Коллекционная</span>
-            </label>
-          </div>
+          {typeFilter.map((item) => renderFilterItem(item))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Уровень</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="zero" checked readOnly /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Нулевой</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="non-professional"/><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Любительский</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="professional" /><span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Профессиональный</span>
-            </label>
-          </div>
+          {levelFilter.map((item) => renderFilterItem(item))}
         </fieldset>
         <button className="btn catalog-filter__reset-btn" type="reset">Сбросить фильтры
         </button>

@@ -4,3 +4,9 @@ export type TSortType =
       name: string;
       label: string;
     }
+
+export type TFilterItem = {
+      name: string;
+      checked: boolean;
+      title: string;
+    }
