@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppSelector } from '../../hooks';
@@ -10,6 +10,7 @@ function SearchForm(): JSX.Element {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.currentTarget.value);
   const handleClick = () => setSearchValue('');
   const filteredProducts = products ? products.filter((element) => element.name.toLowerCase().includes(searchValue.toLowerCase())) : [];
+
   return (
     <div className={`form-search ${searchValue && filteredProducts.length !== 0 ? 'list-opened' : ''}`}>
       <form>
@@ -21,7 +22,7 @@ function SearchForm(): JSX.Element {
         </label>
         <ul className="form-search__select-list">
           {filteredProducts && filteredProducts.map((element) => (
-            <li className="form-search__select-item" tabIndex={0} key={element.name}>
+            <li className="form-search__select-item" key={element.name}>
               <Link to={generatePath(AppRoute.Product, { id: String(element.id) })} onClick={handleClick}>{element.name}</Link>
             </li>
           ))}
