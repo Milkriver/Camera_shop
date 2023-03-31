@@ -2039,11 +2039,6 @@ button,
   background-color: #dddddd;
 }
 
-.catalog-sort__btn-text input[type="radio"]:focus + label {
-  color: #7575e2;
-  background-color: #e8e8fa;
-}
-
 .catalog-sort__btn {
   /* Checked */
   /* Disabled */
@@ -2116,10 +2111,6 @@ button,
   pointer-events: none;
 }
 
-.catalog-sort__btn input[type="radio"]:focus + label {
-  color: #7575e2;
-  background-color: #e8e8fa;
-}
 
 .form-checkbox {
   display: -webkit-box;
@@ -3598,13 +3589,11 @@ button,
     color: #a2a2ff;
   }
 
-  .catalog-sort__btn-text label:hover,
-  .catalog-sort__btn-text label:focus {
+  .catalog-sort__btn-text label:hover {
     background-color: #e8e8fa;
   }
 
-  .catalog-sort__btn label:hover,
-  .catalog-sort__btn label:focus {
+  .catalog-sort__btn label:hover {
     background-color: #e8e8fa;
   }
 
