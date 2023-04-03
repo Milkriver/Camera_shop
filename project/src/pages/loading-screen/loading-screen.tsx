@@ -1,6 +1,8 @@
 function LoadingScreen(): JSX.Element {
   return (
-    <p>Loading ...</p>
+    <div className='screen-wrapper'>
+      <h1>Loading ...</h1>
+    </div>
   );
 }
 
