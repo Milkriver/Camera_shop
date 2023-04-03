@@ -7,9 +7,6 @@ import { TFilterItem } from '../../types/utils';
 function Filter(): JSX.Element {
   const [ startPrice, setStartPrice ] = useState('');
   const [ endPrice, setEndPrice ] = useState('');
-  // const [ category, setCategory ] = useState('');
-  // const [ cameraType, setCameraType ] = useState('');
-  // const [ cameraLevel, setCameraLevel ] = useState('');
   const [checkedFilterList, setCheckedFilterList] = useState(filterItem);
   const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => setStartPrice(event.target.value);
   const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => setEndPrice(event.target.value);
