@@ -7,6 +7,9 @@ import { TFilterItem } from '../../types/utils';
 function Filter(): JSX.Element {
   const [ startPrice, setStartPrice ] = useState('');
   const [ endPrice, setEndPrice ] = useState('');
+  // const [ category, setCategory ] = useState('');
+  // const [ cameraType, setCameraType ] = useState('');
+  // const [ cameraLevel, setCameraLevel ] = useState('');
   const [checkedFilterList, setCheckedFilterList] = useState(filterItem);
   const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => setStartPrice(event.target.value);
   const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => setEndPrice(event.target.value);
@@ -30,7 +33,7 @@ function Filter(): JSX.Element {
     type === item.type &&
     <div className="custom-checkbox catalog-filter__item" key={item.name}>
       <label>
-        <input type="checkbox" name={item.name} checked={item.checked} onChange={handleCheck}/>
+        <input type={type === 'category' ? 'radio' : 'checkbox'} name={item.name} checked={item.checked} onChange={handleCheck}/>
         <span className="custom-checkbox__icon"/>
         <span className="custom-checkbox__label">{item.title}</span>
       </label>
