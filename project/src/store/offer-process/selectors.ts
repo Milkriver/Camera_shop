@@ -7,3 +7,4 @@ export const setOffers = (state: State):TOfferItem[] | undefined => state[NameSp
 export const setOffer = (state: State):TOfferItem | undefined => state[NameSpace.Offers].offer;
 export const setSimilarOffers = (state: State):TOfferItem[] | undefined => state[NameSpace.Offers].similarOffers;
 export const setSearchedOffers = (state: State): TOfferItem[] | undefined => state[NameSpace.Offers].searchedOffers;
+export const setIsDataLoading = (state: State): boolean => state[NameSpace.Offers].isDataLoading;

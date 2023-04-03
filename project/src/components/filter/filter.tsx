@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { filterItem, FilterType } from '../../const';
+import { useAppDispatch } from '../../hooks';
+import { fetchOffersAction } from '../../store/api-actions';
 import { TFilterItem } from '../../types/utils';
 
 function Filter(): JSX.Element {
@@ -8,6 +10,22 @@ function Filter(): JSX.Element {
   const [checkedFilterList, setCheckedFilterList] = useState(filterItem);
   const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => setStartPrice(event.target.value);
   const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => setEndPrice(event.target.value);
+
+  const dispatch = useAppDispatch();
+  const params = new URLSearchParams();
+  if(startPrice){
+    params.append('price_gte', startPrice);
+  }
+  if(endPrice){
+    params.append('price_lte', endPrice);
+  }
+  const sortParams = params.toString();
+
+  useEffect(()=>{
+    dispatch(fetchOffersAction(sortParams));
+  },[dispatch, sortParams]);
+
+
   const renderFilterItem = (item: TFilterItem, type: string, handleCheck:() => void) => (
     type === item.type &&
     <div className="custom-checkbox catalog-filter__item" key={item.name}>

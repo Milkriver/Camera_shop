@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../hooks';
-import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { setActivePaginationPage } from '../../store/data-process/selectors';
 import { setOffers } from '../../store/offer-process/selectors';
 import Banner from '../banner/banner';
@@ -14,11 +13,8 @@ const productsOnPage = 9;
 function Main(): JSX.Element {
   const products = useAppSelector(setOffers);
   const activePaginationPage = useAppSelector(setActivePaginationPage);
-  if(!products){
-    return <LoadingScreen/>;
-  }
   const start = productsOnPage * (activePaginationPage - 1);
-  const pages = Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1);
+  const pages = products ? Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1) : [];
   return (
     <main>
       <Banner/>
@@ -34,7 +30,7 @@ function Main(): JSX.Element {
               <div className="catalog__content">
                 <SortForm/>
                 <div className="cards catalog__cards">
-                  {products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)}
+                  {products && products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)}
                 </div>
                 <div className="pagination">
                   <Pagination pages={pages}/>

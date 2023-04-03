@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { NameSpace } from '../../const';
 import { TOfferItem, TPromoOffer } from '../../types/offers';
 import { fetchSearchedOffersAction, fetchOfferAction, fetchOffersAction, fetchPromoOfferAction, fetchSimilarOffersAction } from '../api-actions';
@@ -41,6 +42,7 @@ export const offerProcess = createSlice({
       .addCase(fetchPromoOfferAction.rejected, (state)=>{
         state.isDataLoading = false;
         state.hasError = true;
+        toast.error('Ошибка загрузки');
       })
       .addCase(fetchOffersAction.fulfilled, (state, action)=>{
         state.isDataLoading = false;
@@ -48,10 +50,12 @@ export const offerProcess = createSlice({
       })
       .addCase(fetchOffersAction.pending, (state)=>{
         state.isDataLoading = true;
+        toast.info('Загружаем...');
       })
       .addCase(fetchOffersAction.rejected, (state)=>{
         state.isDataLoading = false;
         state.hasError = true;
+        toast.error('Ошибка загрузки');
       })
       .addCase(fetchSearchedOffersAction.fulfilled, (state, action) => {
         state.searchedOffers = action.payload;
@@ -66,6 +70,7 @@ export const offerProcess = createSlice({
       .addCase(fetchOfferAction.rejected, (state)=>{
         state.isDataLoading = false;
         state.hasError = true;
+        toast.error('Ошибка загрузки');
       })
       .addCase(fetchSimilarOffersAction.fulfilled, (state, action)=>{
         state.isDataLoading = false;
@@ -77,6 +82,7 @@ export const offerProcess = createSlice({
       .addCase(fetchSimilarOffersAction.rejected, (state)=>{
         state.isDataLoading = false;
         state.hasError = true;
+        toast.error('Ошибка загрузки');
       });
   },
 });

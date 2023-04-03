@@ -50,7 +50,8 @@ export const REVIEWS_QUANTITY = 3;
 export enum NameSpace {
     Data = 'DATA',
     Offers = 'OFFERS',
-    Reviews = 'REVIEWS'
+    Reviews = 'REVIEWS',
+    Filters = 'FILTERS',
 }
 
 export enum FilterType {
