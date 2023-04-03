@@ -26,7 +26,7 @@ function ReviewBlock(): JSX.Element {
     if (product) {
       dispatch(fetchOfferReviewsAction(product.id));
     }
-  }, [dispatch, product, reviews]);
+  }, [dispatch, product, isSuccessModalOpen]);
 
   useEffect(() => {
     document.body.style.overflow = (isModalOpen || isSuccessModalOpen) ? 'hidden' : 'unset';
