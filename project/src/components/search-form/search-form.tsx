@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { generatePath, Link, useNavigate } from 'react-router-dom';
+import { generatePath, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSearchedOffersAction } from '../../store/api-actions';
@@ -12,7 +12,12 @@ function SearchForm(): JSX.Element {
   const [focusedItem, setFocusedItem] = useState(0);
   const [ isFocused, setIsFocused ] = useState(false);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.currentTarget.value);
-  const handleClick = () => setSearchValue('');
+  const handleClick = () => {
+    if (searchedProducts) {
+      navigate(generatePath(AppRoute.Product, { id: String(searchedProducts[focusedItem].id) }));
+      setSearchValue('');
+    }
+  };
   const dispatch = useAppDispatch();
   const params = new URLSearchParams();
   if(searchValue){
@@ -69,8 +74,8 @@ function SearchForm(): JSX.Element {
         </label>
         <ul className="form-search__select-list">
           {searchedProducts && searchedProducts.map((element) => (
-            <li className="form-search__select-item" key={element.name}>
-              <Link to={generatePath(AppRoute.Product, { id: String(element.id) })} id='search-list-item' onClick={handleClick} tabIndex={0}>{element.name}</Link>
+            <li className="form-search__select-item" key={element.name} id='search-list-item' tabIndex={0}>
+              <div onClick={handleClick}>{element.name}</div>
             </li>
           ))}
         </ul>
