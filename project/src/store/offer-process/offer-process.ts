@@ -1,13 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TOfferItem, TPromoOffer } from '../../types/offers';
-import { fetchOfferAction, fetchOffersAction, fetchPromoOfferAction, fetchSimilarOffersAction } from '../api-actions';
+import { fetchSearchedOffersAction, fetchOfferAction, fetchOffersAction, fetchPromoOfferAction, fetchSimilarOffersAction } from '../api-actions';
 
 export type TInitialState = {
   promoOffer: TPromoOffer | undefined;
   offers: TOfferItem[] | undefined;
   offer: TOfferItem | undefined;
   similarOffers: TOfferItem[] | undefined;
+  searchedOffers: TOfferItem[] | undefined;
   isDataLoading: boolean;
   hasError: boolean;
   };
@@ -17,6 +18,7 @@ const initialState: TInitialState = {
   offers: undefined,
   offer: undefined,
   similarOffers: undefined,
+  searchedOffers: undefined,
   isDataLoading: false,
   hasError: false,
 };
@@ -50,6 +52,9 @@ export const offerProcess = createSlice({
       .addCase(fetchOffersAction.rejected, (state)=>{
         state.isDataLoading = false;
         state.hasError = true;
+      })
+      .addCase(fetchSearchedOffersAction.fulfilled, (state, action) => {
+        state.searchedOffers = action.payload;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action)=>{
         state.isDataLoading = false;

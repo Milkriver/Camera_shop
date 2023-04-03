@@ -31,6 +31,19 @@ export const fetchOffersAction = createAsyncThunk<TOfferItem[], string, {
   },
 );
 
+export const fetchSearchedOffersAction = createAsyncThunk<TOfferItem[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'offers/fetchSearchedOffers',
+  async (params, { dispatch, extra: api }) => {
+    const { data } = await api.get<TOfferItem[]>(`${APIRoute.Offers}${`?${params}`}`);
+    return data;
+  },
+);
+
 export const fetchOfferAction = createAsyncThunk<TOfferItem, number, {
   dispatch: AppDispatch;
   state: State;

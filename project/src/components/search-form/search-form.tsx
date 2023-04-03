@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppSelector } from '../../hooks';
-import { setOffers } from '../../store/offer-process/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchSearchedOffersAction } from '../../store/api-actions';
+import { setSearchedOffers } from '../../store/offer-process/selectors';
 
 function SearchForm(): JSX.Element {
-  const products = useAppSelector(setOffers);
+  const searchedProducts = useAppSelector(setSearchedOffers);
   const [searchValue, setSearchValue] = useState('');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => setSearchValue(event.currentTarget.value);
   const handleClick = () => setSearchValue('');
-  const filteredProducts = products ? products.filter((element) => element.name.toLowerCase().includes(searchValue.toLowerCase())) : [];
+  const dispatch = useAppDispatch();
+  const params = new URLSearchParams();
+  if(searchValue){
+    params.append('name_like', searchValue);
+  }
+  const nameParams = params.toString();
+
+  useEffect(()=>{
+    if(searchValue){
+      dispatch(fetchSearchedOffersAction(nameParams));
+    }
+  },[dispatch, nameParams, searchValue]);
+
 
   return (
-    <div className={`form-search ${searchValue && filteredProducts.length !== 0 ? 'list-opened' : ''}`}>
+    <div className={`form-search ${searchValue && searchedProducts && searchedProducts.length !== 0 ? 'list-opened' : ''}`}>
       <form>
         <label>
           <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
@@ -21,9 +34,9 @@ function SearchForm(): JSX.Element {
           <input className="form-search__input" type="text" value={searchValue} autoComplete="off" placeholder="Поиск по сайту" onChange={handleChange}/>
         </label>
         <ul className="form-search__select-list">
-          {filteredProducts && filteredProducts.map((element) => (
+          {searchedProducts && searchedProducts.map((element) => (
             <li className="form-search__select-item" key={element.name}>
-              <Link to={generatePath(AppRoute.Product, { id: String(element.id) })} onClick={handleClick}>{element.name}</Link>
+              <Link to={generatePath(AppRoute.Product, { id: String(element.id) })} onClick={handleClick} tabIndex={0}>{element.name}</Link>
             </li>
           ))}
         </ul>

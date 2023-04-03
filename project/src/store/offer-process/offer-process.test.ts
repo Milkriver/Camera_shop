@@ -12,6 +12,7 @@ describe('Reducer: review', () => {
       similarOffers: undefined,
       isDataLoading: false,
       hasError: false,
+      searchedOffers: undefined,
     };
   });
 
