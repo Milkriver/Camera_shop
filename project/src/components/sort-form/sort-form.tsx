@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { orderTypes, sortTypes } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { fetchOffersAction } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeOrderType, changeSortType } from '../../store/filter-process/filter-process';
+import { setOrderType, setSortType } from '../../store/filter-process/selectors';
 import { TSortType } from '../../types/utils';
 
 function SortForm(): JSX.Element {
-  const [sortType, setSortType] = useState('');
-  const [orderType, setOrderType] = useState('asc');
+  const sortType = useAppSelector(setSortType);
+  const orderType = useAppSelector(setOrderType);
   const handleSortClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSortType(event.target.value);
+    dispatch(changeSortType(event.target.value));
+    if(!orderType){
+      dispatch(changeOrderType('asc'));
+    }
   };
-  const handleSortOrderClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOrderType(event.target.value);
-  };
+  const handleSortOrderClick = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeOrderType(event.target.value));
   const dispatch = useAppDispatch();
-  const params = new URLSearchParams();
-  if(sortType){
-    params.append('_sort', sortType);
-  }
-  params.append('_order', orderType);
-  const sortParams = params.toString();
-
-  useEffect(()=>{
-    dispatch(fetchOffersAction(sortParams));
-  },[dispatch, sortParams]);
 
   const renderSortButton = (option: TSortType) => (
     <div className={`catalog-sort__btn-${option.type}`} key={option.name}>

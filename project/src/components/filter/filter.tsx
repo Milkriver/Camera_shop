@@ -1,29 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { filterItem, FilterType } from '../../const';
-import { useAppDispatch } from '../../hooks';
-import { fetchOffersAction } from '../../store/api-actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeMaxPrice, changeMinPrice } from '../../store/filter-process/filter-process';
+import { setMaxPrice, setMinPrice } from '../../store/filter-process/selectors';
 import { TFilterItem } from '../../types/utils';
 
 function Filter(): JSX.Element {
-  const [ startPrice, setStartPrice ] = useState('');
-  const [ endPrice, setEndPrice ] = useState('');
+  const minPrice = useAppSelector(setMinPrice);
+  const maxPrice = useAppSelector(setMaxPrice);
   const [checkedFilterList, setCheckedFilterList] = useState(filterItem);
-  const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => setStartPrice(event.target.value);
-  const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => setEndPrice(event.target.value);
-
   const dispatch = useAppDispatch();
-  const params = new URLSearchParams();
-  if(startPrice){
-    params.append('price_gte', startPrice);
-  }
-  if(endPrice){
-    params.append('price_lte', endPrice);
-  }
-  const sortParams = params.toString();
 
-  useEffect(()=>{
-    dispatch(fetchOffersAction(sortParams));
-  },[dispatch, sortParams]);
+  const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeMinPrice(event.target.value));
+  const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeMaxPrice(event.target.value));
 
 
   const renderFilterItem = (item: TFilterItem, type: string, handleCheck:() => void) => (
@@ -45,8 +34,8 @@ function Filter(): JSX.Element {
   };
   const onResetFilter = () => {
     setCheckedFilterList(filterItem);
-    setStartPrice('');
-    setEndPrice('');
+    dispatch(changeMinPrice(''));
+    dispatch(changeMaxPrice(''));
   };
   return (
     <div className="catalog-filter">
@@ -57,12 +46,12 @@ function Filter(): JSX.Element {
           <div className="catalog-filter__price-range">
             <div className="custom-input">
               <label>
-                <input type="number" name="price" placeholder="от" value={Number(startPrice) >= 0 ? startPrice : 0} onChange={handleStartPrice}/>
+                <input type="number" name="price" placeholder="от" value={Number(minPrice) >= 0 ? minPrice : 0} onChange={handleStartPrice}/>
               </label>
             </div>
             <div className="custom-input">
               <label>
-                <input type="number" name="priceUp" placeholder="до" value={endPrice} onChange={handleEndPrice}/>
+                <input type="number" name="priceUp" placeholder="до" value={maxPrice} onChange={handleEndPrice}/>
               </label>
             </div>
           </div>

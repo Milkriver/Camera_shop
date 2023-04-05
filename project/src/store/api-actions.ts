@@ -18,7 +18,7 @@ export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
   },
 );
 
-export const fetchOffersAction = createAsyncThunk<TOfferItem[], string, {
+export const fetchOffersAction = createAsyncThunk<TOfferItem[], {minPrice?: string; maxPrice?: string; sortType?:string; orderType?: string }, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -26,7 +26,22 @@ export const fetchOffersAction = createAsyncThunk<TOfferItem[], string, {
 >(
   'offers/fetchOffers',
   async (params, { dispatch, extra: api }) => {
-    const { data } = await api.get<TOfferItem[]>(`${APIRoute.Offers}${params ? `?${params}` : ''}`);
+    const { sortType, orderType, minPrice, maxPrice } = params;
+    const filterParams = new URLSearchParams();
+    if(sortType){
+      filterParams.append('_sort', sortType);
+    }
+    if(orderType){
+      filterParams.append('_order', orderType);
+    }
+    if(minPrice){
+      filterParams.append('price_gte', minPrice);
+    }
+    if(maxPrice){
+      filterParams.append('price_lte', maxPrice);
+    }
+    const sortParams = filterParams.toString();
+    const { data } = await api.get<TOfferItem[]>(`${APIRoute.Offers}${sortParams ? `?${sortParams}` : ''}`);
     return data;
   },
 );

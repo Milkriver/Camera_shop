@@ -1,5 +1,8 @@
-import { useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchOffersAction } from '../../store/api-actions';
 import { setActivePaginationPage } from '../../store/data-process/selectors';
+import { setMaxPrice, setMinPrice, setOrderType, setSortType } from '../../store/filter-process/selectors';
 import { setOffers } from '../../store/offer-process/selectors';
 import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
@@ -13,8 +16,18 @@ const productsOnPage = 9;
 function Main(): JSX.Element {
   const products = useAppSelector(setOffers);
   const activePaginationPage = useAppSelector(setActivePaginationPage);
+  const minPrice = useAppSelector(setMinPrice);
+  const maxPrice = useAppSelector(setMaxPrice);
+  const sortType = useAppSelector(setSortType);
+  const orderType = useAppSelector(setOrderType);
   const start = productsOnPage * (activePaginationPage - 1);
   const pages = products ? Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1) : [];
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    dispatch(fetchOffersAction({minPrice, maxPrice, sortType, orderType}));
+  },[dispatch, orderType, sortType, minPrice, maxPrice ]);
+
   return (
     <main>
       <Banner/>

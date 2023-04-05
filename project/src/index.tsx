@@ -8,7 +8,7 @@ import { store } from './store';
 import { fetchOffersAction, fetchPromoOfferAction } from './store/api-actions';
 
 store.dispatch(fetchPromoOfferAction());
-store.dispatch(fetchOffersAction(''));
+store.dispatch(fetchOffersAction({}));
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
