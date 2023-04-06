@@ -8,6 +8,11 @@ export type TSortType =
 export type TFilterItem = {
       type: string;
       name: string;
-      checked: boolean;
       title: string;
     }
+export type TFilterType = {
+  digital: false;
+  film: false;
+  snapshot: false;
+  collection: false;
+}

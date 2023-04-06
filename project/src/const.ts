@@ -60,59 +60,56 @@ export enum FilterType {
   Level = 'level'
 }
 
-export const filterItem = [
+export const filterCategoryItem = [
   {
     type: 'category',
     name: 'photocamera',
-    checked: false,
     title: 'Фотокамера',
   },
   {
     type: 'category',
     name: 'videocamera',
-    checked: false,
     title: 'Видеокамера',
   },
+];
+
+export const filterTypeItem = [
   {
     type: 'type',
     name: 'digital',
-    checked: false,
     title: 'Цифровая',
   },
   {
     type: 'type',
     name: 'film',
-    checked: false,
     title: 'Плёночная',
   },
   {
     type: 'type',
     name: 'snapshot',
-    checked: false,
     title: 'Моментальная',
   },
   {
     type: 'type',
     name: 'collection',
-    checked: false,
     title: 'Коллекционная',
   },
+];
+
+export const filterLevelItem = [
   {
     type: 'level',
     name: 'zero',
-    checked: false,
     title: 'Нулевой',
   },
   {
     type: 'level',
     name: 'non-professional',
-    checked: false,
     title: 'Любительский',
   },
   {
     type: 'level',
     name: 'professional',
-    checked: false,
     title: 'Профессиональный',
   }
 ];
