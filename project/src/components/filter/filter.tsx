@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState } from 'react';
 import { filterCategoryItem, filterLevelItem, FilterType, filterTypeItem } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
