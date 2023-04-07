@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOffersAction } from '../../store/api-actions';
 import { setActivePaginationPage } from '../../store/data-process/selectors';
-import { setMaxPrice, setMinPrice, setOrderType, setSortType } from '../../store/filter-process/selectors';
+import { setCategory, setLevel, setMaxPrice, setMinPrice, setOrderType, setSortType, setType } from '../../store/filter-process/selectors';
 import { setOffers } from '../../store/offer-process/selectors';
 import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
@@ -20,13 +20,16 @@ function Main(): JSX.Element {
   const maxPrice = useAppSelector(setMaxPrice);
   const sortType = useAppSelector(setSortType);
   const orderType = useAppSelector(setOrderType);
+  const category = useAppSelector(setCategory);
+  const typeList = useAppSelector(setType);
+  const levelList = useAppSelector(setLevel);
   const start = productsOnPage * (activePaginationPage - 1);
   const pages = products ? Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1) : [];
   const dispatch = useAppDispatch();
 
   useEffect(()=>{
-    dispatch(fetchOffersAction({minPrice, maxPrice, sortType, orderType}));
-  },[dispatch, orderType, sortType, minPrice, maxPrice ]);
+    dispatch(fetchOffersAction({minPrice, maxPrice, sortType, orderType, category, typeList, levelList}));
+  },[dispatch, orderType, sortType, minPrice, maxPrice, category, typeList, levelList ]);
 
   return (
     <main>

@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import { filterCategoryItem, filterLevelItem, FilterType, filterTypeItem } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeCategory, changeMaxPrice, changeMinPrice, changeType } from '../../store/filter-process/filter-process';
-import { setCategory, setMaxPrice, setMinPrice, setType } from '../../store/filter-process/selectors';
+import { changeCategory, changeLevel, changeMaxPrice, changeMinPrice, changeType, initialState } from '../../store/filter-process/filter-process';
+import { setCategory, setLevel, setMaxPrice, setMinPrice, setType } from '../../store/filter-process/selectors';
 import { TFilterItem } from '../../types/utils';
 
 function Filter(): JSX.Element {
@@ -11,15 +11,23 @@ function Filter(): JSX.Element {
   const maxPrice = useAppSelector(setMaxPrice);
   const category = useAppSelector(setCategory);
   const typeList = useAppSelector(setType);
+  const levelList = useAppSelector(setLevel);
   const [checkedCategoryList, setCheckedFilterList] = useState(filterCategoryItem);
-  const [checkedTypeList, setCheckedTypeList] = useState(filterTypeItem);
-  const [checkedLevelList, setCheckedLevelList] = useState(filterLevelItem);
   const dispatch = useAppDispatch();
 
   const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeMinPrice(event.target.value));
   const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeMaxPrice(event.target.value));
-  const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeCategory(event.target.name));
-  const handleType = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeType({...typeList}));
+  const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeCategory(category === event.target.name ? '' : event.target.name));
+  const handleType = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const key = event.target.name;
+    dispatch(changeType({...typeList, [key as keyof typeof typeList]: !typeList[key as keyof typeof typeList]}));
+  };
+
+  const handleLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const key = event.target.name;
+    dispatch(changeLevel({...levelList, [key as keyof typeof levelList]: !levelList[key as keyof typeof levelList]}));
+  };
+
   const renderFilterItem = (item: TFilterItem, type: string,
     handleCheck: (event: React.ChangeEvent<HTMLInputElement>) => void
   ) => (
@@ -29,7 +37,7 @@ function Filter(): JSX.Element {
         <input
           type='checkbox'
           name={item.name}
-          checked={type === FilterType.Category ? item.name === category : typeList.collection}
+          checked={type === FilterType.Category ? item.name === category : typeList[item.name as keyof typeof typeList]}
           onChange={handleCheck}
           disabled={category === 'videocamera' ? item.name === 'film' || item.name === 'snapshot' : false}
         />
@@ -38,18 +46,13 @@ function Filter(): JSX.Element {
       </label>
     </div>
   );
-  // const updateCheckStatus = (index: number) => {
-  //   setCheckedFilterList(
-  //     checkedFilterList.map((filter, currentIndex) =>
-  //       currentIndex === index ? { ...filter, checked: !filter.checked } : filter
-  //     )
-  //   );
-  // };
   const onResetFilter = () => {
     setCheckedFilterList(filterCategoryItem);
     dispatch(changeMinPrice(''));
     dispatch(changeMaxPrice(''));
     dispatch(changeCategory(''));
+    dispatch(changeType(initialState.type));
+    dispatch(changeLevel(initialState.level));
   };
   return (
     <div className="catalog-filter">
@@ -76,11 +79,11 @@ function Filter(): JSX.Element {
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
-          {checkedTypeList.map((item, index) => renderFilterItem(item, FilterType.Type, handleType))}
+          {filterTypeItem.map((item) => renderFilterItem(item, FilterType.Type, handleType))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Уровень</legend>
-          {/* {checkedLevelList.map((item, index) => renderFilterItem(item, FilterType.Level, () => updateCheckStatus(index, checkedLevelList)))} */}
+          {filterLevelItem.map((item) => renderFilterItem(item, FilterType.Level, handleLevel))}
         </fieldset>
         <button className="btn catalog-filter__reset-btn" type="reset" onClick={onResetFilter}>Сбросить фильтры
         </button>

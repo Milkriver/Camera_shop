@@ -11,8 +11,13 @@ export type TFilterItem = {
       title: string;
     }
 export type TFilterType = {
-  digital: false;
-  film: false;
-  snapshot: false;
-  collection: false;
+  digital: boolean;
+  film: boolean;
+  snapshot: boolean;
+  collection: boolean;
+}
+export type TFilterLevel = {
+  zero: boolean;
+  nonprofessional: boolean;
+  professional: boolean;
 }

@@ -1,3 +1,4 @@
+import { TFilterLevel } from './../../types/utils';
 import { NameSpace } from '../../const';
 import { State } from '../../types/state';
 import { TFilterType } from '../../types/utils';
@@ -8,3 +9,4 @@ export const setSortType = (state: State): string => state[NameSpace.Filters].so
 export const setOrderType = (state: State): string => state[NameSpace.Filters].orderType;
 export const setCategory = (state: State): string => state[NameSpace.Filters].category;
 export const setType = (state: State): TFilterType => state[NameSpace.Filters].type;
+export const setLevel = (state: State): TFilterLevel => state[NameSpace.Filters].level;

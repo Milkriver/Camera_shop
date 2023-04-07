@@ -1,3 +1,4 @@
+import { TFilterLevel } from './../../types/utils';
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
 import { TFilterType } from '../../types/utils';
@@ -9,9 +10,10 @@ export type TInitialState = {
     orderType: string;
     category: string;
     type: TFilterType;
+    level: TFilterLevel;
   };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   minPrice: '',
   maxPrice: '',
   sortType: '',
@@ -23,6 +25,11 @@ const initialState: TInitialState = {
     snapshot: false,
     collection: false,
   },
+  level: {
+    zero: false,
+    nonprofessional: false,
+    professional: false,
+  }
 };
 
 
@@ -48,6 +55,9 @@ export const filterProcess = createSlice({
     changeType: (state, action: {payload: TFilterType; type: string}) => {
       state.type = action.payload;
     },
+    changeLevel: (state, action: {payload: TFilterLevel; type: string}) => {
+      state.level = action.payload;
+    },
   },
 });
 
@@ -57,5 +67,6 @@ export const {
   changeSortType,
   changeOrderType,
   changeCategory,
-  changeType
+  changeType,
+  changeLevel
 } = filterProcess.actions;
