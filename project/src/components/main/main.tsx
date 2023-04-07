@@ -51,8 +51,11 @@ function Main(): JSX.Element {
                   <LoadingScreen/>
                   :
                   <div className="cards catalog__cards">
-                    {products && products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)}
-                  </div> }
+                    { products && products?.length > 0 ?
+                      products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)
+                      :
+                      <div>По вашему запросу ничего не найдено</div>}
+                  </div>}
                 <div className="pagination">
                   <Pagination pages={pages}/>
                 </div>
