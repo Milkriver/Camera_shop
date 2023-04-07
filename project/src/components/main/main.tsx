@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import LoadingScreen from '../../pages/loading-screen/loading-screen';
 import { fetchOffersAction } from '../../store/api-actions';
 import { setActivePaginationPage } from '../../store/data-process/selectors';
 import { setCategory, setLevel, setMaxPrice, setMinPrice, setOrderType, setSortType, setType } from '../../store/filter-process/selectors';
-import { setOffers } from '../../store/offer-process/selectors';
+import { setIsDataLoading, setOffers } from '../../store/offer-process/selectors';
 import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Filter from '../filter/filter';
@@ -23,6 +24,7 @@ function Main(): JSX.Element {
   const category = useAppSelector(setCategory);
   const typeList = useAppSelector(setType);
   const levelList = useAppSelector(setLevel);
+  const isDataLoading = useAppSelector(setIsDataLoading);
   const start = productsOnPage * (activePaginationPage - 1);
   const pages = products ? Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1) : [];
   const dispatch = useAppDispatch();
@@ -45,9 +47,12 @@ function Main(): JSX.Element {
               </div>
               <div className="catalog__content">
                 <SortForm/>
-                <div className="cards catalog__cards">
-                  {products && products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)}
-                </div>
+                { isDataLoading ?
+                  <LoadingScreen/>
+                  :
+                  <div className="cards catalog__cards">
+                    {products && products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)}
+                  </div> }
                 <div className="pagination">
                   <Pagination pages={pages}/>
                 </div>
