@@ -18,6 +18,14 @@ describe('Component: CatalogPage', () => {
       },
       DATA: {
         activePaginationPage: 1,
+      },
+      FILTERS: {
+        category: '',
+        minPrice: '',
+        maxPrice: '',
+        sortType: '',
+        orderType: '',
+        type: '',
       }
     });
 

@@ -50,7 +50,6 @@ export const offerProcess = createSlice({
       })
       .addCase(fetchOffersAction.pending, (state)=>{
         state.isDataLoading = true;
-        toast.info('Загружаем...');
       })
       .addCase(fetchOffersAction.rejected, (state)=>{
         state.isDataLoading = false;

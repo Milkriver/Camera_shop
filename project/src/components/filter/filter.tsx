@@ -1,49 +1,105 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { filterCategoryItem, filterLevelItem, FilterType, filterTypeItem } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCategory, changeLevel, changeMaxPrice, changeMinPrice, changeType, initialState } from '../../store/filter-process/filter-process';
-import { setCategory, setLevel, setMaxPrice, setMinPrice, setType } from '../../store/filter-process/selectors';
+import { setCategory, setLevel, setType } from '../../store/filter-process/selectors';
 import { setOffers } from '../../store/offer-process/selectors';
 import { TFilterItem } from '../../types/utils';
 
 function Filter(): JSX.Element {
   const products = useAppSelector(setOffers);
   const filterProducts = products ? [...products].sort((product1, product2) => product1.price - product2.price) : [];
-  const minProductPrice = products ? filterProducts[0].price : 0;
-  const maxProductPrice = products ? filterProducts[filterProducts.length - 1].price : minProductPrice;
-  const minPrice = useAppSelector(setMinPrice);
-  const maxPrice = useAppSelector(setMaxPrice);
+  const minProductPrice = filterProducts.length > 0 ? filterProducts[0].price : 0;
+  const maxProductPrice = filterProducts.length > 0 ? filterProducts[filterProducts.length - 1].price : minProductPrice;
   const category = useAppSelector(setCategory);
   const typeList = useAppSelector(setType);
   const levelList = useAppSelector(setLevel);
   const [checkedCategoryList, setCheckedFilterList] = useState(filterCategoryItem);
+  const [minFilterPrice, setMinFilterPrice] = useState<number | undefined>();
+  const [maxFilterPrice, setMaxFilterPrice] = useState<number | undefined>();
   const dispatch = useAppDispatch();
+  const startTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const endTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const customValue = (event.target.value).toString();
-    (customValue > minProductPrice.toString())
-      ?
-      dispatch(changeMinPrice(customValue))
-      :
-      dispatch(changeMinPrice(minProductPrice.toString()));
+    if (event.target.value === '') {
+      setMinFilterPrice(undefined);
+      dispatch(changeMinPrice(''));
+      return;
+    }
+
+    const customValue = Number(event.target.value);
+
+    if (isNaN(customValue)) {
+      return;
+    }
+
+    setMinFilterPrice(customValue);
+
+    if (startTimer.current) {
+      clearTimeout(startTimer.current);
+    }
+
+    startTimer.current = setTimeout(() => {
+      const isRangeCorrect = maxFilterPrice === undefined || customValue < maxFilterPrice;
+      const isLimitCorrect = minProductPrice < customValue;
+      const isPositiveNumber = customValue >= 0;
+      const fixedPrice = isRangeCorrect && isLimitCorrect && isPositiveNumber
+        ? customValue
+        : minProductPrice;
+      setMinFilterPrice(fixedPrice);
+      dispatch(changeMinPrice(fixedPrice.toString()));
+      startTimer.current = undefined;
+    }, 1000);
   };
+
   const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const customValue = (event.target.value).toString();
-    (customValue < maxProductPrice.toString())
-      ?
-      dispatch(changeMaxPrice(customValue))
-      :
-      dispatch(changeMaxPrice(maxProductPrice.toString()));
+    if (event.target.value === '') {
+      setMaxFilterPrice(undefined);
+      dispatch(changeMaxPrice(''));
+      return;
+    }
+
+    const customValue = Number(event.target.value);
+
+    if (isNaN(customValue)) {
+      return;
+    }
+
+    setMaxFilterPrice(customValue);
+
+    if (endTimer.current) {
+      clearTimeout(endTimer.current);
+    }
+
+    endTimer.current = setTimeout(() => {
+      const isRangeCorrect = minFilterPrice === undefined || customValue > minFilterPrice;
+      const isLimitCorrect = maxProductPrice > customValue;
+      const isPositiveNumber = customValue >= 0;
+      const fixedPrice = isRangeCorrect && isLimitCorrect && isPositiveNumber
+        ? customValue
+        : maxProductPrice;
+      setMaxFilterPrice(fixedPrice);
+      dispatch(changeMaxPrice(fixedPrice.toString()));
+      endTimer.current = undefined;
+    }, 1000);
   };
+
+  useEffect(() => () => {
+    startTimer.current && clearTimeout(startTimer.current);
+    endTimer.current && clearTimeout(endTimer.current);
+  }, []);
+
+
   const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeCategory(category === event.target.name ? '' : event.target.name));
   const handleType = (event: React.ChangeEvent<HTMLInputElement>) => {
     const key = event.target.name;
-    dispatch(changeType({...typeList, [key as keyof typeof typeList]: !typeList[key as keyof typeof typeList]}));
+    dispatch(changeType({ ...typeList, [key as keyof typeof typeList]: !typeList[key as keyof typeof typeList] }));
   };
 
   const handleLevel = (event: React.ChangeEvent<HTMLInputElement>) => {
     const key = event.target.name;
-    dispatch(changeLevel({...levelList, [key as keyof typeof levelList]: !levelList[key as keyof typeof levelList]}));
+    dispatch(changeLevel({ ...levelList, [key as keyof typeof levelList]: !levelList[key as keyof typeof levelList] }));
   };
 
   const renderFilterItem = (item: TFilterItem, type: string,
@@ -59,13 +115,17 @@ function Filter(): JSX.Element {
           onChange={handleCheck}
           disabled={category === 'videocamera' ? item.name === 'film' || item.name === 'snapshot' : false}
         />
-        <span className="custom-checkbox__icon"/>
+        <span className="custom-checkbox__icon" />
         <span className="custom-checkbox__label">{item.title}</span>
       </label>
     </div>
   );
   const onResetFilter = () => {
     setCheckedFilterList(filterCategoryItem);
+    setMinFilterPrice(undefined);
+    startTimer.current && clearTimeout(startTimer.current);
+    setMaxFilterPrice(undefined);
+    endTimer.current && clearTimeout(endTimer.current);
     dispatch(changeMinPrice(''));
     dispatch(changeMaxPrice(''));
     dispatch(changeCategory(''));
@@ -81,12 +141,12 @@ function Filter(): JSX.Element {
           <div className="catalog-filter__price-range">
             <div className="custom-input">
               <label>
-                <input type="number" name="price" placeholder="от" value={Number(minPrice) >= 0 ? minPrice : 0} onChange={handleStartPrice}/>
+                <input type="number" name="price" placeholder={minProductPrice.toString()} value={minFilterPrice || ''} onChange={handleStartPrice} />
               </label>
             </div>
             <div className="custom-input">
               <label>
-                <input type="number" name="priceUp" placeholder="до" value={maxPrice} onChange={handleEndPrice}/>
+                <input type="number" name="priceUp" placeholder={maxProductPrice.toString()} value={maxFilterPrice || ''} onChange={handleEndPrice} />
               </label>
             </div>
           </div>

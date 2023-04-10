@@ -18,7 +18,16 @@ describe('Component: Main', () => {
         activePaginationPage: 1,
       },
       OFFERS: {
-        offers: []
+        offers: [],
+        promoOffer: {}
+      },
+      FILTERS: {
+        category: '',
+        minPrice: '',
+        maxPrice: '',
+        sortType: '',
+        orderType: '',
+        type: '',
       }
     });
     const {container} = render(

@@ -9,7 +9,11 @@ const mockStore = configureMockStore();
 
 describe('Component: NotFoundScreen', () => {
   it('should render correctly', () => {
-    const store = mockStore({});
+    const store = mockStore({
+      OFFERS: {
+        searchedOffers: []
+      },
+    });
     const history = createMemoryHistory();
     render(
       <Provider store={store}>
