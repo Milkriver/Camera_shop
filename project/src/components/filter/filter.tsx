@@ -3,9 +3,14 @@ import { filterCategoryItem, filterLevelItem, FilterType, filterTypeItem } from 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCategory, changeLevel, changeMaxPrice, changeMinPrice, changeType, initialState } from '../../store/filter-process/filter-process';
 import { setCategory, setLevel, setMaxPrice, setMinPrice, setType } from '../../store/filter-process/selectors';
+import { setOffers } from '../../store/offer-process/selectors';
 import { TFilterItem } from '../../types/utils';
 
 function Filter(): JSX.Element {
+  const products = useAppSelector(setOffers);
+  const filterProducts = products ? [...products].sort((product1, product2) => product1.price - product2.price) : [];
+  const minProductPrice = products ? filterProducts[0].price : 0;
+  const maxProductPrice = products ? filterProducts[filterProducts.length - 1].price : minProductPrice;
   const minPrice = useAppSelector(setMinPrice);
   const maxPrice = useAppSelector(setMaxPrice);
   const category = useAppSelector(setCategory);
@@ -14,8 +19,22 @@ function Filter(): JSX.Element {
   const [checkedCategoryList, setCheckedFilterList] = useState(filterCategoryItem);
   const dispatch = useAppDispatch();
 
-  const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeMinPrice(event.target.value));
-  const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeMaxPrice(event.target.value));
+  const handleStartPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const customValue = (event.target.value).toString();
+    (customValue > minProductPrice.toString())
+      ?
+      dispatch(changeMinPrice(customValue))
+      :
+      dispatch(changeMinPrice(minProductPrice.toString()));
+  };
+  const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const customValue = (event.target.value).toString();
+    (customValue < maxProductPrice.toString())
+      ?
+      dispatch(changeMaxPrice(customValue))
+      :
+      dispatch(changeMaxPrice(maxProductPrice.toString()));
+  };
   const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeCategory(category === event.target.name ? '' : event.target.name));
   const handleType = (event: React.ChangeEvent<HTMLInputElement>) => {
     const key = event.target.name;
