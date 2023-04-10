@@ -23,14 +23,13 @@ exports[`Component: SortForm should render correctly 1`] = `
             class="catalog-sort__btn-text"
           >
             <input
-              checked=""
-              id="sortPrice"
+              id="price"
               name="sort"
-              readonly=""
               type="radio"
+              value="price"
             />
             <label
-              for="sortPrice"
+              for="price"
             >
               по цене
             </label>
@@ -39,12 +38,13 @@ exports[`Component: SortForm should render correctly 1`] = `
             class="catalog-sort__btn-text"
           >
             <input
-              id="sortPopular"
+              id="rating"
               name="sort"
               type="radio"
+              value="rating"
             />
             <label
-              for="sortPopular"
+              for="rating"
             >
               по популярности
             </label>
@@ -57,12 +57,11 @@ exports[`Component: SortForm should render correctly 1`] = `
             class="catalog-sort__btn catalog-sort__btn--up"
           >
             <input
-              aria-label="По возрастанию"
-              checked=""
+              aria-label="по возрастанию"
               id="up"
               name="sort-icon"
-              readonly=""
               type="radio"
+              value="asc"
             />
             <label
               for="up"
@@ -82,11 +81,11 @@ exports[`Component: SortForm should render correctly 1`] = `
             class="catalog-sort__btn catalog-sort__btn--down"
           >
             <input
-              aria-label="По убыванию"
+              aria-label="по убыванию"
               id="down"
               name="sort-icon"
-              readonly=""
               type="radio"
+              value="desc"
             />
             <label
               for="down"

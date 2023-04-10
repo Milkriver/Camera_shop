@@ -30,8 +30,9 @@ exports[`Component: Filter should render correctly 1`] = `
             <label>
               <input
                 name="price"
-                placeholder="от"
+                placeholder="0"
                 type="number"
+                value=""
               />
             </label>
           </div>
@@ -41,8 +42,9 @@ exports[`Component: Filter should render correctly 1`] = `
             <label>
               <input
                 name="priceUp"
-                placeholder="до"
+                placeholder="0"
                 type="number"
+                value=""
               />
             </label>
           </div>
@@ -61,9 +63,7 @@ exports[`Component: Filter should render correctly 1`] = `
         >
           <label>
             <input
-              checked=""
               name="photocamera"
-              readonly=""
               type="checkbox"
             />
             <span
@@ -108,9 +108,7 @@ exports[`Component: Filter should render correctly 1`] = `
         >
           <label>
             <input
-              checked=""
               name="digital"
-              readonly=""
               type="checkbox"
             />
             <span
@@ -128,7 +126,6 @@ exports[`Component: Filter should render correctly 1`] = `
         >
           <label>
             <input
-              disabled=""
               name="film"
               type="checkbox"
             />
@@ -165,10 +162,7 @@ exports[`Component: Filter should render correctly 1`] = `
         >
           <label>
             <input
-              checked=""
-              disabled=""
               name="collection"
-              readonly=""
               type="checkbox"
             />
             <span
@@ -195,9 +189,7 @@ exports[`Component: Filter should render correctly 1`] = `
         >
           <label>
             <input
-              checked=""
               name="zero"
-              readonly=""
               type="checkbox"
             />
             <span

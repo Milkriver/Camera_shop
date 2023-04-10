@@ -1,7 +1,10 @@
-import { useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen/loading-screen';
+import { fetchOffersAction } from '../../store/api-actions';
 import { setActivePaginationPage } from '../../store/data-process/selectors';
-import { setOffers } from '../../store/offer-process/selectors';
+import { setCategory, setLevel, setMaxPrice, setMinPrice, setOrderType, setSortType, setType } from '../../store/filter-process/selectors';
+import { setIsDataLoading, setOffers } from '../../store/offer-process/selectors';
 import Banner from '../banner/banner';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Filter from '../filter/filter';
@@ -14,11 +17,22 @@ const productsOnPage = 9;
 function Main(): JSX.Element {
   const products = useAppSelector(setOffers);
   const activePaginationPage = useAppSelector(setActivePaginationPage);
-  if(!products){
-    return <LoadingScreen/>;
-  }
+  const minPrice = useAppSelector(setMinPrice);
+  const maxPrice = useAppSelector(setMaxPrice);
+  const sortType = useAppSelector(setSortType);
+  const orderType = useAppSelector(setOrderType);
+  const category = useAppSelector(setCategory);
+  const typeList = useAppSelector(setType);
+  const levelList = useAppSelector(setLevel);
+  const isDataLoading = useAppSelector(setIsDataLoading);
   const start = productsOnPage * (activePaginationPage - 1);
-  const pages = Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1);
+  const pages = products ? Array(Math.ceil(products.length / productsOnPage)).fill(0).map((element, index) => index + 1) : [];
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    dispatch(fetchOffersAction({minPrice, maxPrice, sortType, orderType, category, typeList, levelList}));
+  },[dispatch, orderType, sortType, minPrice, maxPrice, category, typeList, levelList ]);
+
   return (
     <main>
       <Banner/>
@@ -33,9 +47,15 @@ function Main(): JSX.Element {
               </div>
               <div className="catalog__content">
                 <SortForm/>
-                <div className="cards catalog__cards">
-                  {products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)}
-                </div>
+                { isDataLoading ?
+                  <LoadingScreen/>
+                  :
+                  <div className="cards catalog__cards">
+                    { products && products?.length > 0 ?
+                      products.slice(start, start + productsOnPage).map((product) => <ProductCard product={product} key={product.id}/ >)
+                      :
+                      <div>По вашему запросу ничего не найдено</div>}
+                  </div>}
                 <div className="pagination">
                   <Pagination pages={pages}/>
                 </div>

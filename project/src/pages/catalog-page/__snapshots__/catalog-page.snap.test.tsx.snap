@@ -2,7 +2,9 @@
 
 exports[`Component: CatalogPage should render correctly 1`] = `
 <div>
-  <div>
+  <div
+    class="wrapper"
+  >
     <header
       class="header"
       id="header"
@@ -71,7 +73,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
           </ul>
         </nav>
         <div
-          class="form-search"
+          class="form-search "
         >
           <form>
             <label>
@@ -90,42 +92,12 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                 class="form-search__input"
                 placeholder="Поиск по сайту"
                 type="text"
+                value=""
               />
             </label>
             <ul
               class="form-search__select-list"
-            >
-              <li
-                class="form-search__select-item"
-                tabindex="0"
-              >
-                Cannonball Pro MX 8i
-              </li>
-              <li
-                class="form-search__select-item"
-                tabindex="0"
-              >
-                Cannonball Pro MX 7i
-              </li>
-              <li
-                class="form-search__select-item"
-                tabindex="0"
-              >
-                Cannonball Pro MX 6i
-              </li>
-              <li
-                class="form-search__select-item"
-                tabindex="0"
-              >
-                Cannonball Pro MX 5i
-              </li>
-              <li
-                class="form-search__select-item"
-                tabindex="0"
-              >
-                Cannonball Pro MX 4i
-              </li>
-            </ul>
+            />
           </form>
           <button
             class="form-search__reset"
@@ -246,8 +218,9 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           <label>
                             <input
                               name="price"
-                              placeholder="от"
+                              placeholder="0"
                               type="number"
+                              value=""
                             />
                           </label>
                         </div>
@@ -257,8 +230,9 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           <label>
                             <input
                               name="priceUp"
-                              placeholder="до"
+                              placeholder="0"
                               type="number"
+                              value=""
                             />
                           </label>
                         </div>
@@ -277,9 +251,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                       >
                         <label>
                           <input
-                            checked=""
                             name="photocamera"
-                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -324,9 +296,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                       >
                         <label>
                           <input
-                            checked=""
                             name="digital"
-                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -344,7 +314,6 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                       >
                         <label>
                           <input
-                            disabled=""
                             name="film"
                             type="checkbox"
                           />
@@ -381,10 +350,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                       >
                         <label>
                           <input
-                            checked=""
-                            disabled=""
                             name="collection"
-                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -411,9 +377,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                       >
                         <label>
                           <input
-                            checked=""
                             name="zero"
-                            readonly=""
                             type="checkbox"
                           />
                           <span
@@ -496,14 +460,13 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           class="catalog-sort__btn-text"
                         >
                           <input
-                            checked=""
-                            id="sortPrice"
+                            id="price"
                             name="sort"
-                            readonly=""
                             type="radio"
+                            value="price"
                           />
                           <label
-                            for="sortPrice"
+                            for="price"
                           >
                             по цене
                           </label>
@@ -512,12 +475,13 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           class="catalog-sort__btn-text"
                         >
                           <input
-                            id="sortPopular"
+                            id="rating"
                             name="sort"
                             type="radio"
+                            value="rating"
                           />
                           <label
-                            for="sortPopular"
+                            for="rating"
                           >
                             по популярности
                           </label>
@@ -530,12 +494,11 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           class="catalog-sort__btn catalog-sort__btn--up"
                         >
                           <input
-                            aria-label="По возрастанию"
-                            checked=""
+                            aria-label="по возрастанию"
                             id="up"
                             name="sort-icon"
-                            readonly=""
                             type="radio"
+                            value="asc"
                           />
                           <label
                             for="up"
@@ -555,11 +518,11 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           class="catalog-sort__btn catalog-sort__btn--down"
                         >
                           <input
-                            aria-label="По убыванию"
+                            aria-label="по убыванию"
                             id="down"
                             name="sort-icon"
-                            readonly=""
                             type="radio"
+                            value="desc"
                           />
                           <label
                             for="down"
@@ -581,7 +544,11 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                 </div>
                 <div
                   class="cards catalog__cards"
-                />
+                >
+                  <div>
+                    По вашему запросу ничего не найдено
+                  </div>
+                </div>
                 <div
                   class="pagination"
                 >
@@ -595,19 +562,6 @@ exports[`Component: CatalogPage should render correctly 1`] = `
         </section>
       </div>
     </main>
-    <div
-      class="up-btn"
-    >
-      <svg
-        aria-hidden="true"
-        height="18"
-        width="12"
-      >
-        <use
-          xlink:href="#icon-arrow2"
-        />
-      </svg>
-    </div>
     <footer
       class="footer"
     >

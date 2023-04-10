@@ -19,8 +19,7 @@ const ratingStars = [
   { title: 'Плохо', id: 2, },
   { title: 'Ужасно', id: 1, },
 ];
-const MIN_COMMENT_LENGTH = 5;
-const MIN_NAME_LENGTH = 3;
+const MIN_COMMENT_LENGTH = 1;
 
 function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
   const snowflakeIcon = <svg width="9" height="9" aria-hidden="true"><use xlinkHref="#icon-snowflake"></use></svg>;
@@ -117,7 +116,7 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
                         onChange={handleNameChange}
                       />
                     </label>
-                    <p className="custom-input__error" style={{opacity: userName && userName.length < MIN_NAME_LENGTH ? 1 : 0}}>Нужно указать имя</p>
+                    <p className="custom-input__error" style={{opacity: userName && userName.length < MIN_COMMENT_LENGTH ? 1 : 0}}>Нужно указать имя</p>
                   </div>
                   <div className="custom-input form-review__item">
                     <label>
@@ -169,7 +168,7 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
                   || comment.length < MIN_COMMENT_LENGTH
                   || advantage.length < MIN_COMMENT_LENGTH
                   || disadvantage.length < MIN_COMMENT_LENGTH
-                  || userName.length < MIN_NAME_LENGTH
+                  || userName.length < MIN_COMMENT_LENGTH
                   }
                 >
                 Отправить отзыв
