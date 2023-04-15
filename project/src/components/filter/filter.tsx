@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { filterCategoryItem, filterLevelItem, FilterType, filterTypeItem } from '../../const';
+import { filterCategoryItems, filterLevelItems, FilterType, filterTypeItems, TIMEOUT } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCategory, changeLevel, changeMaxPrice, changeMinPrice, changeType, initialState } from '../../store/filter-process/filter-process';
 import { setCategory, setLevel, setType } from '../../store/filter-process/selectors';
@@ -14,7 +14,7 @@ function Filter(): JSX.Element {
   const category = useAppSelector(setCategory);
   const typeList = useAppSelector(setType);
   const levelList = useAppSelector(setLevel);
-  const [checkedCategoryList, setCheckedFilterList] = useState(filterCategoryItem);
+  const [checkedCategoryList, setCheckedFilterList] = useState(filterCategoryItems);
   const [minFilterPrice, setMinFilterPrice] = useState<number | undefined>();
   const [maxFilterPrice, setMaxFilterPrice] = useState<number | undefined>();
   const dispatch = useAppDispatch();
@@ -50,7 +50,7 @@ function Filter(): JSX.Element {
       setMinFilterPrice(fixedPrice);
       dispatch(changeMinPrice(fixedPrice.toString()));
       startTimer.current = undefined;
-    }, 1000);
+    }, TIMEOUT);
   };
 
   const handleEndPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,7 +82,7 @@ function Filter(): JSX.Element {
       setMaxFilterPrice(fixedPrice);
       dispatch(changeMaxPrice(fixedPrice.toString()));
       endTimer.current = undefined;
-    }, 1000);
+    }, TIMEOUT);
   };
 
   useEffect(() => () => {
@@ -121,7 +121,7 @@ function Filter(): JSX.Element {
     </div>
   );
   const onResetFilter = () => {
-    setCheckedFilterList(filterCategoryItem);
+    setCheckedFilterList(filterCategoryItems);
     setMinFilterPrice(undefined);
     startTimer.current && clearTimeout(startTimer.current);
     setMaxFilterPrice(undefined);
@@ -157,11 +157,11 @@ function Filter(): JSX.Element {
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
-          {filterTypeItem.map((item) => renderFilterItem(item, FilterType.Type, handleType))}
+          {filterTypeItems.map((item) => renderFilterItem(item, FilterType.Type, handleType))}
         </fieldset>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Уровень</legend>
-          {filterLevelItem.map((item) => renderFilterItem(item, FilterType.Level, handleLevel))}
+          {filterLevelItems.map((item) => renderFilterItem(item, FilterType.Level, handleLevel))}
         </fieldset>
         <button className="btn catalog-filter__reset-btn" type="reset" onClick={onResetFilter}>Сбросить фильтры
         </button>

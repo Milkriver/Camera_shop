@@ -28,15 +28,20 @@ export const sortTypes = [
   },
 ];
 
+export enum SortName {
+  ASC = 'asc',
+  DESC = 'desc'
+}
+
 export const orderTypes = [
   {
     type: 'up',
-    name: 'asc',
+    name: SortName.ASC,
     label: 'по возрастанию'
   },
   {
     type: 'down',
-    name: 'desc',
+    name: SortName.DESC,
     label: 'по убыванию'
   }
 ];
@@ -46,6 +51,8 @@ export const STARS = 5;
 export const PRODUCTS_CARD_QUANTITY = 3;
 
 export const REVIEWS_QUANTITY = 3;
+
+export const TIMEOUT = 1000;
 
 export enum NameSpace {
     Data = 'DATA',
@@ -60,7 +67,7 @@ export enum FilterType {
   Level = 'level'
 }
 
-export const filterCategoryItem = [
+export const filterCategoryItems = [
   {
     type: 'category',
     name: 'photocamera',
@@ -73,7 +80,7 @@ export const filterCategoryItem = [
   },
 ];
 
-export const filterTypeItem = [
+export const filterTypeItems = [
   {
     type: 'type',
     name: 'digital',
@@ -96,7 +103,7 @@ export const filterTypeItem = [
   },
 ];
 
-export const filterLevelItem = [
+export const filterLevelItems = [
   {
     type: 'level',
     name: 'zero',
@@ -113,3 +120,10 @@ export const filterLevelItem = [
     title: 'Профессиональный',
   }
 ];
+
+export enum Key {
+  ENTER = 'Enter',
+  UP = 'ArrowUp',
+  DOWN = 'ArrowDown'
+}
+

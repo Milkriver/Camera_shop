@@ -1,5 +1,5 @@
 import React from 'react';
-import { orderTypes, sortTypes } from '../../const';
+import { orderTypes, SortName, sortTypes } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeOrderType, changeSortType } from '../../store/filter-process/filter-process';
 import { setOrderType, setSortType } from '../../store/filter-process/selectors';
@@ -11,7 +11,7 @@ function SortForm(): JSX.Element {
   const handleSortClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeSortType(event.target.value));
     if(!orderType){
-      dispatch(changeOrderType('asc'));
+      dispatch(changeOrderType(SortName.ASC));
     }
   };
   const handleSortOrderClick = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeOrderType(event.target.value));
