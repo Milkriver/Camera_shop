@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { generatePath, useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, Key } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchSearchedOffersAction } from '../../store/api-actions';
 import { setSearchedOffers } from '../../store/offer-process/selectors';
@@ -33,16 +33,16 @@ function SearchForm(): JSX.Element {
 
   const activeItem = document.querySelectorAll('#search-list-item')[focusedItem];
   const keyPress = useCallback((event: KeyboardEvent) => {
-    if (event.key === 'Enter' && searchedProducts) {
+    if (event.key === Key.ENTER && searchedProducts) {
       navigate(generatePath(AppRoute.Product, { id: String(searchedProducts[focusedItem].id) }));
     }
-    if(event.key === 'ArrowUp'){
+    if(event.key === Key.UP){
       if(searchedProducts){
         setIsFocused(true);
         setFocusedItem(focusedItem > 0 ? focusedItem - 1 : 0);
       }
     }
-    if(event.key === 'ArrowDown'){
+    if(event.key === Key.DOWN){
       if(searchedProducts){
         setIsFocused(true);
         setFocusedItem(focusedItem < searchedProducts.length - 1 ? focusedItem + 1 : searchedProducts.length - 1);
