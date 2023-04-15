@@ -30,6 +30,9 @@ function ReviewBlock(): JSX.Element {
 
   useEffect(() => {
     document.body.style.overflow = (isModalOpen || isSuccessModalOpen) ? 'hidden' : 'unset';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
   }, [isModalOpen, isSuccessModalOpen]);
 
   const ecsPress = useCallback((event: { keyCode: number }) => {
