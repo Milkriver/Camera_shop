@@ -1,13 +1,16 @@
 export enum AppRoute {
     Main = '/',
     Catalog = '/catalog',
-    Product = '/product/:id'
+    Product = '/product/:id',
+    Basket = '/basket'
 }
 
 export enum APIRoute {
 Offers = '/cameras',
 Promo = '/promo',
 Reviews = '/reviews',
+Coupon = '/coupons',
+Order = '/orders'
 }
 
 export enum TAB {
@@ -59,6 +62,7 @@ export enum NameSpace {
     Offers = 'OFFERS',
     Reviews = 'REVIEWS',
     Filters = 'FILTERS',
+    Order = 'ORDER'
 }
 
 export enum FilterType {

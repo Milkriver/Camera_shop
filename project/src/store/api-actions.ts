@@ -3,8 +3,8 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoute } from '../const';
-import { TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
-import { setNewComment } from './actions';
+import { TCouponPost, TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
+import { setCoupon, setNewComment } from './actions';
 import { TFilterType } from '../types/utils.js';
 
 export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
@@ -142,5 +142,18 @@ export const addNewCommentAction = createAsyncThunk<void, TReviewPost, {
   async ( review, { dispatch, extra: api }) => {
     const { data } = await api.post<TReviewPost>(APIRoute.Reviews, review);
     dispatch(setNewComment(data));
+  },
+);
+
+export const addCouponAction = createAsyncThunk<void, TCouponPost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'offers/addCoupon',
+  async ( coupon, { dispatch, extra: api }) => {
+    const { data } = await api.post<TCouponPost>(APIRoute.Coupon, coupon);
+    dispatch(setCoupon(data));
   },
 );
