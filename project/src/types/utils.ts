@@ -21,3 +21,12 @@ export type TFilterLevel = {
   nonprofessional: boolean;
   professional: boolean;
 }
+export type TParams = {
+  minPrice?: string;
+  maxPrice?: string;
+  sortType?:string;
+  orderType?: string;
+  category?: string;
+  typeList?: TFilterType;
+  levelList?: TFilterLevel;
+}
