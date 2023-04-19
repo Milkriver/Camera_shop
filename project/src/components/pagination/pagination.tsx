@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeActivePaginationPage } from '../../store/data-process/data-process';
 import { setActivePaginationPage } from '../../store/data-process/selectors';
@@ -10,10 +9,8 @@ type IProps = {
 function Pagination({ pages }: IProps): JSX.Element {
   const activePage = useAppSelector(setActivePaginationPage);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const handlePageClick = (item: number) => {
     dispatch(changeActivePaginationPage(item));
-    navigate(`#${item}`);
   };
   const renderPaginationItem = (item: number) => (
     <li style={{ cursor: 'pointer' }} className="pagination__item" key={item} onClick={() => handlePageClick(item)}>

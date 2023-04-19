@@ -6,6 +6,7 @@ import { APIRoute } from '../const';
 import { TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
 import { setNewComment } from './actions';
 import { TFilterType } from '../types/utils.js';
+import { getParams } from '../utils';
 
 export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
   dispatch: AppDispatch;
@@ -36,45 +37,7 @@ export const fetchOffersAction = createAsyncThunk<TOfferItem[], {
 >(
   'offers/fetchOffers',
   async (params, { dispatch, extra: api }) => {
-    const { sortType, orderType, minPrice, maxPrice, category, typeList, levelList } = params;
-    const filterParams = new URLSearchParams();
-    if(sortType){
-      filterParams.append('_sort', sortType);
-    }
-    if(orderType){
-      filterParams.append('_order', orderType);
-    }
-    if(minPrice){
-      filterParams.append('price_gte', minPrice);
-    }
-    if(maxPrice){
-      filterParams.append('price_lte', maxPrice);
-    }
-    if(category){
-      filterParams.append('category', category === 'videocamera' ? 'Видеокамера' : 'Фотоаппарат');
-    }
-    if(typeList?.digital){
-      filterParams.append('type', 'Цифровая');
-    }
-    if(typeList?.film){
-      filterParams.append('type', 'Плёночная');
-    }
-    if(typeList?.snapshot){
-      filterParams.append('type', 'Моментальная');
-    }
-    if(typeList?.collection){
-      filterParams.append('type', 'Коллекционная');
-    }
-    if(levelList?.zero){
-      filterParams.append('level', 'Нулевой');
-    }
-    if(levelList?.nonprofessional){
-      filterParams.append('level', 'Любительский');
-    }
-    if(levelList?.professional){
-      filterParams.append('level', 'Профессиональный');
-    }
-    const sortParams = filterParams.toString();
+    const sortParams = getParams(params);
     const { data } = await api.get<TOfferItem[]>(`${APIRoute.Offers}${sortParams ? `?${sortParams}` : ''}`);
     return data;
   },
