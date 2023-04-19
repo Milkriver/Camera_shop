@@ -10,7 +10,7 @@ function Filter(): JSX.Element {
   const products = useAppSelector(setOffers);
   const filterProducts = products ? [...products].sort((product1, product2) => product1.price - product2.price) : [];
   const minProductPrice = filterProducts.length > 0 ? filterProducts[0].price : 0;
-  const maxProductPrice = filterProducts.length > 0 ? filterProducts[filterProducts.length - 1].price : minProductPrice;
+  const maxProductPrice = filterProducts.length > 0 ? filterProducts[filterProducts.length - 1].price : 9999999;
   const category = useAppSelector(setCategory);
   const typeList = useAppSelector(setType);
   const levelList = useAppSelector(setLevel);
@@ -73,7 +73,7 @@ function Filter(): JSX.Element {
     }
 
     endTimer.current = setTimeout(() => {
-      const isRangeCorrect = minFilterPrice === undefined || customValue > minFilterPrice;
+      const isRangeCorrect = minFilterPrice === undefined || customValue >= minFilterPrice;
       const isLimitCorrect = maxProductPrice > customValue;
       const isPositiveNumber = customValue >= 0;
       const fixedPrice = isRangeCorrect && isLimitCorrect && isPositiveNumber
@@ -90,8 +90,16 @@ function Filter(): JSX.Element {
     endTimer.current && clearTimeout(endTimer.current);
   }, []);
 
+  const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.name === 'videocamera') {
+      const updatedList = { ...typeList};
+      updatedList.film = false;
+      updatedList.snapshot = false;
+      dispatch(changeType(updatedList));
+    }
 
-  const handleCategory = (event: React.ChangeEvent<HTMLInputElement>) => dispatch(changeCategory(category === event.target.name ? '' : event.target.name));
+    dispatch(changeCategory(category === event.target.name ? '' : event.target.name));
+  };
   const handleType = (event: React.ChangeEvent<HTMLInputElement>) => {
     const key = event.target.name;
     dispatch(changeType({ ...typeList, [key as keyof typeof typeList]: !typeList[key as keyof typeof typeList] }));
