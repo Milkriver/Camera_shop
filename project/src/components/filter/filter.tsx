@@ -10,7 +10,7 @@ function Filter(): JSX.Element {
   const products = useAppSelector(setOffers);
   const filterProducts = products ? [...products].sort((product1, product2) => product1.price - product2.price) : [];
   const minProductPrice = filterProducts.length > 0 ? filterProducts[0].price : 0;
-  const maxProductPrice = filterProducts.length > 0 ? filterProducts[filterProducts.length - 1].price : 9999999;
+  const maxProductPrice = filterProducts.length > 0 ? filterProducts[filterProducts.length - 1].price : 999999999;
   const category = useAppSelector(setCategory);
   const typeList = useAppSelector(setType);
   const levelList = useAppSelector(setLevel);
