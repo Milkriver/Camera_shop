@@ -51,3 +51,10 @@ export type TOrderPost = {
     camerasIds: number[];
     coupon: string | null;
   }
+
+export type TOrderPosition = {
+    id: string;
+    totalCount: number;
+    totalPrice: number;
+    item: TOfferItem;
+ }
