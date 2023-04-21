@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import AddProductModalSuccess from '../../components/add-product-modal-success/add-product-modal-success';
+import AddProductModal from '../../components/add-product-modal/add-product-modal';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
@@ -19,6 +21,39 @@ function ProductPage(): JSX.Element {
   const navigate = useNavigate();
   const product = useAppSelector(setOffer);
   const [activeTab, setActiveTab] = useState(TAB.Details);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = (isModalOpen) ? 'hidden' : 'unset';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
+
+  const ecsPress = useCallback((event: { keyCode: number }) => {
+    if (event.keyCode === 27) {
+      setIsModalOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keydown', ecsPress);
+    return () => {
+      document.removeEventListener('keydown', ecsPress);
+    };
+  }, [ecsPress]);
+
+  const handleClickForm = () => setIsModalOpen(true);
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setIsSuccessModalOpen(false);
+  };
+  const handleModalProductClose = () => {
+    setIsModalOpen(false);
+    setIsSuccessModalOpen(true);
+  };
+  const handleSuccessModalClose = () => setIsSuccessModalOpen(false);
   const handleOverview = () => {
     setActiveTab(TAB.Overview);
     navigate(TAB.Overview);
@@ -103,7 +138,11 @@ function ProductPage(): JSX.Element {
                     <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>{product.reviewCount}</p>
                   </div>
                   <p className="product__price"><span className="visually-hidden">Цена:</span>{product.price} ₽</p>
-                  <button className="btn btn--purple" type="button">
+                  <button
+                    className="btn btn--purple"
+                    type="button"
+                    onClick={handleClickForm}
+                  >
                     <svg width="24" height="16" aria-hidden="true">
                       <use xlinkHref="#icon-add-basket"></use>
                     </svg>Добавить в корзину
@@ -130,6 +169,8 @@ function ProductPage(): JSX.Element {
             <ReviewBlock />
           </div>
         </div>
+        {isModalOpen && <AddProductModal product = {product} onClose={handleModalProductClose} onClick={handleModalClose}/>}
+        {isSuccessModalOpen && <AddProductModalSuccess onClose={handleSuccessModalClose} onClick={handleModalClose} />}
       </main>
       <UpButton />
       <Footer />

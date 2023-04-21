@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { addItem, dropItem, minusItem } from '../../store/order-process/order-process';
+import { addItem, minusItem } from '../../store/order-process/order-process';
 import { TOfferItem, TOrderPosition } from '../../types/offers';
+import DeleteProductModal from '../delete-product-modal/delete-product-modal';
 
 type IProps = {
   product: TOrderPosition;
@@ -10,12 +11,34 @@ type IProps = {
 function BasketItem({product}: IProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [totalCount, setTotalCount] = useState(product.totalCount);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const addPosition = (position: TOfferItem) => dispatch(addItem(position));
   const minusPosition = (position: TOrderPosition) => dispatch(minusItem(position));
-  const dropPosition = (position: TOrderPosition) => dispatch(dropItem(position));
   const handlePositionQuantity = (event: React.ChangeEvent<HTMLInputElement>) => setTotalCount(Number(event.target.value));
-  // eslint-disable-next-line no-console
-  console.log(totalCount);
+
+  useEffect(() => {
+    document.body.style.overflow = (isModalOpen) ? 'hidden' : 'unset';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
+
+  const ecsPress = useCallback((event: { keyCode: number }) => {
+    if (event.keyCode === 27) {
+      setIsModalOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keydown', ecsPress);
+    return () => {
+      document.removeEventListener('keydown', ecsPress);
+    };
+  }, [ecsPress]);
+
+  const handleDeleteProduct = () => setIsModalOpen(true);
+  const handleModalClose = () => setIsModalOpen(false);
+
   return(
     <li className="basket-item">
       <div className="basket-item__img">
@@ -51,11 +74,12 @@ function BasketItem({product}: IProps): JSX.Element {
         </button>
       </div>
       <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{product.totalPrice} ₽</div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар" onClick={() => dropPosition(product)}>
+      <button className="cross-btn" type="button" aria-label="Удалить товар" onClick={handleDeleteProduct}>
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"/>
         </svg>
       </button>
+      {isModalOpen && <DeleteProductModal product = {product} onClick={handleModalClose} />}
     </li>
   );
 }
