@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { addItem, minusItem } from '../../store/order-process/order-process';
-import { TOfferItem, TOrderPosition } from '../../types/offers';
+import { addItem, minusItem, updateItem } from '../../store/order-process/order-process';
+import { TOfferItem, TOrderPosition, TUpdatedItem } from '../../types/offers';
 import DeleteProductModal from '../delete-product-modal/delete-product-modal';
 
 type IProps = {
@@ -10,11 +10,17 @@ type IProps = {
 
 function BasketItem({product}: IProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const [totalCount, setTotalCount] = useState(product.totalCount);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const addPosition = (position: TOfferItem) => dispatch(addItem(position));
   const minusPosition = (position: TOrderPosition) => dispatch(minusItem(position));
-  const handlePositionQuantity = (event: React.ChangeEvent<HTMLInputElement>) => setTotalCount(Number(event.target.value));
+  const updatePosition = (position: TUpdatedItem) => dispatch(updateItem(position));
+  const handlePositionQuantity = (event: React.ChangeEvent<HTMLInputElement>, item: TOfferItem) => {
+    const newCount = Number(event.target.value);
+    if(isNaN(newCount) || newCount <= 0 || newCount > 99) {
+      return;
+    }
+    updatePosition({item, newCount});
+  };
 
   useEffect(() => {
     document.body.style.overflow = (isModalOpen) ? 'hidden' : 'unset';
@@ -66,7 +72,7 @@ function BasketItem({product}: IProps): JSX.Element {
           </svg>
         </button>
         <label className="visually-hidden" htmlFor="counter1"></label>
-        <input type="number" id="counter1" value={product.totalCount} min="1" max="99" aria-label="количество товара" onChange={handlePositionQuantity}/>
+        <input type="number" id="counter1" value={product.totalCount} min="1" max="99" aria-label="количество товара" onChange={(evt) => handlePositionQuantity(evt, product.item)}/>
         <button className="btn-icon btn-icon--next" aria-label="увеличить количество товара" onClick={() => addPosition(product.item)}>
           <svg width="7" height="12" aria-hidden="true">
             <use xlinkHref="#icon-arrow"></use>

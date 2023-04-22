@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../const';
-import { TOfferItem, TOrderPosition } from '../../types/offers';
+import { TOfferItem, TOrderPosition, TUpdatedItem } from '../../types/offers';
 
 export type TInitialState = {
   positions: TOrderPosition[];
@@ -41,6 +41,26 @@ export const OrderProcess = createSlice({
       state.sum += action.payload.price;
       state.count += 1;
     },
+
+    updateItem: (state, action: { payload: TUpdatedItem; type: string }) => {
+      const positionId = [action.payload.item.id, action.payload.item.category, action.payload.item.level, action.payload.item.name].join('||');
+      const items = state.positions.slice();
+      const existingPosition = items.find((x) => x.id === positionId);
+
+      if (!existingPosition) {
+        throw new Error();
+      }
+
+      const oldCounter = existingPosition.totalCount;
+      const newCounter = action.payload.newCount;
+      existingPosition.totalCount = newCounter;
+      existingPosition.totalPrice = action.payload.item.price * newCounter;
+
+      state.positions = items;
+      state.sum += (newCounter - oldCounter) * action.payload.item.price;
+      state.count += (newCounter - oldCounter);
+    },
+
     minusItem: (state, action: { payload: TOrderPosition; type: string }) => {
       const lastPosition = action.payload.totalCount === 1;
 
@@ -78,5 +98,6 @@ export const OrderProcess = createSlice({
 export const {
   addItem,
   minusItem,
+  updateItem,
   dropItem
 } = OrderProcess.actions;

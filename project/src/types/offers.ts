@@ -58,3 +58,8 @@ export type TOrderPosition = {
     totalPrice: number;
     item: TOfferItem;
  }
+
+export type TUpdatedItem = {
+  item: TOfferItem;
+  newCount: number;
+}
