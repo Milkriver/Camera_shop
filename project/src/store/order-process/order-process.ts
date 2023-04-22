@@ -1,17 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 import { NameSpace } from '../../const';
 import { TOfferItem, TOrderPosition, TUpdatedItem } from '../../types/offers';
+import { addCouponAction } from '../api-actions';
 
 export type TInitialState = {
   positions: TOrderPosition[];
   sum: number;
   count: number;
+  coupon: string | null;
+  discount: number;
 };
 
 const initialState: TInitialState = {
   positions: [],
   sum: 0,
   count: 0,
+  coupon: null,
+  discount: 0,
 };
 
 
@@ -91,7 +97,20 @@ export const OrderProcess = createSlice({
       state.positions = items;
       state.sum -= action.payload.totalPrice;
       state.count -= action.payload.totalCount;
-    }
+    },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(addCouponAction.fulfilled, (state, action)=>{
+        state.discount = action.payload.discount;
+        state.coupon = action.payload.coupon;
+        toast.info('Промокод принят');
+      })
+      .addCase(addCouponAction.rejected, (state)=>{
+        state.discount = 0;
+        state.coupon = null;
+        toast.error('Промокод неверный');
+      });
   },
 });
 
@@ -99,5 +118,5 @@ export const {
   addItem,
   minusItem,
   updateItem,
-  dropItem
+  dropItem,
 } = OrderProcess.actions;

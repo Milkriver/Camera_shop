@@ -3,8 +3,8 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoute } from '../const';
-import { TCouponPost, TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
-import { setCoupon, setNewComment } from './actions';
+import { TCoupon, TCouponPost, TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
+import { setNewComment } from './actions';
 import { TFilterType } from '../types/utils.js';
 import { getParams } from '../utils';
 
@@ -24,7 +24,7 @@ export const fetchPromoOfferAction = createAsyncThunk<TPromoOffer, undefined, {
 export const fetchOffersAction = createAsyncThunk<TOfferItem[], {
   minPrice?: string;
   maxPrice?: string;
-  sortType?:string;
+  sortType?: string;
   orderType?: string;
   category?: string;
   typeList?: TFilterType;
@@ -102,21 +102,24 @@ export const addNewCommentAction = createAsyncThunk<void, TReviewPost, {
 }
 >(
   'offers/addNewComment',
-  async ( review, { dispatch, extra: api }) => {
+  async (review, { dispatch, extra: api }) => {
     const { data } = await api.post<TReviewPost>(APIRoute.Reviews, review);
     dispatch(setNewComment(data));
   },
 );
 
-export const addCouponAction = createAsyncThunk<void, TCouponPost, {
+export const addCouponAction = createAsyncThunk<TCoupon, TCouponPost, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }
 >(
   'offers/addCoupon',
-  async ( coupon, { dispatch, extra: api }) => {
-    const { data } = await api.post<TCouponPost>(APIRoute.Coupon, coupon);
-    dispatch(setCoupon(data));
+  async (coupon, { dispatch, extra: api }) => {
+    const { data } = await api.post<number>(APIRoute.Coupon, coupon);
+    return {
+      coupon: coupon.coupon,
+      discount: data
+    };
   },
 );
