@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
 import { AppRoute, STARS } from '../../const';
+import { useAppSelector } from '../../hooks';
+import { positionsSelector } from '../../store/order-process/selectors';
 import { TOfferItem } from '../../types/offers';
 import AddProductModalSuccess from '../add-product-modal-success/add-product-modal-success';
 import AddProductModal from '../add-product-modal/add-product-modal';
@@ -14,6 +16,8 @@ type IProps = {
 function ProductCard({ product, isActive }: IProps): JSX.Element {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const positionList = useAppSelector(positionsSelector);
+  const isProductInBasket = positionList.find((item) => item.item.id === product.id);
 
   useEffect(() => {
     document.body.style.overflow = (isModalOpen) ? 'hidden' : 'unset';
@@ -72,16 +76,26 @@ function ProductCard({ product, isActive }: IProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button
-          className="btn btn--purple product-card__btn"
-          type="button"
-          onClick={handleClickForm}
-        >Купить
-        </button>
-        {isModalOpen && <AddProductModal product = {product} onClose={handleModalProductClose} onClick={handleModalClose}/>}
-        {isSuccessModalOpen && <AddProductModalSuccess onClose={handleSuccessModalClose} onClick={handleModalClose} />}
+        {
+          isProductInBasket
+            ?
+            <Link className="btn btn--purple-border product-card__btn product-card__btn--in-cart" to={generatePath(AppRoute.Product, { id: String(product.id) })}>
+              <svg width="16" height="16" aria-hidden="true">
+                <use xlinkHref="#icon-basket"/>
+              </svg>В корзине
+            </Link>
+            :
+            <button
+              className="btn btn--purple product-card__btn"
+              type="button"
+              onClick={handleClickForm}
+            >Купить
+            </button>
+        }
         <Link className="btn btn--transparent" to={generatePath(AppRoute.Product, { id: String(product.id) })}>Подробнее</Link>
       </div>
+      {isModalOpen && <AddProductModal product = {product} onClose={handleModalProductClose} onClick={handleModalClose}/>}
+      {isSuccessModalOpen && <AddProductModalSuccess onClose={handleSuccessModalClose} onClick={handleModalClose} />}
     </div>
   );
 }
