@@ -9,7 +9,7 @@ import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCouponAction, addOrderAction } from '../../store/api-actions';
 import { changeErrorStatus, changeOrderStatus } from '../../store/order-process/order-process';
-import { positionsSelector, sumSelector, discountSelector, isOrderSuccessedSelector, hasErrorSelector, couponSelector } from '../../store/order-process/selectors';
+import { positionsSelector, sumSelector, discountSelector, isOrderSuccessedSelector, hasErrorSelector, couponSelector, isCouponAppliedSelector, isCouponWrongSelector } from '../../store/order-process/selectors';
 
 function BasketPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,6 +22,8 @@ function BasketPage(): JSX.Element {
   const positionList = useAppSelector(positionsSelector);
   const discountPercent = useAppSelector(discountSelector);
   const checkedCoupon = useAppSelector(couponSelector);
+  const isCouponApplied = useAppSelector(isCouponAppliedSelector);
+  const isCouponWrong = useAppSelector(isCouponWrongSelector);
   const discountSum = discountPercent * totalPrice / 100;
   const payment = totalPrice - discountSum;
 
@@ -99,7 +101,7 @@ function BasketPage(): JSX.Element {
                   <p className="title title--h4">Если у вас есть промокод на скидку, примените его в этом поле</p>
                   <div className="basket-form">
                     <form action="#" onSubmit={handleCouponApply}>
-                      <div className="custom-input">
+                      <div className={`custom-input ${isCouponWrong ? 'is-invalid' : ''} ${isCouponApplied ? 'is-valid' : '' }`}>
                         <label><span className="custom-input__label">Промокод</span>
                           <input type="text" name="promo" placeholder="Введите промокод" onChange={handleCouponEdit} value={coupon}/>
                         </label>

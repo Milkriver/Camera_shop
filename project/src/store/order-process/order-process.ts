@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 import { NameSpace } from '../../const';
 import { TOfferItem, TOrderPosition, TUpdatedItem } from '../../types/offers';
 import { addCouponAction, addOrderAction } from '../api-actions';
@@ -12,6 +11,8 @@ export type TInitialState = {
   discount: number;
   isOrderSuccessed: boolean;
   hasError: boolean;
+  isCouponApplied: boolean;
+  isCouponWrong: boolean;
 };
 
 const initialState: TInitialState = {
@@ -22,6 +23,8 @@ const initialState: TInitialState = {
   discount: 0,
   isOrderSuccessed: false,
   hasError: false,
+  isCouponApplied: false,
+  isCouponWrong: false,
 };
 
 export const OrderProcess = createSlice({
@@ -113,12 +116,14 @@ export const OrderProcess = createSlice({
       .addCase(addCouponAction.fulfilled, (state, action)=>{
         state.discount = action.payload.discount;
         state.coupon = action.payload.coupon;
-        toast.info('Промокод принят');
+        state.isCouponApplied = true;
+        state.isCouponWrong = false;
       })
       .addCase(addCouponAction.rejected, (state)=>{
         state.discount = 0;
         state.coupon = null;
-        toast.error('Промокод неверный');
+        state.isCouponApplied = false;
+        state.isCouponWrong = true;
       })
       .addCase(addOrderAction.fulfilled, (state)=>{
         state.positions = [];
@@ -128,6 +133,8 @@ export const OrderProcess = createSlice({
         state.discount = 0;
         state.isOrderSuccessed = true;
         state.hasError = false;
+        state.isCouponApplied = false;
+        state.isCouponWrong = false;
       })
       .addCase(addOrderAction.rejected, (state)=>{
         state.hasError = true;

@@ -10,3 +10,5 @@ export const discountSelector = (state: State): number => state[NameSpace.Order]
 export const couponSelector = (state: State): string | null => state[NameSpace.Order].coupon;
 export const isOrderSuccessedSelector = (state: State): boolean => state[NameSpace.Order].isOrderSuccessed;
 export const hasErrorSelector = (state: State): boolean => state[NameSpace.Order].hasError;
+export const isCouponAppliedSelector = (state: State): boolean => state[NameSpace.Order].isCouponApplied;
+export const isCouponWrongSelector = (state: State): boolean => state[NameSpace.Order].isCouponWrong;
