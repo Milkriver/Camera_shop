@@ -19,7 +19,10 @@ function DeleteProductModal({product, onClick}: TProps): JSX.Element {
     <div className="modal is-active">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onClick}></div>
-        <FocusTrap>
+        <FocusTrap focusTrapOptions={{
+          clickOutsideDeactivates: true,
+        }}
+        >
           <div className="modal__content">
             <p className="title title--h4">Удалить этот товар?</p>
             <div className="basket-item basket-item--short">

@@ -11,7 +11,10 @@ function AddOrderModalSuccess({onClick}: TProps): JSX.Element {
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onClick}></div>
-        <FocusTrap>
+        <FocusTrap focusTrapOptions={{
+          clickOutsideDeactivates: true,
+        }}
+        >
           <div className="modal__content">
             <p className="title title--h4">Спасибо за покупку</p>
             <svg className="modal__icon" width="80" height="78" aria-hidden="true">

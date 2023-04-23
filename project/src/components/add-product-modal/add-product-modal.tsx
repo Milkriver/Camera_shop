@@ -9,7 +9,7 @@ type TProps = {
   onClick: () => void;
 }
 
-function AddProductModal({product, onClick, onClose}: TProps): JSX.Element {
+function AddProductModal({ product, onClick, onClose }: TProps): JSX.Element {
   const dispatch = useAppDispatch();
   const addPosition = (item: TOfferItem) => dispatch(addItem(item));
   const handleAddProduct = () => {
@@ -20,7 +20,10 @@ function AddProductModal({product, onClick, onClose}: TProps): JSX.Element {
     <div className="modal is-active">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onClick}></div>
-        <FocusTrap>
+        <FocusTrap focusTrapOptions={{
+          clickOutsideDeactivates: true,
+        }}
+        >
           <div className="modal__content">
             <p className="title title--h4">Добавить товар в корзину</p>
             <div className="basket-item basket-item--short">

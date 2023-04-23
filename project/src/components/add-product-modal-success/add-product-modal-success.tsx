@@ -12,7 +12,10 @@ function AddProductModalSuccess({ onClick, onClose}: TProps): JSX.Element {
     <div className="modal is-active">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onClick}></div>
-        <FocusTrap>
+        <FocusTrap focusTrapOptions={{
+          clickOutsideDeactivates: true,
+        }}
+        >
           <div className="modal__content">
             <p className="title title--h4">Товар успешно добавлен в корзину</p>
             <svg className="modal__icon" width="86" height="80" aria-hidden="true">
