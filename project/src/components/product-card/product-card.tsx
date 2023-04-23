@@ -20,11 +20,12 @@ function ProductCard({ product, isActive }: IProps): JSX.Element {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isModalOpen]);
+  }, [isModalOpen, isSuccessModalOpen]);
 
   const ecsPress = useCallback((event: { keyCode: number }) => {
     if (event.keyCode === 27) {
       setIsModalOpen(false);
+      setIsSuccessModalOpen(false);
     }
   }, []);
 

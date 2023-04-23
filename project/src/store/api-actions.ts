@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
 import { APIRoute } from '../const';
-import { TCoupon, TCouponPost, TOfferItem, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
+import { TCoupon, TCouponPost, TOfferItem, TOrderPost, TPromoOffer, TReview, TReviewPost } from '../types/offers.js';
 import { setNewComment } from './actions';
 import { TFilterType } from '../types/utils.js';
 import { getParams } from '../utils';
@@ -121,5 +121,17 @@ export const addCouponAction = createAsyncThunk<TCoupon, TCouponPost, {
       coupon: coupon.coupon,
       discount: data
     };
+  },
+);
+
+export const addOrderAction = createAsyncThunk<void, TOrderPost, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'offers/addOrder',
+  async (order, { dispatch, extra: api }) => {
+    await api.post<TOrderPost>(APIRoute.Order, order);
   },
 );

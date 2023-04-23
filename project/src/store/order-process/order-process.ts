@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 import { NameSpace } from '../../const';
 import { TOfferItem, TOrderPosition, TUpdatedItem } from '../../types/offers';
-import { addCouponAction } from '../api-actions';
+import { addCouponAction, addOrderAction } from '../api-actions';
 
 export type TInitialState = {
   positions: TOrderPosition[];
@@ -10,6 +10,8 @@ export type TInitialState = {
   count: number;
   coupon: string | null;
   discount: number;
+  isOrderSuccessed: boolean;
+  hasError: boolean;
 };
 
 const initialState: TInitialState = {
@@ -18,8 +20,9 @@ const initialState: TInitialState = {
   count: 0,
   coupon: null,
   discount: 0,
+  isOrderSuccessed: false,
+  hasError: false,
 };
-
 
 export const OrderProcess = createSlice({
   name: NameSpace.Order,
@@ -98,6 +101,12 @@ export const OrderProcess = createSlice({
       state.sum -= action.payload.totalPrice;
       state.count -= action.payload.totalCount;
     },
+    changeOrderStatus: (state) => {
+      state.isOrderSuccessed = false;
+    },
+    changeErrorStatus: (state) => {
+      state.hasError = false;
+    },
   },
   extraReducers(builder) {
     builder
@@ -110,6 +119,18 @@ export const OrderProcess = createSlice({
         state.discount = 0;
         state.coupon = null;
         toast.error('Промокод неверный');
+      })
+      .addCase(addOrderAction.fulfilled, (state)=>{
+        state.positions = [];
+        state.sum = 0;
+        state.count = 0;
+        state.coupon = null;
+        state.discount = 0;
+        state.isOrderSuccessed = true;
+        state.hasError = false;
+      })
+      .addCase(addOrderAction.rejected, (state)=>{
+        state.hasError = true;
       });
   },
 });
@@ -119,4 +140,6 @@ export const {
   minusItem,
   updateItem,
   dropItem,
+  changeOrderStatus,
+  changeErrorStatus
 } = OrderProcess.actions;
