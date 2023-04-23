@@ -120,7 +120,7 @@ function BasketPage(): JSX.Element {
                   </p>
                   <p className="basket__summary-item">
                     <span className="basket__summary-text">Скидка:</span>
-                    <span className="basket__summary-value basket__summary-value--bonus">{discountSum} ₽</span>
+                    <span className={`basket__summary-value ${checkedCoupon ? 'basket__summary-value--bonus' : ''}`}>{discountSum} ₽</span>
                   </p>
                   <p className="basket__summary-item">
                     <span className="basket__summary-text basket__summary-text--total">К оплате:</span>
