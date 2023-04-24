@@ -27,7 +27,7 @@ const initialState: TInitialState = {
   isCouponWrong: false,
 };
 
-export const OrderProcess = createSlice({
+export const orderProcess = createSlice({
   name: NameSpace.Order,
   initialState,
   reducers: {
@@ -149,4 +149,4 @@ export const {
   dropItem,
   changeOrderStatus,
   changeErrorStatus
-} = OrderProcess.actions;
+} = orderProcess.actions;

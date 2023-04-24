@@ -2,7 +2,7 @@ import { mockOffer, mockOffers, mockPromo } from '../../test-mock/offers';
 import { fetchOfferAction, fetchOffersAction, fetchPromoOfferAction, fetchSimilarOffersAction } from '../api-actions';
 import { offerProcess, TInitialState } from './offer-process';
 
-describe('Reducer: review', () => {
+describe('Reducer: offer', () => {
   let state: TInitialState;
   beforeEach(() => {
     state = {

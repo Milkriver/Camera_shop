@@ -40,3 +40,12 @@ export const mockOffer = {
   previewImgWebp2x: '',
   reviewCount: 2,
 };
+
+export const mockPosition = [
+  {
+    id: '1||category||level||Name',
+    item: mockOffer,
+    totalCount: 1,
+    totalPrice: 5000,
+  }
+];
