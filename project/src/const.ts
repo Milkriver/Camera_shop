@@ -1,18 +1,22 @@
 export enum AppRoute {
-    Main = '/',
-    Catalog = '/catalog',
-    Product = '/product/:id'
+  Main = '/',
+  Catalog = '/catalog',
+  Product = '/product/:id',
+  Basket = '/basket',
+  Error = '/error'
 }
 
 export enum APIRoute {
-Offers = '/cameras',
-Promo = '/promo',
-Reviews = '/reviews',
+  Offers = '/cameras',
+  Promo = '/promo',
+  Reviews = '/reviews',
+  Coupon = '/coupons',
+  Order = '/orders'
 }
 
 export enum TAB {
-    Overview = '#overview',
-    Details = '#details',
+  Overview = '#overview',
+  Details = '#details',
 }
 
 export const sortTypes = [
@@ -55,10 +59,11 @@ export const REVIEWS_QUANTITY = 3;
 export const TIMEOUT = 1000;
 
 export enum NameSpace {
-    Data = 'DATA',
-    Offers = 'OFFERS',
-    Reviews = 'REVIEWS',
-    Filters = 'FILTERS',
+  Data = 'DATA',
+  Offers = 'OFFERS',
+  Reviews = 'REVIEWS',
+  Filters = 'FILTERS',
+  Order = 'ORDER'
 }
 
 export enum FilterType {
@@ -126,4 +131,3 @@ export enum Key {
   UP = 'ArrowUp',
   DOWN = 'ArrowDown'
 }
-

@@ -5,11 +5,11 @@ import { Provider } from 'react-redux';
 import { createMemoryHistory } from 'history';
 import thunk from 'redux-thunk';
 import HistoryRouter from '../../components/history-router/history-router';
-import AddProductModal from './add-product-modal';
-import { mockOffer } from '../../test-mock/offers';
+import DeleteProductModal from './delete-product-modal';
+import { mockPosition } from '../../test-mock/offers';
 
-describe('AddProductModal', () => {
-  test('loads and displays AddProductModal', async () => {
+describe('DeleteProductModal', () => {
+  test('loads and displays DeleteProductModal', async () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
     const onClick = jest.fn();
@@ -19,11 +19,11 @@ describe('AddProductModal', () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <AddProductModal product={mockOffer} onClick={() => onClick} onClose={() => onClick}/>
+          <DeleteProductModal product={mockPosition[0]} onClick={() => onClick}/>
         </HistoryRouter>
       </Provider>,
     );
-    const text = await screen.findByText('Добавить товар в корзину');
-    expect(text).toHaveTextContent('Добавить товар в корзину');
+    const text = await screen.findByText('Удалить этот товар?');
+    expect(text).toHaveTextContent('Удалить этот товар?');
   });
 });

@@ -42,7 +42,7 @@ exports[`Component: Filter should render correctly 1`] = `
             <label>
               <input
                 name="priceUp"
-                placeholder="0"
+                placeholder="999999999"
                 type="number"
                 value=""
               />

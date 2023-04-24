@@ -1,22 +1,17 @@
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-router/history-router';
-import thunk from 'redux-thunk';
-import Header from './header';
 import { Provider } from 'react-redux';
+import HistoryRouter from '../../components/history-router/history-router';
+import ErrorPage from './error-page';
 
+const mockStore = configureMockStore();
 
-const history = createMemoryHistory();
-
-describe('Component: Header', () => {
+describe('Component: ErrorPage', () => {
   it('should render correctly', () => {
-    const middlewares = [thunk];
-    const mockStore = configureMockStore(middlewares);
-
     const store = mockStore({
       OFFERS: {
-        searchedProducts: []
+        searchedOffers: []
       },
       ORDER: {
         positions: [],
@@ -30,14 +25,15 @@ describe('Component: Header', () => {
         isCouponWrong: false,
       }
     });
-    const {container} = render(
+    const history = createMemoryHistory();
+    render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <Header />
+          <ErrorPage />
         </HistoryRouter>
       </Provider>,
     );
 
-    expect(container).toMatchSnapshot();
+    expect(screen.getByText(/Упс... Что-то пошло не так.../i)).toBeInTheDocument();
   });
 });

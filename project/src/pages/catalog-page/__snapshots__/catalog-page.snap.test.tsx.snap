@@ -35,7 +35,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
             >
               <a
                 class="main-nav__link"
-                href="/catalog.html"
+                href="/"
               >
                 Каталог
               </a>
@@ -121,7 +121,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
         </div>
         <a
           class="header__basket-link"
-          href="/"
+          href="/basket"
         >
           <svg
             aria-hidden="true"
@@ -230,7 +230,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
                           <label>
                             <input
                               name="priceUp"
-                              placeholder="0"
+                              placeholder="999999999"
                               type="number"
                               value=""
                             />
@@ -672,7 +672,7 @@ exports[`Component: CatalogPage should render correctly 1`] = `
               >
                 <a
                   class="link"
-                  href="/catalog.html"
+                  href="/"
                 >
                   Каталог
                 </a>

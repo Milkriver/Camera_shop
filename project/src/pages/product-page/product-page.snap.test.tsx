@@ -17,6 +17,17 @@ describe('Component: ProductPage', () => {
         offers: [],
         offer: {},
         similarOffers: []
+      },
+      ORDER: {
+        positions: [],
+        sum: 0,
+        count: 0,
+        coupon: null,
+        discount: 0,
+        isOrderSuccessed: false,
+        hasError: false,
+        isCouponApplied: false,
+        isCouponWrong: false,
       }
     });
 

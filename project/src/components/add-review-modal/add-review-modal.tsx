@@ -72,7 +72,10 @@ function AddReviewModal({ onClose, onClick }: IProps): JSX.Element {
     <div className='modal is-active'>
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onClick}></div>
-        <FocusTrap>
+        <FocusTrap focusTrapOptions={{
+          clickOutsideDeactivates: true,
+        }}
+        >
           <div className="modal__content" id='modal'>
             <p className="title title--h4">Оставить отзыв</p>
             <div className="form-review">

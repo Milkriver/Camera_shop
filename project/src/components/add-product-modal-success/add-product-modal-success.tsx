@@ -1,13 +1,15 @@
 import FocusTrap from 'focus-trap-react';
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
-type IProps = {
+type TProps = {
   onClose: () => void;
   onClick: () => void;
-};
+}
 
-function AddReviewModalSuccess({ onClose, onClick }: IProps): JSX.Element {
+function AddProductModalSuccess({ onClick, onClose}: TProps): JSX.Element {
   return (
-    <div className='modal is-active modal--narrow'>
+    <div className="modal is-active">
       <div className="modal__wrapper">
         <div className="modal__overlay" onClick={onClick}></div>
         <FocusTrap focusTrapOptions={{
@@ -15,13 +17,13 @@ function AddReviewModalSuccess({ onClose, onClick }: IProps): JSX.Element {
         }}
         >
           <div className="modal__content">
-            <p className="title title--h4">Спасибо за отзыв</p>
-            <svg className="modal__icon" width="80" height="78" aria-hidden="true">
-              <use xlinkHref="#icon-review-success"></use>
+            <p className="title title--h4">Товар успешно добавлен в корзину</p>
+            <svg className="modal__icon" width="86" height="80" aria-hidden="true">
+              <use xlinkHref="#icon-success"></use>
             </svg>
             <div className="modal__buttons">
-              <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button" onClick={onClose}>Вернуться к покупкам
-              </button>
+              <div className="btn btn--transparent modal__btn" onClick={onClose}>Продолжить покупки</div>
+              <Link className="btn btn--purple modal__btn modal__btn--fit-width" to={AppRoute.Basket}>Перейти в корзину</Link>
             </div>
             <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={onClose}>
               <svg width="10" height="10" aria-hidden="true">
@@ -35,6 +37,4 @@ function AddReviewModalSuccess({ onClose, onClick }: IProps): JSX.Element {
   );
 }
 
-export default AddReviewModalSuccess;
-
-
+export default AddProductModalSuccess;

@@ -1,0 +1,9 @@
+.screen-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  color: #7575E2;
+  height: 58vh;
+}

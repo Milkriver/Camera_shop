@@ -1,22 +1,31 @@
-import { configureMockStore } from '@jedmao/redux-mock-store';
 import {render} from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import HistoryRouter from '../history-router/history-router';
-import thunk from 'redux-thunk';
-import Header from './header';
+import { configureMockStore } from '@jedmao/redux-mock-store';
 import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history';
+import thunk from 'redux-thunk';
+import HistoryRouter from '../../components/history-router/history-router';
+import BasketPage from './basket-page';
 
 
-const history = createMemoryHistory();
-
-describe('Component: Header', () => {
-  it('should render correctly', () => {
+describe('Component: BasketPage', () => {
+  test('should render correctly', () => {
     const middlewares = [thunk];
     const mockStore = configureMockStore(middlewares);
 
     const store = mockStore({
       OFFERS: {
-        searchedProducts: []
+        offers: [],
+      },
+      DATA: {
+        activePaginationPage: 1,
+      },
+      FILTERS: {
+        category: '',
+        minPrice: '',
+        maxPrice: '',
+        sortType: '',
+        orderType: '',
+        type: '',
       },
       ORDER: {
         positions: [],
@@ -30,10 +39,13 @@ describe('Component: Header', () => {
         isCouponWrong: false,
       }
     });
+
+    const history = createMemoryHistory();
+
     const {container} = render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <Header />
+          <BasketPage />
         </HistoryRouter>
       </Provider>,
     );

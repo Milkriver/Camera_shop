@@ -32,7 +32,7 @@ exports[`Component: Header should render correctly 1`] = `
           >
             <a
               class="main-nav__link"
-              href="/catalog.html"
+              href="/"
             >
               Каталог
             </a>
@@ -118,7 +118,7 @@ exports[`Component: Header should render correctly 1`] = `
       </div>
       <a
         class="header__basket-link"
-        href="/"
+        href="/basket"
       >
         <svg
           aria-hidden="true"
