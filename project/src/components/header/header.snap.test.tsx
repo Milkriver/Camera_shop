@@ -18,6 +18,17 @@ describe('Component: Header', () => {
       OFFERS: {
         searchedProducts: []
       },
+      ORDER: {
+        positions: [],
+        sum: 0,
+        count: 0,
+        coupon: null,
+        discount: 0,
+        isOrderSuccessed: false,
+        hasError: false,
+        isCouponApplied: false,
+        isCouponWrong: false,
+      }
     });
     const {container} = render(
       <Provider store={store}>

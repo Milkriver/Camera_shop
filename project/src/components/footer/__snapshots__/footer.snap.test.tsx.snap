@@ -112,7 +112,7 @@ exports[`Component: Footer should render correctly 1`] = `
             >
               <a
                 class="link"
-                href="/catalog.html"
+                href="/"
               >
                 Каталог
               </a>
