@@ -44,8 +44,8 @@ export const mockOffer = {
 export const mockPosition = [
   {
     id: '1||category||level||Name',
-    item: mockOffer,
     totalCount: 1,
     totalPrice: 5000,
+    item: mockOffer,
   }
 ];
