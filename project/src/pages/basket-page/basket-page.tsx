@@ -5,7 +5,7 @@ import BasketItem from '../../components/basket-item/basket-item';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { AppRoute, ESC } from '../../const';
+import { AppRoute, KeyCode } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCouponAction, addOrderAction } from '../../store/api-actions';
 import { changeErrorStatus, changeOrderStatus } from '../../store/order-process/order-process';
@@ -42,7 +42,7 @@ function BasketPage(): JSX.Element {
   }, [isOrderSuccessed]);
 
   const pressEsc = useCallback((event: { keyCode: number }) => {
-    if (event.keyCode === ESC) {
+    if (event.keyCode === KeyCode.ESC) {
       dispatch(changeOrderStatus());
     }
   }, [dispatch]);

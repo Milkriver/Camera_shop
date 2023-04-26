@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute, ESC, STARS } from '../../const';
+import { AppRoute, KeyCode, STARS } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { positionsSelector } from '../../store/order-process/selectors';
 import { TOfferItem } from '../../types/offers';
@@ -20,14 +20,14 @@ function ProductCard({ product, isActive }: IProps): JSX.Element {
   const isProductInBasket = positionList.find((item) => item.item.id === product.id);
 
   useEffect(() => {
-    document.body.style.overflow = (isModalOpen) ? 'hidden' : 'unset';
+    document.body.style.overflow = (isModalOpen || isSuccessModalOpen) ? 'hidden' : 'unset';
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isModalOpen, isSuccessModalOpen]);
 
   const pressEsc = useCallback((event: { keyCode: number }) => {
-    if (event.keyCode === ESC) {
+    if (event.keyCode === KeyCode.ESC) {
       setIsModalOpen(false);
       setIsSuccessModalOpen(false);
     }

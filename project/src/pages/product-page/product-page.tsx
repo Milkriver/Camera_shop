@@ -8,7 +8,7 @@ import Header from '../../components/header/header';
 import ReviewBlock from '../../components/review-block/review-block';
 import SimilarProducts from '../../components/similar-products/similar-products';
 import UpButton from '../../components/up-button/up-button';
-import { ESC, STARS, TAB } from '../../const';
+import { KeyCode, STARS, TAB } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferAction } from '../../store/api-actions';
 import { setOffer } from '../../store/offer-process/selectors';
@@ -25,14 +25,14 @@ function ProductPage(): JSX.Element {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = (isModalOpen) ? 'hidden' : 'unset';
+    document.body.style.overflow = (isModalOpen || isSuccessModalOpen) ? 'hidden' : 'unset';
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isModalOpen, isSuccessModalOpen]);
 
   const ecsPress = useCallback((event: { keyCode: number }) => {
-    if (event.keyCode === ESC) {
+    if (event.keyCode === KeyCode.ESC) {
       setIsModalOpen(false);
       setIsSuccessModalOpen(false);
     }

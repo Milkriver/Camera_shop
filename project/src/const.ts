@@ -131,4 +131,8 @@ export enum Key {
   UP = 'ArrowUp',
   DOWN = 'ArrowDown'
 }
-export const ESC = 27;
+
+export enum KeyCode {
+  ESC = 27,
+  ENTER = 13
+}
