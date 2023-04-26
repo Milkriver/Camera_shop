@@ -131,3 +131,4 @@ export enum Key {
   UP = 'ArrowUp',
   DOWN = 'ArrowDown'
 }
+export const ESC = 27;

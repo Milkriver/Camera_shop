@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { REVIEWS_QUANTITY } from '../../const';
+import { ESC, REVIEWS_QUANTITY } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { fetchOfferReviewsAction } from '../../store/api-actions';
 import { setOffer } from '../../store/offer-process/selectors';
@@ -35,19 +35,19 @@ function ReviewBlock(): JSX.Element {
     };
   }, [isModalOpen, isSuccessModalOpen]);
 
-  const ecsPress = useCallback((event: { keyCode: number }) => {
-    if (event.keyCode === 27) {
+  const pressEsc = useCallback((event: { keyCode: number }) => {
+    if (event.keyCode === ESC) {
       setIsModalOpen(false);
       setIsSuccessModalOpen(false);
     }
   }, []);
 
   useEffect(() => {
-    document.addEventListener('keydown', ecsPress);
+    document.addEventListener('keydown', pressEsc);
     return () => {
-      document.removeEventListener('keydown', ecsPress);
+      document.removeEventListener('keydown', pressEsc);
     };
-  }, [ecsPress]);
+  }, [pressEsc]);
 
 
   const handleClick = () => setReviewShowList(reviewsShowList + REVIEWS_QUANTITY);
