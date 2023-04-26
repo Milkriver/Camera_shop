@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { generatePath, Link } from 'react-router-dom';
-import { AppRoute, STARS } from '../../const';
+import { AppRoute, ESC, STARS } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { positionsSelector } from '../../store/order-process/selectors';
 import { TOfferItem } from '../../types/offers';
@@ -26,19 +26,19 @@ function ProductCard({ product, isActive }: IProps): JSX.Element {
     };
   }, [isModalOpen, isSuccessModalOpen]);
 
-  const ecsPress = useCallback((event: { keyCode: number }) => {
-    if (event.keyCode === 27) {
+  const pressEsc = useCallback((event: { keyCode: number }) => {
+    if (event.keyCode === ESC) {
       setIsModalOpen(false);
       setIsSuccessModalOpen(false);
     }
   }, []);
 
   useEffect(() => {
-    document.addEventListener('keydown', ecsPress);
+    document.addEventListener('keydown', pressEsc);
     return () => {
-      document.removeEventListener('keydown', ecsPress);
+      document.removeEventListener('keydown', pressEsc);
     };
-  }, [ecsPress]);
+  }, [pressEsc]);
 
   const handleClickForm = () => setIsModalOpen(true);
   const handleModalClose = () => {

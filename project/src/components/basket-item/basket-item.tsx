@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { ESC } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { addItem, minusItem, updateItem } from '../../store/order-process/order-process';
 import { TOfferItem, TOrderPosition, TUpdatedItem } from '../../types/offers';
@@ -29,18 +30,18 @@ function BasketItem({product}: IProps): JSX.Element {
     };
   }, [isModalOpen]);
 
-  const ecsPress = useCallback((event: { keyCode: number }) => {
-    if (event.keyCode === 27) {
+  const pressEsc = useCallback((event: { keyCode: number }) => {
+    if (event.keyCode === ESC) {
       setIsModalOpen(false);
     }
   }, []);
 
   useEffect(() => {
-    document.addEventListener('keydown', ecsPress);
+    document.addEventListener('keydown', pressEsc);
     return () => {
-      document.removeEventListener('keydown', ecsPress);
+      document.removeEventListener('keydown', pressEsc);
     };
-  }, [ecsPress]);
+  }, [pressEsc]);
 
   const handleDeleteProduct = () => setIsModalOpen(true);
   const handleModalClose = () => setIsModalOpen(false);

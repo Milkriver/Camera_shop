@@ -5,7 +5,7 @@ import BasketItem from '../../components/basket-item/basket-item';
 import Breadcrumbs from '../../components/breadcrumbs/breadcrumbs';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
-import { AppRoute } from '../../const';
+import { AppRoute, ESC } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { addCouponAction, addOrderAction } from '../../store/api-actions';
 import { changeErrorStatus, changeOrderStatus } from '../../store/order-process/order-process';
@@ -41,18 +41,18 @@ function BasketPage(): JSX.Element {
     };
   }, [isOrderSuccessed]);
 
-  const ecsPress = useCallback((event: { keyCode: number }) => {
-    if (event.keyCode === 27) {
+  const pressEsc = useCallback((event: { keyCode: number }) => {
+    if (event.keyCode === ESC) {
       dispatch(changeOrderStatus());
     }
   }, [dispatch]);
 
   useEffect(() => {
-    document.addEventListener('keydown', ecsPress);
+    document.addEventListener('keydown', pressEsc);
     return () => {
-      document.removeEventListener('keydown', ecsPress);
+      document.removeEventListener('keydown', pressEsc);
     };
-  }, [ecsPress]);
+  }, [pressEsc]);
 
   const handleCouponEdit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const couponValue = event.target.value;
